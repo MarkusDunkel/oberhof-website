@@ -4,7 +4,7 @@ import { PageRenderer } from "@/components/page-renderer";
 export function KontaktPage() {
   return (
     <PageRenderer content={kontaktContent}>
-      <section className="space-y-8 rounded-3xl border border-foreground/10 bg-white/70 p-6">
+      <section className="space-y-8 rounded-3xl border border-border/60 bg-surface p-6">
         <div>
           <h2 className="font-serif text-2xl text-foreground">Anfahrt</h2>
           <ol className="mt-4 list-decimal space-y-2 pl-5 text-foreground/80">

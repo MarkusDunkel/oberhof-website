@@ -21,14 +21,17 @@ export function PageRenderer<T extends GenericPageContent>({ content, children }
       </header>
       <div className="space-y-10">
         {content.sections.map((section, index) => (
-          <section key={`${section.title}-${index}`} className="space-y-4 rounded-3xl bg-white/60 p-6 shadow-[0_10px_40px_rgba(0,0,0,0.03)]">
+          <section
+            key={`${section.title}-${index}`}
+            className="space-y-4 rounded-3xl border border-border/60 bg-surface/90 p-6"
+          >
             <h2 className="font-serif text-2xl text-foreground">{section.title}</h2>
             {renderSection(section)}
           </section>
         ))}
       </div>
       {children}
-      <section className="rounded-3xl border border-foreground/10 bg-white/80 p-8 text-center sm:text-left">
+      <section className="rounded-3xl border border-border/70 bg-surface p-8 text-center sm:text-left">
         <div className="space-y-2">
           <p className="font-serif text-3xl text-foreground">{content.cta.title}</p>
           <p className="text-foreground/80">{content.cta.body}</p>
@@ -63,7 +66,7 @@ function renderSection(section: Section) {
       return (
         <dl className="grid gap-4 sm:grid-cols-2">
           {section.items.map((fact) => (
-            <div key={fact.label} className="rounded-2xl bg-background/50 p-4">
+            <div key={fact.label} className="rounded-2xl border border-border/60 bg-background/60 p-4">
               <dt className="text-sm uppercase tracking-wide text-foreground/60">{fact.label}</dt>
               <dd className="text-lg text-foreground">{fact.value}</dd>
             </div>

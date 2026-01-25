@@ -12,7 +12,7 @@ Eine **moderne, ruhige Marketing-Website**, die:
 - Vertrauen aufbaut
 - Wärme & Gemütlichkeit eines Bauernhofs vermittelt
 - klar, übersichtlich und zeitlos wirkt
-- den Oberhof als Ort (Produkte · Veranstaltungen · Vermietung) emotional transportiert
+- den Oberhof als Ort (Produkte · Vermietung) emotional transportiert
 
 Die bestehende Website dient **ausschließlich als inhaltliches Rohmaterial**,  
 **nicht** als Design-, Layout- oder Strukturvorlage.
@@ -51,7 +51,6 @@ Die bestehende Website dient **ausschließlich als inhaltliches Rohmaterial**,
 - `/` — Startseite
 - `/der-hof`
 - `/produkte`
-- `/veranstaltungen`
 - `/vermietung`
 - `/kontakt`
 
@@ -75,12 +74,6 @@ Die bestehende Website dient **ausschließlich als inhaltliches Rohmaterial**,
 - Philosophie
 - Kuratierte Auswahl
 - Ablauf
-- CTA
-
-### Veranstaltungen
-- Atmosphäre
-- Möglichkeiten
-- Bilder
 - CTA
 
 ### Vermietung

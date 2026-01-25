@@ -9,7 +9,6 @@ const navItems = [
   { label: "Startseite", href: "/" },
   { label: "Der Hof", href: "/der-hof" },
   { label: "Produkte", href: "/produkte" },
-  { label: "Veranstaltungen", href: "/veranstaltungen" },
   { label: "Vermietung", href: "/vermietung" },
   { label: "Kontakt", href: "/kontakt" },
 ];
@@ -18,8 +17,8 @@ export function SiteHeader() {
   const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-foreground/10 bg-background/95 backdrop-blur">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/90 backdrop-blur">
+      <div className="container flex items-center justify-between py-5">
         <Link to="/" className="font-serif text-2xl text-foreground">
           {siteContent.brandName}
         </Link>
@@ -30,7 +29,7 @@ export function SiteHeader() {
               to={item.href}
               className={({ isActive }) =>
                 cn(
-                  "text-foreground/70 transition-colors hover:text-foreground",
+                  "text-muted transition-colors hover:text-foreground",
                   isActive && "text-foreground font-medium",
                 )
               }
@@ -63,7 +62,7 @@ export function SiteHeader() {
                         to={item.href}
                         className={({ isActive }) =>
                           cn(
-                            "text-foreground/80",
+                            "text-muted",
                             isActive && "text-foreground font-semibold",
                           )
                         }

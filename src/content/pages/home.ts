@@ -12,14 +12,14 @@ export const homeContent: HomeContent = {
     "Ein entschleunigter Bergbauernhof, der Naturkreisläufe pflegt und Menschen Raum zum Aufatmen schenkt.",
   tiles: [
     {
+      title: "Der Hof",
+      description: "Geschichte, Haltung und Selbstversorgung – ein Blick hinter die Kulissen des Bergbauernhofs.",
+      href: "/der-hof",
+    },
+    {
       title: "Produkte",
       description: "Wild, Fisch, Honig und mehr – achtsam verarbeitete Spezialitäten in kleinen Chargen.",
       href: "/produkte",
-    },
-    {
-      title: "Veranstaltungen",
-      description: "Retreats und Workshops mit viel Naturbezug, Kapelle, Teichhütte und Wald direkt vor der Tür.",
-      href: "/veranstaltungen",
     },
     {
       title: "Vermietung",

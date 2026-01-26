@@ -1,26 +1,26 @@
 @use "../styles/tokens" as tokens;
 @use "../styles/mixins" as mixins;
 
-.kontakt-page {
+.contact-page {
   width: 100%;
 }
 
-.kontakt-page__details {
+.contact-page__details {
   @include mixins.card(1.5rem, tokens.$radius_xl, #{tokens.$color_surface}, 0.6);
   @include mixins.stack(1.5rem);
 }
 
-.kontakt-page__group {
+.contact-page__group {
   @include mixins.stack(0.75rem);
 }
 
-.kontakt-page__heading {
+.contact-page__heading {
   font-family: tokens.$font_serif;
   font-size: 1.6rem;
   color: #{tokens.$color_foreground};
 }
 
-.kontakt-page__list {
+.contact-page__list {
   margin: 0;
   padding-left: 1.5rem;
   color: rgb(var(--color-foreground) / 0.8);
@@ -31,13 +31,13 @@
   }
 }
 
-.kontakt-page__credits-heading {
+.contact-page__credits-heading {
   font-size: 1.25rem;
   font-family: tokens.$font_serif;
   color: #{tokens.$color_foreground};
 }
 
-.kontakt-page__credits {
+.contact-page__credits {
   margin: 0;
   padding-left: 1.25rem;
   font-size: 0.95rem;

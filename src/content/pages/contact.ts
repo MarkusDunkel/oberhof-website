@@ -13,7 +13,7 @@ export type PageContent = {
 };
 
 export const page: PageContent = {
-  slug: "kontakt",
+  slug: "contact",
   seo: {
     title: "Kontakt | Oberhof Lunz",
     description:

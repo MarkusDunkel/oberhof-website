@@ -11,7 +11,7 @@ export type PageContent = {
 };
 
 export const page: PageContent = {
-  slug: "vermietung",
+  slug: "rentals",
   seo: {
     title: "Vermietung | Oberhof Lunz",
     description:
@@ -62,6 +62,6 @@ export const page: PageContent = {
     title: "Aufenthalt anfragen",
     body: "Teile uns Gruppengröße, Zeitraum und Bedürfnisse mit – wir stellen ein passendes Angebot zusammen.",
     primaryLabel: "Unverbindlich anfragen",
-    primaryHref: "/kontakt",
+    primaryHref: "/contact",
   },
 };

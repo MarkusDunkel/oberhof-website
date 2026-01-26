@@ -49,10 +49,10 @@ Die bestehende Website dient **ausschließlich als inhaltliches Rohmaterial**,
 ## 3) Seitenstruktur (neu gedacht)
 
 - `/` — Startseite
-- `/der-hof`
-- `/produkte`
-- `/vermietung`
-- `/kontakt`
+- `/the-farm`
+- `/products`
+- `/rentals`
+- `/contact`
 
 ---
 

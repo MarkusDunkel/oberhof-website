@@ -14,17 +14,17 @@ export const homeContent: HomeContent = {
     {
       title: "Der Hof",
       description: "Geschichte, Haltung und Selbstversorgung – ein Blick hinter die Kulissen des Bergbauernhofs.",
-      href: "/der-hof",
+      href: "/the-farm",
     },
     {
       title: "Produkte",
       description: "Wild, Fisch, Honig und mehr – achtsam verarbeitete Spezialitäten in kleinen Chargen.",
-      href: "/produkte",
+      href: "/products",
     },
     {
       title: "Vermietung",
       description: "Heller Seminarraum, individuelle Pakete und Übernachtungsmöglichkeiten am Hof und in der Umgebung.",
-      href: "/vermietung",
+      href: "/rentals",
     },
   ],
   highlights: [
@@ -36,6 +36,6 @@ export const homeContent: HomeContent = {
     title: "Den Oberhof erleben",
     body: "Erzähl uns von deinem Anliegen – ob Produkte, Retreat oder Seminar –, wir melden uns zeitnah.",
     primaryLabel: "Kontakt aufnehmen",
-    primaryHref: "/kontakt",
+    primaryHref: "/contact",
   },
 };

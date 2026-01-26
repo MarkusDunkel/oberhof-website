@@ -8,10 +8,10 @@ import styles from "./site-header.module.scss";
 
 const navItems = [
   { label: "Startseite", href: "/" },
-  { label: "Der Hof", href: "/der-hof" },
-  { label: "Produkte", href: "/produkte" },
-  { label: "Vermietung", href: "/vermietung" },
-  { label: "Kontakt", href: "/kontakt" },
+  { label: "Der Hof", href: "/the-farm" },
+  { label: "Produkte", href: "/products" },
+  { label: "Vermietung", href: "/rentals" },
+  { label: "Kontakt", href: "/contact" },
 ];
 
 export function SiteHeader() {
@@ -42,7 +42,7 @@ export function SiteHeader() {
         </nav>
         <div className={styles["site-header__cta"]}>
           <Button asChild>
-            <Link to="/kontakt">Kontakt</Link>
+            <Link to="/contact">Kontakt</Link>
           </Button>
         </div>
         <div className={styles["site-header__mobile-toggle"]}>

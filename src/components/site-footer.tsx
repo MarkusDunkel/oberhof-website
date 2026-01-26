@@ -17,7 +17,7 @@ export function SiteFooter() {
           <Link to="mailto:daniel@oberhof-lunz.at" className={styles["site-footer__contact-link"]}>
             {siteContent.contact.email}
           </Link>
-          <Link to="/kontakt" className={styles["site-footer__contact-link"]}>
+          <Link to="/contact" className={styles["site-footer__contact-link"]}>
             Kontakt &amp; Anfahrt
           </Link>
         </div>

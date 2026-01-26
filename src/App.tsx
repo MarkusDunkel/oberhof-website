@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout";
 import { HomePage } from "./pages/home";
-import { DerHofPage } from "./pages/der-hof";
-import { ProduktePage } from "./pages/produkte";
-import { VermietungPage } from "./pages/vermietung";
-import { KontaktPage } from "./pages/kontakt";
+import { TheFarmPage } from "./pages/the-farm";
+import { ProductsPage } from "./pages/products";
+import { RentalsPage } from "./pages/rentals";
+import { ContactPage } from "./pages/contact";
 import { NotFoundPage } from "./pages/not-found";
 
 function App() {
@@ -13,10 +13,10 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="der-hof" element={<DerHofPage />} />
-          <Route path="produkte" element={<ProduktePage />} />
-          <Route path="vermietung" element={<VermietungPage />} />
-          <Route path="kontakt" element={<KontaktPage />} />
+          <Route path="the-farm" element={<TheFarmPage />} />
+          <Route path="products" element={<ProductsPage />} />
+          <Route path="rentals" element={<RentalsPage />} />
+          <Route path="contact" element={<ContactPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

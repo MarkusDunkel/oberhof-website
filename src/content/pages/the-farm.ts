@@ -11,7 +11,7 @@ export type PageContent = {
 };
 
 export const page: PageContent = {
-  slug: "der-hof",
+  slug: "the-farm",
   seo: {
     title: "Der Hof | Oberhof Lunz",
     description:
@@ -62,6 +62,6 @@ export const page: PageContent = {
     title: "Mehr über den Hof",
     body: "Du willst wissen, wie wir arbeiten oder uns besuchen? Melde dich und wir nehmen uns Zeit.",
     primaryLabel: "Kontakt aufnehmen",
-    primaryHref: "/kontakt",
+    primaryHref: "/contact",
   },
 };

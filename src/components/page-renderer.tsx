@@ -1,4 +1,4 @@
-import type { PageContent as GenericPageContent } from "@/content/pages/der-hof";
+import type { PageContent as GenericPageContent } from "@/content/pages/the-farm";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import styles from "./page-renderer.module.scss";

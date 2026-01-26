@@ -29,12 +29,12 @@ export const tagline = "Ruhiger Bergbauernhof zwischen Ötscher und Hochkar.";
 
 export const primaryCta: CtaLink = {
   label: "Anfrage senden",
-  href: "/kontakt",
+  href: "/contact",
 };
 
 export const secondaryCta: CtaLink = {
   label: "Anreise planen",
-  href: "/kontakt#anfahrt",
+  href: "/contact#directions",
 };
 
 export const contact: Contact = {

@@ -11,7 +11,7 @@ export type PageContent = {
 };
 
 export const page: PageContent = {
-  slug: "produkte",
+  slug: "products",
   seo: {
     title: "Produkte | Oberhof Lunz",
     description:
@@ -73,6 +73,6 @@ export const page: PageContent = {
     title: "Produkte anfragen",
     body: "Sag uns, wofür du dich interessierst, und wir teilen mit, wann und wie du es bekommst.",
     primaryLabel: "Nachricht senden",
-    primaryHref: "/kontakt",
+    primaryHref: "/contact",
   },
 };

@@ -1,22 +1,22 @@
-@use "sass:string";
+@use 'sass:string';
 
-$color_background: string.unquote("rgb(var(--color-background))");
-$color_surface: string.unquote("rgb(var(--color-surface))");
-$color_foreground: string.unquote("rgb(var(--color-foreground))");
-$color_foreground_soft: string.unquote("rgb(var(--color-foreground) / 0.8)");
-$color_muted: string.unquote("rgb(var(--color-muted))");
-$color_accent: string.unquote("rgb(var(--color-accent))");
-$color_border: string.unquote("rgb(var(--color-border))");
-$color_border_muted: string.unquote("rgb(var(--color-border) / 0.6)");
-$color_border_strong: string.unquote("rgb(var(--color-border) / 0.8)");
+$color_background: string.unquote('rgb(var(--color-background))');
+$color_surface: string.unquote('rgb(var(--color-surface))');
+$color_foreground: string.unquote('rgb(var(--color-foreground))');
+$color_foreground_soft: string.unquote('rgb(var(--color-foreground) / 0.8)');
+$color_muted: string.unquote('rgb(var(--color-muted))');
+$color_accent: string.unquote('rgb(var(--color-accent))');
+$color_border: string.unquote('rgb(var(--color-border))');
+$color_border_muted: string.unquote('rgb(var(--color-border) / 0.6)');
+$color_border_strong: string.unquote('rgb(var(--color-border) / 0.8)');
 
-$font_sans: string.unquote("var(--font-sans)");
-$font_serif: string.unquote("var(--font-serif)");
+$font_sans: string.unquote('var(--font-sans)');
+$font_serif: string.unquote('var(--font-serif)');
 
-$space_section: string.unquote("var(--space-section)");
-$space_stack: string.unquote("var(--space-stack)");
-$layout_max_width: string.unquote("var(--layout-max-width)");
-$layout_padding: string.unquote("var(--layout-content-padding)");
+$space_section: string.unquote('var(--space-section)');
+$space_stack: string.unquote('var(--space-stack)');
+$layout_max_width: string.unquote('var(--layout-max-width)');
+$layout_padding: string.unquote('var(--layout-content-padding)');
 
 $radius_xxl: var(--radius-xxl);
 $radius_xl: var(--radius-xl);

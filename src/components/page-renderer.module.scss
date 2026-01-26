@@ -1,5 +1,5 @@
-@use "../styles/tokens" as tokens;
-@use "../styles/mixins" as mixins;
+@use '../styles/tokens' as tokens;
+@use '../styles/mixins' as mixins;
 
 .page-renderer {
   @include mixins.stack(clamp(2rem, 4vw, 3rem));
@@ -32,7 +32,11 @@
 }
 
 .page-renderer__section {
-  @include mixins.card(1.75rem, tokens.$radius_xl, rgb(var(--color-surface) / 0.9));
+  @include mixins.card(
+    1.75rem,
+    tokens.$radius_xl,
+    rgb(var(--color-surface) / 0.9)
+  );
   @include mixins.stack(1rem);
 }
 
@@ -69,7 +73,11 @@
 }
 
 .page-renderer__fact {
-  @include mixins.card(1.1rem, tokens.$radius_lg, rgb(var(--color-background) / 0.6));
+  @include mixins.card(
+    1.1rem,
+    tokens.$radius_lg,
+    rgb(var(--color-background) / 0.6)
+  );
   @include mixins.stack(0.35rem);
 }
 

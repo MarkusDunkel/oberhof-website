@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-export type Language = "de" | "en";
+export type Language = 'de' | 'en';
 
 type LanguageContextValue = {
   language: Language;
@@ -11,25 +11,25 @@ const LanguageContext = React.createContext<LanguageContextValue | undefined>(
   undefined,
 );
 
-const STORAGE_KEY = "oberhof-language";
+const STORAGE_KEY = 'oberhof-language';
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = React.useState<Language>(() => {
-    if (typeof window === "undefined") {
-      return "de";
+    if (typeof window === 'undefined') {
+      return 'de';
     }
 
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
-      return stored === "en" ? "en" : "de";
+      return stored === 'en' ? 'en' : 'de';
     } catch {
-      return "de";
+      return 'de';
     }
   });
 
   const setLanguage = React.useCallback((nextLanguage: Language) => {
     setLanguageState(nextLanguage);
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       try {
         window.localStorage.setItem(STORAGE_KEY, nextLanguage);
       } catch {
@@ -46,14 +46,18 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     [language, setLanguage],
   );
 
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
 }
 
 export function useLanguage() {
   const context = React.useContext(LanguageContext);
 
   if (!context) {
-    throw new Error("useLanguage must be used within a LanguageProvider");
+    throw new Error('useLanguage must be used within a LanguageProvider');
   }
 
   return context;

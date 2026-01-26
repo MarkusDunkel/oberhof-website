@@ -1,5 +1,5 @@
-@use "../styles/tokens" as tokens;
-@use "../styles/mixins" as mixins;
+@use '../styles/tokens' as tokens;
+@use '../styles/mixins' as mixins;
 
 .site-header {
   position: sticky;
@@ -53,7 +53,9 @@
   font-size: 0.85rem;
   text-transform: uppercase;
   color: rgb(var(--color-muted));
-  transition: color var(--transition-soft), border-color var(--transition-soft);
+  transition:
+    color var(--transition-soft),
+    border-color var(--transition-soft);
 
   &:hover {
     color: #{tokens.$color_foreground};

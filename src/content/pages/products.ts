@@ -1,148 +1,167 @@
-import type { Language } from "@/lib/language";
+import type { Language } from '@/lib/language';
 
 export type PageContent = {
   slug: string;
   seo: { title: string; description: string };
   hero: { title: string; subtitle: string };
   sections: Array<
-    | { kind: "prose"; title: string; body: string }
-    | { kind: "bullets"; title: string; items: string[] }
-    | { kind: "facts"; title: string; items: Array<{ label: string; value: string }> }
+    | { kind: 'prose'; title: string; body: string }
+    | { kind: 'bullets'; title: string; items: string[] }
+    | {
+        kind: 'facts';
+        title: string;
+        items: Array<{ label: string; value: string }>;
+      }
   >;
-  cta: { title: string; body: string; primaryLabel: string; primaryHref: string };
+  cta: {
+    title: string;
+    body: string;
+    primaryLabel: string;
+    primaryHref: string;
+  };
 };
 
 export const page: Record<Language, PageContent> = {
   de: {
-    slug: "produkte",
+    slug: 'produkte',
     seo: {
-      title: "Produkte | Oberhof Lunz",
+      title: 'Produkte | Oberhof Lunz',
       description:
-        "Wildfleisch, Gebirgs-Saiblinge, Honig, Pilze, Sirupe und Fichtenbier – sorgfältig erzeugt in kleinen Mengen.",
+        'Wildfleisch, Gebirgs-Saiblinge, Honig, Pilze, Sirupe und Fichtenbier – sorgfältig erzeugt in kleinen Mengen.',
     },
     hero: {
-      title: "Produkte",
+      title: 'Produkte',
       subtitle:
-        "Wir erzeugen Lebensmittel mit Charakter, fernab von Massenproduktion und so regional wie möglich.",
+        'Wir erzeugen Lebensmittel mit Charakter, fernab von Massenproduktion und so regional wie möglich.',
     },
     sections: [
       {
-        kind: "prose",
-        title: "Unsere Philosophie",
-        body:
-          "Der Oberhof ist nie auf konventionelle Landwirtschaft umgestiegen. Biologische Bewirtschaftung, respektvolle Tierhaltung und handwerkliche Verarbeitung sind für uns selbstverständlich. Wir achten auf Qualität statt Menge und geben jedem Produkt so viel Zeit, wie es braucht.",
+        kind: 'prose',
+        title: 'Unsere Philosophie',
+        body: 'Der Oberhof ist nie auf konventionelle Landwirtschaft umgestiegen. Biologische Bewirtschaftung, respektvolle Tierhaltung und handwerkliche Verarbeitung sind für uns selbstverständlich. Wir achten auf Qualität statt Menge und geben jedem Produkt so viel Zeit, wie es braucht.',
       },
       {
-        kind: "facts",
-        title: "Kuratierte Auswahl",
+        kind: 'facts',
+        title: 'Kuratierte Auswahl',
         items: [
           {
-            label: "Sika-Hirsche",
-            value: "Standorttreue Tiere, eigene Zucht bis zur stressfreien Schlachtung – begehrt wegen des aromatischen Wildfleisches.",
+            label: 'Sika-Hirsche',
+            value:
+              'Standorttreue Tiere, eigene Zucht bis zur stressfreien Schlachtung – begehrt wegen des aromatischen Wildfleisches.',
           },
           {
-            label: "Gebirgs-Saiblinge",
-            value: "Langsam wachsende Bach-Saiblinge, Bio-Futter und klares Quellwasser für feines Fleisch, frisch oder geräuchert.",
+            label: 'Gebirgs-Saiblinge',
+            value:
+              'Langsam wachsende Bach-Saiblinge, Bio-Futter und klares Quellwasser für feines Fleisch, frisch oder geräuchert.',
           },
           {
-            label: "Honig & Met",
-            value: "Bienen auf artenreichen Naturwiesen liefern einen vielschichtigen Jahrgangshonig als Basis für Honigwein.",
+            label: 'Honig & Met',
+            value:
+              'Bienen auf artenreichen Naturwiesen liefern einen vielschichtigen Jahrgangshonig als Basis für Honigwein.',
           },
           {
-            label: "Säfte & Sirupe",
-            value: "Apfel, Birne, Holler, Minze oder Fichtenwipfel landen handverlesen in saisonalen Pressungen und Auszügen.",
+            label: 'Säfte & Sirupe',
+            value:
+              'Apfel, Birne, Holler, Minze oder Fichtenwipfel landen handverlesen in saisonalen Pressungen und Auszügen.',
           },
           {
-            label: "Shii-Take",
-            value: "Widerstandsfähige Pilze mit kräftigem Umami-Geschmack – frisch für die Küche kultiviert.",
+            label: 'Shii-Take',
+            value:
+              'Widerstandsfähige Pilze mit kräftigem Umami-Geschmack – frisch für die Küche kultiviert.',
           },
           {
-            label: "Fichtenbier",
-            value: "Gemeinsam mit Erzbräu gebrautes Bio-Bier, veredelt mit unseren Maiwipfeln und ihren ätherischen Ölen.",
+            label: 'Fichtenbier',
+            value:
+              'Gemeinsam mit Erzbräu gebrautes Bio-Bier, veredelt mit unseren Maiwipfeln und ihren ätherischen Ölen.',
           },
         ],
       },
       {
-        kind: "bullets",
-        title: "So erhältst du unsere Spezialitäten",
+        kind: 'bullets',
+        title: 'So erhältst du unsere Spezialitäten',
         items: [
-          "Nur limitierte Mengen – bitte frühzeitig Interesse melden.",
-          "Wir informieren per Mail, welche Produkte saisonal verfügbar sind.",
-          "Abholung nach Vereinbarung direkt am Hof oder bei gemeinsamen Übergaben.",
+          'Nur limitierte Mengen – bitte frühzeitig Interesse melden.',
+          'Wir informieren per Mail, welche Produkte saisonal verfügbar sind.',
+          'Abholung nach Vereinbarung direkt am Hof oder bei gemeinsamen Übergaben.',
         ],
       },
     ],
     cta: {
-      title: "Produkte anfragen",
-      body: "Sag uns, wofür du dich interessierst, und wir teilen mit, wann und wie du es bekommst.",
-      primaryLabel: "Nachricht senden",
-      primaryHref: "/contact",
+      title: 'Produkte anfragen',
+      body: 'Sag uns, wofür du dich interessierst, und wir teilen mit, wann und wie du es bekommst.',
+      primaryLabel: 'Nachricht senden',
+      primaryHref: '/contact',
     },
   },
   en: {
-    slug: "products",
+    slug: 'products',
     seo: {
-      title: "Products | Oberhof Lunz",
+      title: 'Products | Oberhof Lunz',
       description:
-        "Venison, alpine char, honey, mushrooms, syrups, and spruce-tip beer – carefully crafted in small batches.",
+        'Venison, alpine char, honey, mushrooms, syrups, and spruce-tip beer – carefully crafted in small batches.',
     },
     hero: {
-      title: "Products",
+      title: 'Products',
       subtitle:
-        "We create characterful foods, far from mass production and as regional as possible.",
+        'We create characterful foods, far from mass production and as regional as possible.',
     },
     sections: [
       {
-        kind: "prose",
-        title: "Our philosophy",
-        body:
-          "The Oberhof never converted to conventional agriculture. Organic cultivation, respectful animal husbandry, and artisanal processing are second nature to us. We focus on quality instead of quantity and give every product the time it needs.",
+        kind: 'prose',
+        title: 'Our philosophy',
+        body: 'The Oberhof never converted to conventional agriculture. Organic cultivation, respectful animal husbandry, and artisanal processing are second nature to us. We focus on quality instead of quantity and give every product the time it needs.',
       },
       {
-        kind: "facts",
-        title: "Curated selection",
+        kind: 'facts',
+        title: 'Curated selection',
         items: [
           {
-            label: "Sika deer",
-            value: "Site-faithful animals, our own breeding through low-stress slaughter – prized for their aromatic venison.",
+            label: 'Sika deer',
+            value:
+              'Site-faithful animals, our own breeding through low-stress slaughter – prized for their aromatic venison.',
           },
           {
-            label: "Alpine char",
-            value: "Slow-growing brook char, organic feed, and clear spring water for delicate meat, fresh or smoked.",
+            label: 'Alpine char',
+            value:
+              'Slow-growing brook char, organic feed, and clear spring water for delicate meat, fresh or smoked.',
           },
           {
-            label: "Honey & mead",
-            value: "Bees on species-rich meadows deliver a multi-layered vintage honey that becomes the base for mead.",
+            label: 'Honey & mead',
+            value:
+              'Bees on species-rich meadows deliver a multi-layered vintage honey that becomes the base for mead.',
           },
           {
-            label: "Juices & syrups",
-            value: "Apple, pear, elderflower, mint, or spruce tips are hand-picked for seasonal pressings and extracts.",
+            label: 'Juices & syrups',
+            value:
+              'Apple, pear, elderflower, mint, or spruce tips are hand-picked for seasonal pressings and extracts.',
           },
           {
-            label: "Shiitake",
-            value: "Resilient mushrooms with deep umami flavor – cultivated fresh for the kitchen.",
+            label: 'Shiitake',
+            value:
+              'Resilient mushrooms with deep umami flavor – cultivated fresh for the kitchen.',
           },
           {
-            label: "Spruce-tip beer",
-            value: "A collaboration with Erzbräu: organic beer refined with our May sprouts and their essential oils.",
+            label: 'Spruce-tip beer',
+            value:
+              'A collaboration with Erzbräu: organic beer refined with our May sprouts and their essential oils.',
           },
         ],
       },
       {
-        kind: "bullets",
-        title: "How to order",
+        kind: 'bullets',
+        title: 'How to order',
         items: [
-          "Availability is limited – please reach out early.",
-          "We share seasonal availability updates via email.",
-          "Pickup by appointment on the farm or during coordinated meetups.",
+          'Availability is limited – please reach out early.',
+          'We share seasonal availability updates via email.',
+          'Pickup by appointment on the farm or during coordinated meetups.',
         ],
       },
     ],
     cta: {
-      title: "Request products",
-      body: "Tell us what you are interested in and we will let you know when and how you can receive it.",
-      primaryLabel: "Send message",
-      primaryHref: "/contact",
+      title: 'Request products',
+      body: 'Tell us what you are interested in and we will let you know when and how you can receive it.',
+      primaryLabel: 'Send message',
+      primaryHref: '/contact',
     },
   },
 };

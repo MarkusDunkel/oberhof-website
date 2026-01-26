@@ -1,12 +1,17 @@
-@use "../styles/tokens" as tokens;
-@use "../styles/mixins" as mixins;
+@use '../styles/tokens' as tokens;
+@use '../styles/mixins' as mixins;
 
 .contact-page {
   width: 100%;
 }
 
 .contact-page__details {
-  @include mixins.card(1.5rem, tokens.$radius_xl, #{tokens.$color_surface}, 0.6);
+  @include mixins.card(
+    1.5rem,
+    tokens.$radius_xl,
+    #{tokens.$color_surface},
+    0.6
+  );
   @include mixins.stack(1.5rem);
 }
 

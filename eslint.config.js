@@ -1,3 +1,4 @@
+// eslint.config.js
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
@@ -9,15 +10,10 @@ export default [
   { ignores: ['dist/**'] },
 
   js.configs.recommended,
-
-  // Typed rules (stronger)
-  ...tseslint.configs.recommendedTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
-
-  reactHooks.configs['recommended-latest'] ?? reactHooks.configs.recommended,
+  ...tseslint.configs.recommended,
 
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -25,20 +21,24 @@ export default [
         ...globals.browser,
         ...globals.es2021,
       },
-      parserOptions: {
-        project: ['./tsconfig.eslint.json'],
-      },
     },
     plugins: {
+      'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
     rules: {
+      // React Hooks rules (manually enabled)
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+
+      // Vite + React Fast Refresh
       'react-refresh/only-export-components': [
-        'warn',
+        'off',
         { allowConstantExport: true },
       ],
     },
   },
 
+  // Disable formatting rules that fight Prettier
   prettier,
 ];

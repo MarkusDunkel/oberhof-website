@@ -1,6 +1,9 @@
 import { page as farmContent } from "@/content/pages/the-farm";
 import { PageRenderer } from "@/components/page-renderer";
+import { useLanguage } from "@/lib/language";
 
 export function TheFarmPage() {
-  return <PageRenderer content={farmContent} />;
+  const { language } = useLanguage();
+
+  return <PageRenderer content={farmContent[language]} />;
 }

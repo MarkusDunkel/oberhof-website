@@ -22,40 +22,52 @@ export type SiteContent = {
   contact: Contact;
   addressRegion: string;
   social: SocialLinks;
+  contactLinkLabel: string;
 };
+import type { Language } from "@/lib/language";
 
-export const brandName = "Oberhof";
-export const tagline = "Ruhiger Bergbauernhof zwischen Ötscher und Hochkar.";
-
-export const primaryCta: CtaLink = {
-  label: "Anfrage senden",
-  href: "/contact",
-};
-
-export const secondaryCta: CtaLink = {
-  label: "Anreise planen",
-  href: "/contact#directions",
-};
-
-export const contact: Contact = {
+const baseContact: Contact = {
   name: "Daniel Kofler",
   phone: "+43 680 1117299",
   email: "daniel@oberhof-lunz.at",
 };
 
-export const addressRegion = "Ertltal · Lunz am See, Niederösterreich";
-
-export const social: SocialLinks = {
+const baseSocial: SocialLinks = {
   instagram: "",
   facebook: "",
 };
 
-export const siteContent: SiteContent = {
-  brandName,
-  tagline,
-  primaryCta,
-  secondaryCta,
-  contact,
-  addressRegion,
-  social,
+export const siteContent: Record<Language, SiteContent> = {
+  de: {
+    brandName: "Oberhof",
+    tagline: "Ruhiger Bergbauernhof zwischen Ötscher und Hochkar.",
+    primaryCta: {
+      label: "Anfrage senden",
+      href: "/contact",
+    },
+    secondaryCta: {
+      label: "Anreise planen",
+      href: "/contact#directions",
+    },
+    contact: baseContact,
+    addressRegion: "Ertltal · Lunz am See, Niederösterreich",
+    social: baseSocial,
+    contactLinkLabel: "Kontakt & Anfahrt",
+  },
+  en: {
+    brandName: "Oberhof",
+    tagline: "Tranquil mountain farm between the Ötscher and Hochkar peaks.",
+    primaryCta: {
+      label: "Send request",
+      href: "/contact",
+    },
+    secondaryCta: {
+      label: "Plan your trip",
+      href: "/contact#directions",
+    },
+    contact: baseContact,
+    addressRegion: "Ertltal · Lunz am See, Lower Austria",
+    social: baseSocial,
+    contactLinkLabel: "Contact & directions",
+  },
 };

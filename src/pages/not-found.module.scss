@@ -1,5 +1,5 @@
-@use "@/styles/mixins" as mixins;
-@use "@/styles/tokens" as tokens;
+@use "../styles/tokens" as tokens;
+@use "../styles/mixins" as mixins;
 
 .not-found-page {
   text-align: center;
@@ -12,9 +12,9 @@
 }
 
 .not-found-page__title {
-  font-family: tokens.$font-serif;
+  font-family: tokens.$font_serif;
   font-size: clamp(2.25rem, 4vw, 3rem);
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .not-found-page__body {

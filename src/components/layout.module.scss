@@ -1,12 +1,12 @@
-@use "@/styles/mixins" as mixins;
-@use "@/styles/tokens" as tokens;
+@use "../styles/tokens" as tokens;
+@use "../styles/mixins" as mixins;
 
 .layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #{tokens.$color-background};
-  color: #{tokens.$color-foreground};
+  background-color: #{tokens.$color_background};
+  color: #{tokens.$color_foreground};
 }
 
 .layout__main {

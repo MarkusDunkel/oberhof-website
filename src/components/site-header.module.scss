@@ -1,5 +1,5 @@
-@use "@/styles/mixins" as mixins;
-@use "@/styles/tokens" as tokens;
+@use "../styles/tokens" as tokens;
+@use "../styles/mixins" as mixins;
 
 .site-header {
   position: sticky;
@@ -20,9 +20,9 @@
 }
 
 .site-header__brand {
-  font-family: tokens.$font-serif;
+  font-family: tokens.$font_serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .site-header__nav {
@@ -41,12 +41,12 @@
   transition: color var(--transition-soft);
 
   &:hover {
-    color: #{tokens.$color-foreground};
+    color: #{tokens.$color_foreground};
   }
 }
 
 .site-header__link--active {
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
   font-weight: 600;
 }
 
@@ -71,9 +71,9 @@
 }
 
 .site-header__sheet-brand {
-  font-family: tokens.$font-serif;
+  font-family: tokens.$font_serif;
   font-size: 1.2rem;
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .site-header__sheet-content {
@@ -83,7 +83,7 @@
 .site-header__sheet-links {
   @include mixins.stack(0.75rem);
   font-size: 1.05rem;
-  color: #{tokens.$color-muted};
+  color: #{tokens.$color_muted};
 }
 
 .site-header__sheet-link {
@@ -91,6 +91,6 @@
 }
 
 .site-header__sheet-link--active {
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
   font-weight: 600;
 }

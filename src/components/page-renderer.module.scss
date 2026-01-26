@@ -1,5 +1,5 @@
-@use "@/styles/mixins" as mixins;
-@use "@/styles/tokens" as tokens;
+@use "../styles/tokens" as tokens;
+@use "../styles/mixins" as mixins;
 
 .page-renderer {
   @include mixins.stack(clamp(2rem, 4vw, 3rem));
@@ -16,9 +16,9 @@
 }
 
 .page-renderer__title {
-  font-family: tokens.$font-serif;
+  font-family: tokens.$font_serif;
   font-size: clamp(2.5rem, 4vw, 3.25rem);
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .page-renderer__subtitle {
@@ -32,14 +32,14 @@
 }
 
 .page-renderer__section {
-  @include mixins.card(1.75rem, tokens.$radius-xl, rgb(var(--color-surface) / 0.9));
+  @include mixins.card(1.75rem, tokens.$radius_xl, rgb(var(--color-surface) / 0.9));
   @include mixins.stack(1rem);
 }
 
 .page-renderer__section-title {
-  font-family: tokens.$font-serif;
+  font-family: tokens.$font_serif;
   font-size: clamp(1.65rem, 3vw, 2rem);
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .page-renderer__text {
@@ -69,7 +69,7 @@
 }
 
 .page-renderer__fact {
-  @include mixins.card(1.1rem, tokens.$radius-lg, rgb(var(--color-background) / 0.6));
+  @include mixins.card(1.1rem, tokens.$radius_lg, rgb(var(--color-background) / 0.6));
   @include mixins.stack(0.35rem);
 }
 
@@ -82,11 +82,11 @@
 
 .page-renderer__fact-value {
   font-size: 1.1rem;
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .page-renderer__cta {
-  @include mixins.card(2rem, tokens.$radius-xxl, #{tokens.$color-surface}, 0.7);
+  @include mixins.card(2rem, tokens.$radius_xxl, #{tokens.$color_surface}, 0.7);
   text-align: center;
   @include mixins.stack(1.5rem);
 
@@ -100,9 +100,9 @@
 }
 
 .page-renderer__cta-title {
-  font-family: tokens.$font-serif;
+  font-family: tokens.$font_serif;
   font-size: clamp(2rem, 3vw, 2.5rem);
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .page-renderer__cta-body {

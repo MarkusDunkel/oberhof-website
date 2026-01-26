@@ -1,5 +1,5 @@
-@use "@/styles/mixins" as mixins;
-@use "@/styles/tokens" as tokens;
+@use "../styles/tokens" as tokens;
+@use "../styles/mixins" as mixins;
 
 .site-footer {
   border-top: 1px solid rgb(var(--color-border) / 0.7);
@@ -25,9 +25,9 @@
 }
 
 .site-footer__name {
-  font-family: tokens.$font-serif;
+  font-family: tokens.$font_serif;
   font-size: 1.35rem;
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .site-footer__contact {
@@ -39,6 +39,6 @@
   transition: color var(--transition-soft);
 
   &:hover {
-    color: #{tokens.$color-foreground};
+    color: #{tokens.$color_foreground};
   }
 }

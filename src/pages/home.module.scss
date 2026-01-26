@@ -1,12 +1,12 @@
-@use "@/styles/mixins" as mixins;
-@use "@/styles/tokens" as tokens;
+@use "../styles/tokens" as tokens;
+@use "../styles/mixins" as mixins;
 
 .home-page {
   @include mixins.stack(var(--space-section));
 }
 
 .home-page__hero {
-  @include mixins.card(2.5rem, tokens.$radius-xxl, #{tokens.$color-surface}, 0.6);
+  @include mixins.card(2.5rem, tokens.$radius_xxl, #{tokens.$color_surface}, 0.6);
   @include mixins.stack(1rem);
   text-align: center;
 }
@@ -18,9 +18,9 @@
 }
 
 .home-page__hero-title {
-  font-family: tokens.$font-serif;
+  font-family: tokens.$font_serif;
   font-size: clamp(2.75rem, 6vw, 3.75rem);
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .home-page__hero-subtitle {
@@ -44,7 +44,7 @@
 }
 
 .home-page__tile {
-  @include mixins.card(1.5rem, tokens.$radius-xl, rgb(var(--color-surface) / 0.85));
+  @include mixins.card(1.5rem, tokens.$radius_xl, rgb(var(--color-surface) / 0.85));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -64,25 +64,25 @@
 }
 
 .home-page__tile-title {
-  font-family: tokens.$font-serif;
+  font-family: tokens.$font_serif;
   font-size: 1.5rem;
-  color: #{tokens.$color-foreground};
+  color: #{tokens.$color_foreground};
 }
 
 .home-page__tile-description {
   font-size: 0.95rem;
-  color: #{tokens.$color-muted};
+  color: #{tokens.$color_muted};
 }
 
 .home-page__tile-link {
   margin-top: 1.25rem;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #{tokens.$color-accent};
+  color: #{tokens.$color_accent};
 }
 
 .home-page__highlights {
-  @include mixins.card(2rem, tokens.$radius-xl, rgb(var(--color-background) / 0.65));
+  @include mixins.card(2rem, tokens.$radius_xl, rgb(var(--color-background) / 0.65));
 }
 
 .home-page__highlights-grid {

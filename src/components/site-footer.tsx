@@ -1,22 +1,23 @@
 import { Link } from "react-router-dom";
 import { siteContent } from "@/content/site";
+import styles from "./site-footer.module.scss";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/70 bg-background/95">
-      <div className="container flex flex-col gap-4 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <div className="font-serif text-lg text-foreground">{siteContent.brandName}</div>
+    <footer className={styles["site-footer"]}>
+      <div className={styles["site-footer__inner"]}>
+        <div className={styles["site-footer__brand"]}>
+          <div className={styles["site-footer__name"]}>{siteContent.brandName}</div>
           <div>{siteContent.tagline}</div>
         </div>
-        <div className="flex flex-col gap-1">
-          <Link to="tel:+436801117299" className="hover:text-foreground">
+        <div className={styles["site-footer__contact"]}>
+          <Link to="tel:+436801117299" className={styles["site-footer__contact-link"]}>
             {siteContent.contact.phone}
           </Link>
-          <Link to="mailto:daniel@oberhof-lunz.at" className="hover:text-foreground">
+          <Link to="mailto:daniel@oberhof-lunz.at" className={styles["site-footer__contact-link"]}>
             {siteContent.contact.email}
           </Link>
-          <Link to="/kontakt" className="hover:text-foreground">
+          <Link to="/kontakt" className={styles["site-footer__contact-link"]}>
             Kontakt &amp; Anfahrt
           </Link>
         </div>

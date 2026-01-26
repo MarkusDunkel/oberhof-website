@@ -1,0 +1,27 @@
+@use "@/styles/mixins" as mixins;
+@use "@/styles/tokens" as tokens;
+
+.not-found-page {
+  text-align: center;
+  @include mixins.stack(1.25rem);
+}
+
+.not-found-page__label {
+  @include mixins.serif-label;
+  color: rgb(var(--color-foreground) / 0.6);
+}
+
+.not-found-page__title {
+  font-family: tokens.$font-serif;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  color: #{tokens.$color-foreground};
+}
+
+.not-found-page__body {
+  color: rgb(var(--color-foreground) / 0.75);
+}
+
+.not-found-page__actions {
+  display: flex;
+  justify-content: center;
+}

@@ -1,13 +1,14 @@
 import { Outlet } from "react-router-dom";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
+import styles from "./layout.module.scss";
 
 export function Layout() {
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    <div className={styles.layout}>
       <SiteHeader />
-      <main className="flex-1">
-        <div className="container space-y-16">
+      <main className={styles["layout__main"]}>
+        <div className={styles["layout__container"]}>
           <Outlet />
         </div>
       </main>

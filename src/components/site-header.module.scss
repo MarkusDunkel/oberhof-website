@@ -1,0 +1,96 @@
+@use "@/styles/mixins" as mixins;
+@use "@/styles/tokens" as tokens;
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(18px);
+  background-color: rgb(var(--color-background) / 0.9);
+  border-bottom: 1px solid rgb(var(--color-border) / 0.6);
+}
+
+.site-header__inner {
+  @include mixins.container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1.25rem;
+  gap: 1.5rem;
+}
+
+.site-header__brand {
+  font-family: tokens.$font-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #{tokens.$color-foreground};
+}
+
+.site-header__nav {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+
+  @include mixins.media-md {
+    display: flex;
+  }
+}
+
+.site-header__link {
+  color: rgb(var(--color-muted));
+  font-size: 0.95rem;
+  transition: color var(--transition-soft);
+
+  &:hover {
+    color: #{tokens.$color-foreground};
+  }
+}
+
+.site-header__link--active {
+  color: #{tokens.$color-foreground};
+  font-weight: 600;
+}
+
+.site-header__cta {
+  display: none;
+
+  @include mixins.media-md {
+    display: block;
+  }
+}
+
+.site-header__mobile-toggle {
+  display: block;
+
+  @include mixins.media-md {
+    display: none;
+  }
+}
+
+.site-header__sr-message {
+  @include mixins.visually-hidden;
+}
+
+.site-header__sheet-brand {
+  font-family: tokens.$font-serif;
+  font-size: 1.2rem;
+  color: #{tokens.$color-foreground};
+}
+
+.site-header__sheet-content {
+  @include mixins.stack(1.5rem);
+}
+
+.site-header__sheet-links {
+  @include mixins.stack(0.75rem);
+  font-size: 1.05rem;
+  color: #{tokens.$color-muted};
+}
+
+.site-header__sheet-link {
+  color: inherit;
+}
+
+.site-header__sheet-link--active {
+  color: #{tokens.$color-foreground};
+  font-weight: 600;
+}

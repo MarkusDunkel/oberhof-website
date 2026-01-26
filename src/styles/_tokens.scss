@@ -1,0 +1,23 @@
+$color-background: unquote("rgb(var(--color-background))");
+$color-surface: unquote("rgb(var(--color-surface))");
+$color-foreground: unquote("rgb(var(--color-foreground))");
+$color-foreground-soft: unquote("rgb(var(--color-foreground) / 0.8)");
+$color-muted: unquote("rgb(var(--color-muted))");
+$color-accent: unquote("rgb(var(--color-accent))");
+$color-border: unquote("rgb(var(--color-border))");
+$color-border-muted: unquote("rgb(var(--color-border) / 0.6)");
+$color-border-strong: unquote("rgb(var(--color-border) / 0.8)");
+
+$font-sans: unquote("var(--font-sans)");
+$font-serif: unquote("var(--font-serif)");
+
+$space-section: unquote("var(--space-section)");
+$space-stack: unquote("var(--space-stack)");
+$layout-max-width: unquote("var(--layout-max-width)");
+$layout-padding: unquote("var(--layout-content-padding)");
+
+$radius-xxl: var(--radius-xxl);
+$radius-xl: var(--radius-xl);
+$radius-lg: var(--radius-lg);
+$shadow-card: var(--shadow-card);
+$transition-soft: var(--transition-soft);

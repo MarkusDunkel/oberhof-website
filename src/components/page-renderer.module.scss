@@ -1,0 +1,114 @@
+@use "@/styles/mixins" as mixins;
+@use "@/styles/tokens" as tokens;
+
+.page-renderer {
+  @include mixins.stack(clamp(2rem, 4vw, 3rem));
+}
+
+.page-renderer__intro {
+  @include mixins.stack(0.5rem);
+}
+
+.page-renderer__slug {
+  @include mixins.serif-label;
+  color: rgb(var(--color-foreground) / 0.6);
+  font-size: 0.85rem;
+}
+
+.page-renderer__title {
+  font-family: tokens.$font-serif;
+  font-size: clamp(2.5rem, 4vw, 3.25rem);
+  color: #{tokens.$color-foreground};
+}
+
+.page-renderer__subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  color: rgb(var(--color-foreground) / 0.8);
+  max-width: 42rem;
+}
+
+.page-renderer__sections {
+  @include mixins.stack(2.5rem);
+}
+
+.page-renderer__section {
+  @include mixins.card(1.75rem, tokens.$radius-xl, rgb(var(--color-surface) / 0.9));
+  @include mixins.stack(1rem);
+}
+
+.page-renderer__section-title {
+  font-family: tokens.$font-serif;
+  font-size: clamp(1.65rem, 3vw, 2rem);
+  color: #{tokens.$color-foreground};
+}
+
+.page-renderer__text {
+  font-size: 1.1rem;
+  color: rgb(var(--color-foreground) / 0.8);
+  line-height: 1.7;
+}
+
+.page-renderer__list {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+  color: rgb(var(--color-foreground) / 0.85);
+
+  li + li {
+    margin-top: 0.35rem;
+  }
+}
+
+.page-renderer__facts {
+  display: grid;
+  gap: 1rem;
+
+  @include mixins.media-md {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.page-renderer__fact {
+  @include mixins.card(1.1rem, tokens.$radius-lg, rgb(var(--color-background) / 0.6));
+  @include mixins.stack(0.35rem);
+}
+
+.page-renderer__fact-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgb(var(--color-foreground) / 0.6);
+}
+
+.page-renderer__fact-value {
+  font-size: 1.1rem;
+  color: #{tokens.$color-foreground};
+}
+
+.page-renderer__cta {
+  @include mixins.card(2rem, tokens.$radius-xxl, #{tokens.$color-surface}, 0.7);
+  text-align: center;
+  @include mixins.stack(1.5rem);
+
+  @include mixins.media-md {
+    text-align: left;
+  }
+}
+
+.page-renderer__cta-copy {
+  @include mixins.stack(0.35rem);
+}
+
+.page-renderer__cta-title {
+  font-family: tokens.$font-serif;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  color: #{tokens.$color-foreground};
+}
+
+.page-renderer__cta-body {
+  color: rgb(var(--color-foreground) / 0.8);
+}
+
+.page-renderer__cta-actions {
+  margin-top: 0.5rem;
+}

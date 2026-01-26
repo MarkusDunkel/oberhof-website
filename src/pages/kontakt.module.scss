@@ -1,0 +1,50 @@
+@use "@/styles/mixins" as mixins;
+@use "@/styles/tokens" as tokens;
+
+.kontakt-page {
+  width: 100%;
+}
+
+.kontakt-page__details {
+  @include mixins.card(1.5rem, tokens.$radius-xl, #{tokens.$color-surface}, 0.6);
+  @include mixins.stack(1.5rem);
+}
+
+.kontakt-page__group {
+  @include mixins.stack(0.75rem);
+}
+
+.kontakt-page__heading {
+  font-family: tokens.$font-serif;
+  font-size: 1.6rem;
+  color: #{tokens.$color-foreground};
+}
+
+.kontakt-page__list {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: rgb(var(--color-foreground) / 0.8);
+  list-style: decimal;
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+}
+
+.kontakt-page__credits-heading {
+  font-size: 1.25rem;
+  font-family: tokens.$font-serif;
+  color: #{tokens.$color-foreground};
+}
+
+.kontakt-page__credits {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.95rem;
+  color: rgb(var(--color-foreground) / 0.7);
+  list-style: disc;
+
+  li + li {
+    margin-top: 0.35rem;
+  }
+}

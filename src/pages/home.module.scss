@@ -1,0 +1,100 @@
+@use "@/styles/mixins" as mixins;
+@use "@/styles/tokens" as tokens;
+
+.home-page {
+  @include mixins.stack(var(--space-section));
+}
+
+.home-page__hero {
+  @include mixins.card(2.5rem, tokens.$radius-xxl, #{tokens.$color-surface}, 0.6);
+  @include mixins.stack(1rem);
+  text-align: center;
+}
+
+.home-page__hero-label {
+  @include mixins.serif-label;
+  color: rgb(var(--color-muted));
+  font-size: 0.85rem;
+}
+
+.home-page__hero-title {
+  font-family: tokens.$font-serif;
+  font-size: clamp(2.75rem, 6vw, 3.75rem);
+  color: #{tokens.$color-foreground};
+}
+
+.home-page__hero-subtitle {
+  max-width: 48rem;
+  margin-inline: auto;
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  color: rgb(var(--color-foreground) / 0.8);
+}
+
+.home-page__hero-actions {
+  margin-top: 0.75rem;
+}
+
+.home-page__tiles {
+  display: grid;
+  gap: 1.5rem;
+
+  @include mixins.media-md {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.home-page__tile {
+  @include mixins.card(1.5rem, tokens.$radius-xl, rgb(var(--color-surface) / 0.85));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  min-height: 100%;
+  transition: transform var(--transition-soft), border-color var(--transition-soft);
+  color: inherit;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgb(var(--color-accent) / 0.4);
+  }
+}
+
+.home-page__tile-heading {
+  @include mixins.stack(0.5rem);
+}
+
+.home-page__tile-title {
+  font-family: tokens.$font-serif;
+  font-size: 1.5rem;
+  color: #{tokens.$color-foreground};
+}
+
+.home-page__tile-description {
+  font-size: 0.95rem;
+  color: #{tokens.$color-muted};
+}
+
+.home-page__tile-link {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #{tokens.$color-accent};
+}
+
+.home-page__highlights {
+  @include mixins.card(2rem, tokens.$radius-xl, rgb(var(--color-background) / 0.65));
+}
+
+.home-page__highlights-grid {
+  display: grid;
+  gap: 1.5rem;
+
+  @include mixins.media-md {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.home-page__highlight {
+  font-size: 1.1rem;
+  color: rgb(var(--color-foreground) / 0.82);
+}

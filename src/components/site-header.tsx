@@ -4,6 +4,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { siteContent } from "@/content/site";
+import styles from "./site-header.module.scss";
 
 const navItems = [
   { label: "Startseite", href: "/" },
@@ -17,20 +18,20 @@ export function SiteHeader() {
   const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/90 backdrop-blur">
-      <div className="container flex items-center justify-between py-5">
-        <Link to="/" className="font-serif text-2xl text-foreground">
+    <header className={styles["site-header"]}>
+      <div className={styles["site-header__inner"]}>
+        <Link to="/" className={styles["site-header__brand"]}>
           {siteContent.brandName}
         </Link>
-        <nav className="hidden items-center gap-6 text-sm md:flex">
+        <nav className={styles["site-header__nav"]}>
           {navItems.map((item) => (
             <NavLink
               key={item.href}
               to={item.href}
               className={({ isActive }) =>
                 cn(
-                  "text-muted transition-colors hover:text-foreground",
-                  isActive && "text-foreground font-medium",
+                  styles["site-header__link"],
+                  isActive && styles["site-header__link--active"],
                 )
               }
               aria-current={location.pathname === item.href ? "page" : undefined}
@@ -39,31 +40,31 @@ export function SiteHeader() {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden md:block">
+        <div className={styles["site-header__cta"]}>
           <Button asChild>
             <Link to="/kontakt">Kontakt</Link>
           </Button>
         </div>
-        <div className="md:hidden">
+        <div className={styles["site-header__mobile-toggle"]}>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="sm">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Menü öffnen</span>
+                <Menu size={20} />
+                <span className={styles["site-header__sr-message"]}>Menü öffnen</span>
               </Button>
             </SheetTrigger>
             <SheetContent>
-              <div className="flex flex-col gap-6">
-                <div className="font-serif text-xl">{siteContent.brandName}</div>
-                <div className="flex flex-col gap-3 text-lg">
+              <div className={styles["site-header__sheet-content"]}>
+                <div className={styles["site-header__sheet-brand"]}>{siteContent.brandName}</div>
+                <div className={styles["site-header__sheet-links"]}>
                   {navItems.map((item) => (
                     <SheetClose asChild key={item.href}>
                       <NavLink
                         to={item.href}
                         className={({ isActive }) =>
                           cn(
-                            "text-muted",
-                            isActive && "text-foreground font-semibold",
+                            styles["site-header__sheet-link"],
+                            isActive && styles["site-header__sheet-link--active"],
                           )
                         }
                       >

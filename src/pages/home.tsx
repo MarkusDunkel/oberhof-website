@@ -1,37 +1,36 @@
 import { homeContent } from "@/content/pages/home";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import styles from "./home.module.scss";
 
 export function HomePage() {
   return (
-    <div className="space-y-16">
-      <section className="space-y-6 rounded-[2.5rem] border border-border/60 bg-surface p-10 text-center">
-        <p className="font-serif text-sm uppercase tracking-[0.35em] text-muted">Oberhof</p>
-        <h1 className="font-serif text-5xl text-foreground sm:text-6xl">{homeContent.heroTitle}</h1>
-        <p className="mx-auto max-w-3xl text-lg text-foreground/80 sm:text-xl">{homeContent.heroSubtitle}</p>
-        <Button asChild size="lg" className="mt-4">
-          <Link to={homeContent.cta.primaryHref}>{homeContent.cta.primaryLabel}</Link>
-        </Button>
+    <div className={styles["home-page"]}>
+      <section className={styles["home-page__hero"]}>
+        <p className={styles["home-page__hero-label"]}>Oberhof</p>
+        <h1 className={styles["home-page__hero-title"]}>{homeContent.heroTitle}</h1>
+        <p className={styles["home-page__hero-subtitle"]}>{homeContent.heroSubtitle}</p>
+        <div className={styles["home-page__hero-actions"]}>
+          <Button asChild size="lg">
+            <Link to={homeContent.cta.primaryHref}>{homeContent.cta.primaryLabel}</Link>
+          </Button>
+        </div>
       </section>
-      <section className="grid gap-6 sm:grid-cols-3">
+      <section className={styles["home-page__tiles"]}>
         {homeContent.tiles.map((tile) => (
-          <Link
-            key={tile.title}
-            to={tile.href}
-            className="flex h-full flex-col justify-between rounded-[2rem] border border-border/60 bg-surface/80 p-6 transition hover:-translate-y-1 hover:border-accent/40"
-          >
-            <div className="space-y-3">
-              <p className="font-serif text-2xl text-foreground">{tile.title}</p>
-              <p className="text-sm text-muted">{tile.description}</p>
+          <Link key={tile.title} to={tile.href} className={styles["home-page__tile"]}>
+            <div className={styles["home-page__tile-heading"]}>
+              <p className={styles["home-page__tile-title"]}>{tile.title}</p>
+              <p className={styles["home-page__tile-description"]}>{tile.description}</p>
             </div>
-            <span className="mt-6 text-sm font-semibold text-accent">Mehr erfahren →</span>
+            <span className={styles["home-page__tile-link"]}>Mehr erfahren →</span>
           </Link>
         ))}
       </section>
-      <section className="rounded-[2rem] border border-border/60 bg-background/60 p-8">
-        <div className="grid gap-6 sm:grid-cols-3">
+      <section className={styles["home-page__highlights"]}>
+        <div className={styles["home-page__highlights-grid"]}>
           {homeContent.highlights.map((highlight) => (
-            <p key={highlight} className="text-lg text-foreground/80">
+            <p key={highlight} className={styles["home-page__highlight"]}>
               {highlight}
             </p>
           ))}

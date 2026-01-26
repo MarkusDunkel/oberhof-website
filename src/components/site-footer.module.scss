@@ -1,0 +1,44 @@
+@use "@/styles/mixins" as mixins;
+@use "@/styles/tokens" as tokens;
+
+.site-footer {
+  border-top: 1px solid rgb(var(--color-border) / 0.7);
+  background-color: rgb(var(--color-background) / 0.95);
+}
+
+.site-footer__inner {
+  @include mixins.container;
+  @include mixins.stack(1.25rem);
+  padding-block: 2.5rem;
+  font-size: 0.95rem;
+  color: rgb(var(--color-muted));
+
+  @include mixins.media-md {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.site-footer__brand {
+  @include mixins.stack(0.5rem);
+}
+
+.site-footer__name {
+  font-family: tokens.$font-serif;
+  font-size: 1.35rem;
+  color: #{tokens.$color-foreground};
+}
+
+.site-footer__contact {
+  @include mixins.stack(0.35rem);
+}
+
+.site-footer__contact-link {
+  color: inherit;
+  transition: color var(--transition-soft);
+
+  &:hover {
+    color: #{tokens.$color-foreground};
+  }
+}

@@ -1,0 +1,19 @@
+@use "@/styles/mixins" as mixins;
+@use "@/styles/tokens" as tokens;
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #{tokens.$color-background};
+  color: #{tokens.$color-foreground};
+}
+
+.layout__main {
+  flex: 1;
+}
+
+.layout__container {
+  @include mixins.container;
+  @include mixins.stack(clamp(2.5rem, 4vw, 4rem));
+}

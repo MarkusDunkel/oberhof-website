@@ -3,36 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import styles from './home.module.scss';
 import { useLanguage } from '@/lib/language';
-import { useEffect } from 'react';
 
 export function HomePage() {
   const { language } = useLanguage();
   const content = homeContent[language];
   const contactHref = '/contact';
-
-  useEffect(() => {
-    const body = document.body;
-    const activeClass = 'home-hero-active';
-    const scrolledClass = 'home-hero-scrolled';
-
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        body.classList.add(scrolledClass);
-      } else {
-        body.classList.remove(scrolledClass);
-      }
-    };
-
-    body.classList.add(activeClass);
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      body.classList.remove(activeClass);
-      body.classList.remove(scrolledClass);
-    };
-  }, []);
 
   return (
     <section className={styles['home-page']}>

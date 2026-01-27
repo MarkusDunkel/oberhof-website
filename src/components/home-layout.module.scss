@@ -1,0 +1,60 @@
+@use '../styles/tokens' as tokens;
+@use '../styles/mixins' as mixins;
+
+.home-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #{tokens.$color_background};
+  color: #{tokens.$color_foreground};
+}
+
+.home-layout__hero-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  isolation: isolate;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  &::before {
+    background-image: url('/images/home-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+  }
+
+  &::after {
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--color-background) / 0.78),
+      rgb(var(--color-background) / 0.55)
+    );
+    z-index: -1;
+  }
+}
+
+.home-layout__main {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  z-index: 1;
+  min-height: 0;
+}
+
+.home-layout__container {
+  @include mixins.container;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}

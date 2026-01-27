@@ -7,6 +7,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding-block: clamp(4rem, 16vh, 8rem);
   color: #{tokens.$color_foreground};
   isolation: isolate;
@@ -47,8 +48,13 @@
   position: relative;
   z-index: 1;
   width: min(100%, 40rem);
-  text-align: left;
-  align-items: flex-start;
+  text-align: center;
+  align-items: center;
+}
+
+.home-page__logo {
+  width: clamp(5rem, 18vw, 8rem);
+  height: auto;
 }
 
 .home-page__title {
@@ -63,5 +69,5 @@
 }
 
 .home-page__cta {
-  align-self: flex-start;
+  align-self: center;
 }

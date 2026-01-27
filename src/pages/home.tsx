@@ -12,6 +12,11 @@ export function HomePage() {
   return (
     <section className={styles['home-page']}>
       <div className={styles['home-page__content']}>
+        <img
+          src="/images/logo-trans.png"
+          alt="Oberhof Logo"
+          className={styles['home-page__logo']}
+        />
         <h1 className={styles['home-page__title']}>{content.heroTitle}</h1>
         <p className={styles['home-page__subtitle']}>{content.heroSubtitle}</p>
         <Button asChild size="lg" className={styles['home-page__cta']}>

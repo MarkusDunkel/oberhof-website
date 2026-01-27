@@ -16,4 +16,6 @@
 .layout__container {
   @include mixins.container;
   @include mixins.stack(clamp(2.5rem, 4vw, 4rem));
+
+  padding-block: var(--space-section);
 }

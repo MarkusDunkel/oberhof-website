@@ -51,7 +51,7 @@ export function SiteHeader() {
   const navItems = navItemsByLanguage[language];
 
   return (
-    <header className={styles['site-header']}>
+    <header className={`${styles['site-header']} site-header`}>
       <div className={styles['site-header__inner']}>
         <Link to="/" className={styles['site-header__brand']}>
           {content.brandName}

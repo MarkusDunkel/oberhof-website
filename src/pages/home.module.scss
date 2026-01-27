@@ -71,3 +71,19 @@
 .home-page__cta {
   align-self: center;
 }
+
+:global(body.home-hero-active .site-header) {
+  background-color: rgb(var(--color-background) / 0.1);
+  border-bottom-color: transparent;
+  box-shadow: none;
+  transition:
+    background-color var(--transition-soft),
+    border-color var(--transition-soft),
+    box-shadow var(--transition-soft);
+}
+
+:global(body.home-hero-active.home-hero-scrolled .site-header) {
+  background-color: rgb(var(--color-background) / 0.1);
+  border-bottom-color: rgb(var(--color-border) / 0.6);
+  box-shadow: 0 8px 20px rgb(var(--color-border) / 0.15);
+}

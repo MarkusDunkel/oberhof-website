@@ -12,14 +12,12 @@ const navItemsByLanguage: Record<
   Array<{ label: string; href: string }>
 > = {
   de: [
-    { label: 'Startseite', href: '/' },
     { label: 'Der Hof', href: '/the-farm' },
     { label: 'Produkte', href: '/products' },
     { label: 'Vermietung', href: '/rentals' },
     { label: 'Kontakt', href: '/contact' },
   ],
   en: [
-    { label: 'Home', href: '/' },
     { label: 'The Farm', href: '/the-farm' },
     { label: 'Products', href: '/products' },
     { label: 'Rentals', href: '/rentals' },

@@ -2,7 +2,6 @@
 @use '../styles/mixins' as mixins;
 
 .site-header {
-  position: sticky;
   top: 0;
   z-index: 40;
   backdrop-filter: blur(18px);
@@ -52,19 +51,19 @@
   padding: 0.15rem 0.5rem;
   font-size: 0.85rem;
   text-transform: uppercase;
-  color: rgb(var(--color-muted));
+  color: rgb(var(--color-muted-secondary));
   transition:
     color var(--transition-soft),
     border-color var(--transition-soft);
 
   &:hover {
-    color: #{tokens.$color_foreground};
+    color: #{tokens.$color_background};
   }
 }
 
 .site-header__language-button--active {
-  border-color: rgb(var(--color-border));
-  color: #{tokens.$color_foreground};
+  border-color: rgb(var(--color-background));
+  color: #{tokens.$color_background};
 }
 
 .site-header__link {

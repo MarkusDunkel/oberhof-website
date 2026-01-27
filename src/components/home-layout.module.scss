@@ -15,6 +15,7 @@
   flex-direction: column;
   min-height: 100vh;
   isolation: isolate;
+  overflow: hidden;
 
   &::before,
   &::after {
@@ -30,6 +31,8 @@
     background-position: center;
     background-repeat: no-repeat;
     z-index: -2;
+    transform-origin: center;
+    animation: home-hero-zoom 4s ease-out forwards;
   }
 
   &::after {
@@ -40,6 +43,16 @@
       rgb(var(--color-foreground) / 0.5)
     );
     z-index: -1;
+  }
+}
+
+@keyframes home-hero-zoom {
+  from {
+    transform: scale(1.08);
+  }
+
+  to {
+    transform: scale(1);
   }
 }
 

@@ -3,6 +3,7 @@ import type { Language } from '@/lib/language';
 export type HomeContent = {
   heroTitle: string;
   heroSubtitle: string;
+  heroSubSubtitle: string;
   tiles: Array<{ title: string; description: string; href: string }>;
   tileCtaLabel: string;
   highlights: string[];
@@ -16,9 +17,10 @@ export type HomeContent = {
 
 export const homeContent: Record<Language, HomeContent> = {
   de: {
-    heroTitle: 'Oberhof Lunz',
-    heroSubtitle:
-      'Ein entschleunigter Bergbauernhof, der Naturkreisläufe pflegt und Menschen Raum zum Aufatmen schenkt.',
+    heroTitle: 'Oberhof',
+    heroSubtitle: 'Lunz am See',
+    heroSubSubtitle:
+      'Ein entschleunigter Bergbauernhof, der Naturkreisläufe pflegt und Menschen Raum zum Aufatmen schenkt. — Daniel Kofler',
     tiles: [
       {
         title: 'Der Hof',
@@ -53,9 +55,10 @@ export const homeContent: Record<Language, HomeContent> = {
     },
   },
   en: {
-    heroTitle: 'Oberhof Lunz',
-    heroSubtitle:
-      'A slow-paced mountain farm that nurtures natural cycles and offers people space to breathe.',
+    heroTitle: 'Oberhof',
+    heroSubtitle: 'Lunz am See',
+    heroSubSubtitle:
+      'A slow-paced mountain farm that nurtures natural cycles and offers people space to breathe. — Daniel Kofler',
     tiles: [
       {
         title: 'The Farm',

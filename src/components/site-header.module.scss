@@ -133,11 +133,25 @@
 }
 
 :global(.home-layout .site-header) {
-  background-color: rgb(var(--color-background) / 0.1);
+  background-color: rgb(var(--color-foreground) / 0.2);
   border-bottom-color: transparent;
   box-shadow: none;
   transition:
     background-color var(--transition-soft),
     border-color var(--transition-soft),
     box-shadow var(--transition-soft);
+
+  .site-header__brand {
+    color: #{tokens.$color_muted_secondary};
+  }
+
+  .site-header__link {
+    color: rgb(var(--color-muted-secondary));
+    font-size: 0.95rem;
+    transition: color var(--transition-soft);
+
+    &:hover {
+      color: #{tokens.$color_background};
+    }
+  }
 }

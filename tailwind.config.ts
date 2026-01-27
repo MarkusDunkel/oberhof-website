@@ -22,6 +22,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", "sans-serif"],
         serif: ["var(--font-serif)", "serif"],
+        display: ["Branch", "var(--font-serif)", "serif"],
       },
       borderRadius: {
         pill: "999px",

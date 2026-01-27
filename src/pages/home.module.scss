@@ -2,12 +2,11 @@
 @use '../styles/mixins' as mixins;
 
 .home-page {
+  padding-top: 10vh;
   width: 100%;
   flex: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding-block: clamp(4rem, 16vh, 8rem);
   color: #{tokens.$color_foreground};
 }
 
@@ -21,7 +20,7 @@
 }
 
 .home-page__logo {
-  width: clamp(5rem, 18vw, 8rem);
+  width: clamp(4rem, 16vw, 6rem);
   height: auto;
 }
 
@@ -29,11 +28,20 @@
   font-family: tokens.$font_serif;
   font-size: clamp(2.75rem, 7vw, 4.25rem);
   line-height: 1.05;
+  color: rgb(var(--color-background));
 }
 
 .home-page__subtitle {
+  font-family: tokens.$font_serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.05;
+  color: rgb(var(--color-background));
+}
+
+.home-page__sub-subtitle {
   font-size: clamp(1rem, 2.4vw, 1.35rem);
-  color: rgb(var(--color-foreground) / 0.85);
+  color: rgb(var(--color-background));
+  font-style: italic;
 }
 
 .home-page__cta {

@@ -5,6 +5,7 @@ $color_surface: string.unquote('rgb(var(--color-surface))');
 $color_foreground: string.unquote('rgb(var(--color-foreground))');
 $color_foreground_soft: string.unquote('rgb(var(--color-foreground) / 0.8)');
 $color_muted: string.unquote('rgb(var(--color-muted))');
+$color_muted_secondary: string.unquote('rgb(var(--color-muted-secondary))');
 $color_accent: string.unquote('rgb(var(--color-accent))');
 $color_border: string.unquote('rgb(var(--color-border))');
 $color_border_muted: string.unquote('rgb(var(--color-border) / 0.6)');

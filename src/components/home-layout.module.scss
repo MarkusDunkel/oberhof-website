@@ -34,9 +34,10 @@
 
   &::after {
     background-image: linear-gradient(
-      135deg,
-      rgb(var(--color-background) / 0.78),
-      rgb(var(--color-background) / 0.55)
+      0deg,
+      rgb(var(--color-foreground) / 0.2),
+      rgb(var(--color-foreground) / 0.5),
+      rgb(var(--color-foreground) / 0.5)
     );
     z-index: -1;
   }

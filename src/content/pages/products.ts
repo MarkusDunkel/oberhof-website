@@ -2,6 +2,7 @@ import deer from '@/assets/images/products/deer.jpg';
 import fish from '@/assets/images/products/fish.jpg';
 import honey from '@/assets/images/products/honey.jpg';
 import juice from '@/assets/images/products/juice.png';
+import productsHeroImg from '@/assets/images/products/hero.jpg';
 
 import type { Language } from '@/lib/language';
 
@@ -20,6 +21,10 @@ export type PageContent = {
           value: string;
           image?: { src: string; alt: string };
         }>;
+      }
+    | {
+        kind: 'heroImage';
+        image: { src: string; alt: string };
       }
   >;
   cta: {
@@ -44,6 +49,13 @@ export const page: Record<Language, PageContent> = {
         'Wir erzeugen Lebensmittel mit Charakter, fernab von Massenproduktion und so regional wie möglich.',
     },
     sections: [
+      {
+        kind: 'heroImage',
+        image: {
+          src: productsHeroImg,
+          alt: 'Produkte des Oberhofs in einer rustikalen Präsentation',
+        },
+      },
       {
         kind: 'prose',
         title: 'Unsere Philosophie',
@@ -116,6 +128,13 @@ export const page: Record<Language, PageContent> = {
     },
     sections: [
       {
+        kind: 'heroImage',
+        image: {
+          src: productsHeroImg,
+          alt: 'Oberhof product display used as a visual opener',
+        },
+      },
+      {
         kind: 'prose',
         title: 'Our philosophy',
         body: 'The Oberhof never converted to conventional agriculture. Organic cultivation, respectful animal husbandry, and artisanal processing are second nature to us. We focus on quality instead of quantity and give every product the time it needs.',
@@ -134,14 +153,14 @@ export const page: Record<Language, PageContent> = {
             label: 'Alpine char',
             value:
               'Slow-growing brook char, organic feed, and clear spring water for delicate meat, fresh or smoked.',
-            image: { src: deer, alt: 'Placeholder image for Alpine char' },
+            image: { src: fish, alt: 'Placeholder image for Alpine char' },
           },
           {
             label: 'Honey & mead',
             value:
               'Bees on species-rich meadows deliver a multi-layered vintage honey that becomes the base for mead.',
             image: {
-              src: deer,
+              src: honey,
               alt: 'Placeholder image for Honey & mead',
             },
           },
@@ -150,7 +169,7 @@ export const page: Record<Language, PageContent> = {
             value:
               'Apple, pear, elderflower, mint, or spruce tips are hand-picked for seasonal pressings and extracts.',
             image: {
-              src: deer,
+              src: juice,
               alt: 'Placeholder image for Juices & syrups',
             },
           },

@@ -40,6 +40,11 @@
   @include mixins.stack(1rem);
 }
 
+.page-renderer__section-hero {
+  border-radius: tokens.$radius_xl;
+  overflow: hidden;
+}
+
 .page-renderer__section-title {
   font-family: tokens.$font_serif;
   font-size: clamp(1.65rem, 3vw, 2rem);
@@ -93,6 +98,14 @@
   height: 15rem;
   width: 100%;
   border-radius: tokens.$radius_lg;
+  display: block;
+  object-fit: cover;
+}
+
+.page-renderer__hero-image {
+  width: 100%;
+  height: min(60vw, 500px);
+  max-height: 500px;
   display: block;
   object-fit: cover;
 }

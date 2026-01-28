@@ -12,6 +12,10 @@ export type PageContent = {
         title: string;
         items: Array<{ label: string; value: string; image?: { src: string; alt: string } }>;
       }
+    | {
+        kind: 'heroImage';
+        image: { src: string; alt: string };
+      }
   >;
   cta: {
     title: string;

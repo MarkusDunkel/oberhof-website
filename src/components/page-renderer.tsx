@@ -29,17 +29,27 @@ export function PageRenderer<T extends GenericPageContent>({
         </p>
       </header>
       <div className={styles['page-renderer__sections']}>
-        {content.sections.map((section, index) => (
-          <section
-            key={`${section.title}-${index}`}
-            className={styles['page-renderer__section']}
-          >
-            <h2 className={styles['page-renderer__section-title']}>
-              {section.title}
-            </h2>
-            {renderSection(section)}
-          </section>
-        ))}
+        {content.sections.map((section, index) => {
+          const hasTitle = 'title' in section;
+          const sectionClassName =
+            section.kind === 'heroImage'
+              ? styles['page-renderer__section-hero']
+              : styles['page-renderer__section'];
+          const key = hasTitle
+            ? `${section.title}-${index}`
+            : `hero-image-${index}`;
+
+          return (
+            <section key={key} className={sectionClassName}>
+              {hasTitle ? (
+                <h2 className={styles['page-renderer__section-title']}>
+                  {section.title}
+                </h2>
+              ) : null}
+              {renderSection(section)}
+            </section>
+          );
+        })}
       </div>
       {children}
       <section className={styles['page-renderer__cta']}>
@@ -101,6 +111,15 @@ function renderSection(section: Section) {
             </div>
           ))}
         </dl>
+      );
+    case 'heroImage':
+      return (
+        <img
+          className={styles['page-renderer__hero-image']}
+          src={section.image.src}
+          alt={section.image.alt}
+          loading="lazy"
+        />
       );
     default:
       return null;

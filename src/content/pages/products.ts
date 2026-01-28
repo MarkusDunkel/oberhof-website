@@ -155,9 +155,27 @@ export const page: Record<Language, PageContent> = {
     sections: [
       {
         kind: 'heroImage',
-        image: {
-          src: productsHeroImg,
-          alt: 'Oberhof product display used as a visual opener',
+        images: [
+          {
+            src: productsHeroImg,
+            alt: 'Oberhof product display used as a visual opener',
+          },
+          {
+            src: productsHeroImg2,
+            alt: 'Close-up of Oberhof specialties on a rustic table',
+          },
+          {
+            src: productsHeroImg3,
+            alt: 'Baskets filled with Oberhof produce ready for tasting',
+          },
+          {
+            src: productsHeroImg4,
+            alt: 'Selection of Oberhof beverages styled for presentation',
+          },
+        ],
+        slider: {
+          enabled: true,
+          autoPlayMs: 3000,
         },
       },
       {

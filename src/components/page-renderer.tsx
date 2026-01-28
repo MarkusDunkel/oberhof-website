@@ -1,7 +1,7 @@
 import type { PageContent as GenericPageContent } from '@/content/pages/the-farm';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './page-renderer.module.scss';
 
 type Section = GenericPageContent['sections'][number];
@@ -164,22 +164,60 @@ type HeroImageSliderProps = {
 
 function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPaused, setIsAutoPaused] = useState(false);
+  const intervalRef = useRef<number | null>(null);
+  const resumeTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     setCurrentIndex(0);
   }, [slides]);
 
+  const clearAutoPlayInterval = () => {
+    if (intervalRef.current) {
+      window.clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  const clearResumeTimeout = () => {
+    if (resumeTimeoutRef.current) {
+      window.clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+  };
+
   useEffect(() => {
-    if (!autoPlayMs) {
+    return () => {
+      clearAutoPlayInterval();
+      clearResumeTimeout();
+    };
+  }, []);
+
+  useEffect(() => {
+    clearAutoPlayInterval();
+
+    if (!autoPlayMs || isAutoPaused) {
       return;
     }
 
-    const id = window.setInterval(() => {
+    intervalRef.current = window.setInterval(() => {
       setCurrentIndex((index) => (index + 1) % slides.length);
     }, autoPlayMs);
 
-    return () => window.clearInterval(id);
-  }, [autoPlayMs, slides.length]);
+    return clearAutoPlayInterval;
+  }, [autoPlayMs, slides.length, isAutoPaused]);
+
+  const pauseAutoAdvance = () => {
+    if (!autoPlayMs) {
+      return;
+    }
+    setIsAutoPaused(true);
+    clearResumeTimeout();
+    resumeTimeoutRef.current = window.setTimeout(() => {
+      setIsAutoPaused(false);
+      resumeTimeoutRef.current = null;
+    }, 30000);
+  };
 
   const goNext = () => setCurrentIndex((index) => (index + 1) % slides.length);
   const goPrev = () =>
@@ -189,8 +227,10 @@ function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
     const rect = event.currentTarget.getBoundingClientRect();
     const clickX = event.clientX - rect.left;
     if (clickX < rect.width / 2) {
+      pauseAutoAdvance();
       goPrev();
     } else {
+      pauseAutoAdvance();
       goNext();
     }
   };
@@ -225,6 +265,7 @@ function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
             aria-label={`Go to image ${index + 1}`}
             onClick={(event) => {
               event.stopPropagation();
+              pauseAutoAdvance();
               setCurrentIndex(index);
             }}
           />

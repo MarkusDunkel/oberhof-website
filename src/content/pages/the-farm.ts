@@ -96,6 +96,10 @@ export const page: Record<Language, PageContent> = {
           },
         ],
       },
+      {
+        kind: 'heroImage',
+        image: { src: team, alt: 'Team des Oberhofs' },
+      },
     ],
     cta: {
       title: 'Mehr über den Hof',
@@ -162,6 +166,10 @@ export const page: Record<Language, PageContent> = {
               'A small retreat center that offers space for workshops and nature experiences.',
           },
         ],
+      },
+      {
+        kind: 'heroImage',
+        image: { src: team, alt: 'Portrait of the Oberhof team' },
       },
     ],
     cta: {

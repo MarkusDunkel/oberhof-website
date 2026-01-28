@@ -19,8 +19,10 @@ export const homeContent: Record<Language, HomeContent> = {
   de: {
     heroTitle: 'Oberhof',
     heroSubtitle: 'Lunz am See',
-    heroSubSubtitle:
-      'Ein entschleunigter Bergbauernhof, der Naturkreisläufe pflegt und Menschen Raum zum Aufatmen schenkt. — Daniel Kofler',
+    heroSubSubtitle: `Ein entschleunigter Bergbauernhof, der 
+      Naturkreisläufe pflegt und Menschen 
+      Raum zum Aufatmen schenkt. 
+      — Daniel Kofler`,
     tiles: [
       {
         title: 'Der Hof',
@@ -57,8 +59,10 @@ export const homeContent: Record<Language, HomeContent> = {
   en: {
     heroTitle: 'Oberhof',
     heroSubtitle: 'Lunz am See',
-    heroSubSubtitle:
-      'A slow-paced mountain farm that nurtures natural cycles and offers people space to breathe. — Daniel Kofler',
+    heroSubSubtitle: `A slow-paced mountain farm that 
+      nurtures natural cycles and offers 
+      people space to breathe. 
+      — Daniel Kofler`,
     tiles: [
       {
         title: 'The Farm',

@@ -70,7 +70,13 @@ export function PageRenderer<T extends GenericPageContent>({
         <div className={styles['page-renderer__cta-actions']}>
           <Button asChild>
             {isExternalCta ? (
-              <a href={content.cta.primaryHref}>{content.cta.primaryLabel}</a>
+              <a
+                href={content.cta.primaryHref}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {content.cta.primaryLabel}
+              </a>
             ) : (
               <Link to={content.cta.primaryHref}>
                 {content.cta.primaryLabel}

@@ -1,3 +1,11 @@
+import apart1 from '@/assets/images/rentals/apart1.jpeg';
+import apart3 from '@/assets/images/rentals/apart3.jpeg';
+import apart4 from '@/assets/images/rentals/apart4.jpeg';
+import apart5 from '@/assets/images/rentals/apart5.jpeg';
+import apart6 from '@/assets/images/rentals/apart6.jpeg';
+import apart7 from '@/assets/images/rentals/apart7.jpeg';
+import apart8 from '@/assets/images/rentals/apart8.jpeg';
+
 import type { Language } from '@/lib/language';
 
 export type PageContent = {
@@ -49,6 +57,51 @@ export const page: Record<Language, PageContent> = {
         'Für Paare, Familien oder Freund*innen, die Ruhe und Natur direkt am Hof erleben möchten.',
     },
     sections: [
+      {
+        kind: 'heroImage',
+        images: [
+          {
+            src: apart1,
+            alt: 'Wohnbereich des Ferien-Apartments mit Sofa und Ofen',
+            topCropPercent: 40,
+          },
+          {
+            src: apart3,
+            alt: 'Essbereich des Apartments mit Blick ins Grüne',
+            topCropPercent: 45,
+          },
+          {
+            src: apart4,
+            alt: 'Schlafzimmer mit Holz und warmen Textilien',
+            topCropPercent: 35,
+          },
+          {
+            src: apart5,
+            alt: 'Detailaufnahme der Küche im Ferien-Apartment',
+            topCropPercent: 50,
+          },
+          {
+            src: apart6,
+            alt: 'Außenbereich mit Zugang zum Garten',
+            topCropPercent: 30,
+          },
+          {
+            src: apart7,
+            alt: 'Leseecke im Apartment mit Bibliothek',
+            topCropPercent: 50,
+          },
+          {
+            src: apart8,
+            alt: 'Blick vom Apartment auf die umliegende Landschaft',
+            topCropPercent: 35,
+          },
+        ],
+        slider: {
+          enabled: true,
+          autoPlayMs: 3000,
+        },
+        maxHeight: 800,
+      },
       {
         kind: 'prose',
         title: 'Ferien-Apartment',
@@ -106,6 +159,51 @@ export const page: Record<Language, PageContent> = {
         'Perfect for couples, families, or friends seeking a quiet stay on the farm.',
     },
     sections: [
+      {
+        kind: 'heroImage',
+        images: [
+          {
+            src: apart1,
+            alt: 'Living area of the holiday apartment with sofa and stove',
+            topCropPercent: 40,
+          },
+          {
+            src: apart3,
+            alt: 'Dining space with views into the greenery',
+            topCropPercent: 45,
+          },
+          {
+            src: apart4,
+            alt: 'Bedroom with wooden interior and soft textiles',
+            topCropPercent: 35,
+          },
+          {
+            src: apart5,
+            alt: 'Kitchen details inside the holiday apartment',
+            topCropPercent: 50,
+          },
+          {
+            src: apart6,
+            alt: 'Outdoor area leading into the garden',
+            topCropPercent: 30,
+          },
+          {
+            src: apart7,
+            alt: 'Reading nook and library inside the apartment',
+            topCropPercent: 50,
+          },
+          {
+            src: apart8,
+            alt: 'View from the apartment across the surrounding landscape',
+            topCropPercent: 35,
+          },
+        ],
+        slider: {
+          enabled: true,
+          autoPlayMs: 3000,
+        },
+        maxHeight: 800,
+      },
       {
         kind: 'prose',
         title: 'Holiday apartment',

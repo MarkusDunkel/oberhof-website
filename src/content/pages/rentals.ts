@@ -10,7 +10,7 @@ export type PageContent = {
     | {
         kind: 'facts';
         title: string;
-        items: Array<{ label: string; value: string }>;
+        items: Array<{ label: string; value: string; image?: { src: string; alt: string } }>;
       }
   >;
   cta: {

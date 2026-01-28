@@ -90,6 +90,14 @@ function renderSection(section: Section) {
               <dd className={styles['page-renderer__fact-value']}>
                 {fact.value}
               </dd>
+              {fact.image ? (
+                <img
+                  className={styles['page-renderer__fact-image']}
+                  src={fact.image.src}
+                  alt={fact.image.alt}
+                  loading="lazy"
+                />
+              ) : null}
             </div>
           ))}
         </dl>

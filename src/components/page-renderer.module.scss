@@ -93,6 +93,13 @@
   color: #{tokens.$color_foreground};
 }
 
+.page-renderer__fact-image {
+  width: 100%;
+  border-radius: tokens.$radius_lg;
+  display: block;
+  object-fit: cover;
+}
+
 .page-renderer__cta {
   @include mixins.card(2rem, tokens.$radius_xxl, #{tokens.$color_surface}, 0.7);
   text-align: center;

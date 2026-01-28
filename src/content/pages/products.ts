@@ -1,3 +1,8 @@
+import deer from '@/assets/images/products/deer.jpg';
+import fish from '@/assets/images/products/fish.jpg';
+import honey from '@/assets/images/products/honey.jpg';
+import juice from '@/assets/images/products/juice.png';
+
 import type { Language } from '@/lib/language';
 
 export type PageContent = {
@@ -10,7 +15,11 @@ export type PageContent = {
     | {
         kind: 'facts';
         title: string;
-        items: Array<{ label: string; value: string }>;
+        items: Array<{
+          label: string;
+          value: string;
+          image?: { src: string; alt: string };
+        }>;
       }
   >;
   cta: {
@@ -48,31 +57,31 @@ export const page: Record<Language, PageContent> = {
             label: 'Sika-Hirsche',
             value:
               'Standorttreue Tiere, eigene Zucht bis zur stressfreien Schlachtung – begehrt wegen des aromatischen Wildfleisches.',
+            image: { src: deer, alt: 'Platzhalterbild für Sika-Hirsche' },
           },
           {
             label: 'Gebirgs-Saiblinge',
             value:
               'Langsam wachsende Bach-Saiblinge, Bio-Futter und klares Quellwasser für feines Fleisch, frisch oder geräuchert.',
+            image: {
+              src: fish,
+              alt: 'Platzhalterbild für Gebirgs-Saiblinge',
+            },
           },
           {
             label: 'Honig & Met',
             value:
               'Bienen auf artenreichen Naturwiesen liefern einen vielschichtigen Jahrgangshonig als Basis für Honigwein.',
+            image: { src: honey, alt: 'Platzhalterbild für Honig & Met' },
           },
           {
             label: 'Säfte & Sirupe',
             value:
               'Apfel, Birne, Holler, Minze oder Fichtenwipfel landen handverlesen in saisonalen Pressungen und Auszügen.',
-          },
-          {
-            label: 'Shii-Take',
-            value:
-              'Widerstandsfähige Pilze mit kräftigem Umami-Geschmack – frisch für die Küche kultiviert.',
-          },
-          {
-            label: 'Fichtenbier',
-            value:
-              'Gemeinsam mit Erzbräu gebrautes Bio-Bier, veredelt mit unseren Maiwipfeln und ihren ätherischen Ölen.',
+            image: {
+              src: juice,
+              alt: 'Platzhalterbild für Säfte & Sirupe',
+            },
           },
         ],
       },
@@ -119,31 +128,31 @@ export const page: Record<Language, PageContent> = {
             label: 'Sika deer',
             value:
               'Site-faithful animals, our own breeding through low-stress slaughter – prized for their aromatic venison.',
+            image: { src: deer, alt: 'Placeholder image for Sika deer' },
           },
           {
             label: 'Alpine char',
             value:
               'Slow-growing brook char, organic feed, and clear spring water for delicate meat, fresh or smoked.',
+            image: { src: deer, alt: 'Placeholder image for Alpine char' },
           },
           {
             label: 'Honey & mead',
             value:
               'Bees on species-rich meadows deliver a multi-layered vintage honey that becomes the base for mead.',
+            image: {
+              src: deer,
+              alt: 'Placeholder image for Honey & mead',
+            },
           },
           {
             label: 'Juices & syrups',
             value:
               'Apple, pear, elderflower, mint, or spruce tips are hand-picked for seasonal pressings and extracts.',
-          },
-          {
-            label: 'Shiitake',
-            value:
-              'Resilient mushrooms with deep umami flavor – cultivated fresh for the kitchen.',
-          },
-          {
-            label: 'Spruce-tip beer',
-            value:
-              'A collaboration with Erzbräu: organic beer refined with our May sprouts and their essential oils.',
+            image: {
+              src: deer,
+              alt: 'Placeholder image for Juices & syrups',
+            },
           },
         ],
       },

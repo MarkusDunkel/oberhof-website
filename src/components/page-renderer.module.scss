@@ -73,11 +73,7 @@
 }
 
 .page-renderer__fact {
-  @include mixins.card(
-    1.1rem,
-    tokens.$radius_lg,
-    rgb(var(--color-background) / 0.6)
-  );
+  @include mixins.card(1.1rem, none, none, 0);
   @include mixins.stack(0.35rem);
 }
 
@@ -94,6 +90,7 @@
 }
 
 .page-renderer__fact-image {
+  height: 15rem;
   width: 100%;
   border-radius: tokens.$radius_lg;
   display: block;

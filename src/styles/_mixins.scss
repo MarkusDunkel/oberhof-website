@@ -16,10 +16,11 @@
   $padding: 1.5rem,
   $radius: tokens.$radius_xl,
   $background: tokens.$color_surface,
-  $border-alpha: 0.6
+  $border-alpha: 0.6,
+  $border-width: 1px
 ) {
   border-radius: #{$radius};
-  border: 1px solid rgb(var(--color-border) / #{$border-alpha});
+  border: $border-width solid rgb(var(--color-border) / #{$border-alpha});
   background-color: #{$background};
   padding: $padding;
 }

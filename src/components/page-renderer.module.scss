@@ -35,7 +35,9 @@
   @include mixins.card(
     1.75rem,
     tokens.$radius_xl,
-    rgb(var(--color-surface) / 0.9)
+    rgb(var(--color-surface) / 0.9),
+    none,
+    0
   );
   @include mixins.stack(1rem);
 }
@@ -164,7 +166,13 @@
 }
 
 .page-renderer__cta {
-  @include mixins.card(2rem, tokens.$radius_xxl, #{tokens.$color_surface}, 0.7);
+  @include mixins.card(
+    2rem,
+    tokens.$radius_xxl,
+    #{tokens.$color_surface},
+    none,
+    0
+  );
   text-align: center;
   @include mixins.stack(1.5rem);
 

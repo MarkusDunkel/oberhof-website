@@ -10,7 +10,8 @@
     1.5rem,
     tokens.$radius_xl,
     #{tokens.$color_surface},
-    0.6
+    none,
+    0
   );
   @include mixins.stack(1.5rem);
 }

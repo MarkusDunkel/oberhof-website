@@ -1,3 +1,9 @@
+import hero1 from '@/assets/images/the-farm/hero1.jpg';
+import hero2 from '@/assets/images/the-farm/hero2.jpg';
+import hero3 from '@/assets/images/the-farm/hero3.jpg';
+import hero4 from '@/assets/images/the-farm/hero4.jpg';
+import team from '@/assets/images/the-farm/team.jpg';
+
 import type { Language } from '@/lib/language';
 
 export type PageContent = {
@@ -44,6 +50,16 @@ export const page: Record<Language, PageContent> = {
         'Ein Bergbauernhof in Lunz am See, der seit Jahrhunderten besteht und heute behutsam in Richtung Selbstversorgung wächst.',
     },
     sections: [
+      {
+        kind: 'heroImage',
+        images: [
+          { src: hero1, alt: 'Der Oberhof im warmen Morgenlicht' },
+          { src: hero2, alt: 'Aussicht über den Hof und die umliegenden Wälder' },
+          { src: hero3, alt: 'Detailaufnahme der landwirtschaftlichen Arbeit am Hof' },
+          { src: hero4, alt: 'Weitblick in das Lunzertal vom Oberhof aus' },
+          { src: team, alt: 'Team des Oberhofs bei der Arbeit' },
+        ],
+      },
       {
         kind: 'prose',
         title: 'Ein lebendiger Bergbauernhof',
@@ -101,6 +117,16 @@ export const page: Record<Language, PageContent> = {
         'A mountain farm in Lunz am See that has existed for centuries and is now gently evolving toward self-sufficiency.',
     },
     sections: [
+      {
+        kind: 'heroImage',
+        images: [
+          { src: hero1, alt: 'The Oberhof bathed in morning light' },
+          { src: hero2, alt: 'View across the farm and surrounding forests' },
+          { src: hero3, alt: 'Close-up of daily farm work in progress' },
+          { src: hero4, alt: 'Panorama of the Lunz valley from the Oberhof' },
+          { src: team, alt: 'Oberhof team working together' },
+        ],
+      },
       {
         kind: 'prose',
         title: 'A living mountain farm',

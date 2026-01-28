@@ -114,7 +114,7 @@ export const page: Record<Language, PageContent> = {
           {
             label: 'Wohnbereich',
             value:
-              'Heller Ess- und Wohnzimmerbereich mit großem Tisch, Sofa, Holzofen und Bibliothek.',
+              'Heller Ess- und Wohnzimmerbereich mit Ausblick über das Wildnisgebiet Dürrenstein, Sofa und Holzofen.',
           },
           {
             label: 'Infrastruktur',
@@ -216,7 +216,7 @@ export const page: Record<Language, PageContent> = {
           {
             label: 'Living area',
             value:
-              'Bright lounge and dining space with large table, sofa, wood stove, and small library.',
+              'Bright lounge and dining space with great view over the Wildnisgebiet Dürrenstein, sofa and a wood stove.',
           },
           {
             label: 'Infrastructure',

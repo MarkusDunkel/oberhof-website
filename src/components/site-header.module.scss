@@ -46,24 +46,26 @@
 }
 
 .site-header__language-button {
-  border: 1px solid transparent;
+  border: 1px solid rgb(var(--color-border) / 0.5);
   border-radius: 999px;
   padding: 0.15rem 0.5rem;
   font-size: 0.85rem;
   text-transform: uppercase;
-  color: rgb(var(--color-muted-secondary));
+  color: #{tokens.$color_foreground};
+  background-color: transparent;
   transition:
     color var(--transition-soft),
     border-color var(--transition-soft);
 
   &:hover {
-    color: #{tokens.$color_background};
+    border-color: rgb(var(--color-foreground) / 0.6);
   }
 }
 
 .site-header__language-button--active {
-  border-color: rgb(var(--color-background));
+  background-color: #{tokens.$color_foreground};
   color: #{tokens.$color_background};
+  border-color: #{tokens.$color_foreground};
 }
 
 .site-header__link {
@@ -152,5 +154,20 @@
     &:hover {
       color: #{tokens.$color_background};
     }
+  }
+
+  .site-header__language-button {
+    border-color: transparent;
+    color: rgb(var(--color-muted-secondary));
+
+    &:hover {
+      color: #{tokens.$color_background};
+    }
+  }
+
+  .site-header__language-button--active {
+    border-color: rgb(var(--color-background));
+    background-color: transparent;
+    color: #{tokens.$color_background};
   }
 }

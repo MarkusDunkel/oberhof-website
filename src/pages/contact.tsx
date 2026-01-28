@@ -4,6 +4,12 @@ import { useLanguage } from '@/lib/language';
 import danielImage from '@/assets/images/contact/daniel.jpg';
 import styles from './contact.module.scss';
 
+const DESTINATION = {
+  latitude: 47.83053656105003,
+  longitude: 14.975329097871985,
+  address: 'Ertltal 5, 3293 Lunz am See, Österreich',
+};
+
 export function ContactPage() {
   const { language } = useLanguage();
   const content = contactContent[language];
@@ -58,6 +64,24 @@ export function ContactPage() {
                 <li key={`${step}-${index}`}>{step}</li>
               ))}
             </ol>
+            <div className={styles['contact-page__maps-links']}>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${DESTINATION.latitude},${DESTINATION.longitude}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {language === 'de'
+                  ? 'In Google Maps ansehen'
+                  : 'View in Google Maps'}
+              </a>
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${DESTINATION.latitude},${DESTINATION.longitude}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {language === 'de' ? 'Route planen' : 'Plan route'}
+              </a>
+            </div>
           </div>
         </section>
       </PageRenderer>

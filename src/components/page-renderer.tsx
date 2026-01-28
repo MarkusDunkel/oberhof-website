@@ -6,6 +6,10 @@ import styles from './page-renderer.module.scss';
 
 type Section = GenericPageContent['sections'][number];
 type HeroImageSection = Extract<Section, { kind: 'heroImage' }>;
+type HeroSlide = { src: string; alt: string; topCropPercent?: number };
+type HeroHeightStyle = React.CSSProperties & {
+  '--hero-max-height'?: string;
+};
 
 type PageRendererProps<T extends GenericPageContent> = {
   content: T;
@@ -122,7 +126,7 @@ function renderSection(section: Section) {
 }
 
 function HeroImage({ section }: { section: HeroImageSection }) {
-  const slides = useMemo(() => {
+  const slides = useMemo<HeroSlide[]>(() => {
     if (section.images && section.images.length > 0) {
       return section.images;
     }
@@ -132,13 +136,12 @@ function HeroImage({ section }: { section: HeroImageSection }) {
     return [];
   }, [section.images, section.image]);
 
-  if (slides.length === 0) {
-    return null;
-  }
-
   const sliderEnabled = slides.length > 1 && (section.slider?.enabled ?? true);
-
-  console.log('slide enabled: ', sliderEnabled);
+  const maxHeight = section.maxHeight ?? 500;
+  const heroHeightStyle = useMemo(
+    () => getHeroHeightStyle(maxHeight),
+    [maxHeight],
+  );
 
   if (!sliderEnabled) {
     const single = slides[0];
@@ -148,21 +151,34 @@ function HeroImage({ section }: { section: HeroImageSection }) {
         src={single.src}
         alt={single.alt}
         loading="lazy"
+        style={{
+          ...heroHeightStyle,
+          objectPosition: getObjectPosition(single.topCropPercent),
+        }}
       />
     );
   }
 
   return (
-    <HeroImageSlider slides={slides} autoPlayMs={section.slider?.autoPlayMs} />
+    <HeroImageSlider
+      slides={slides}
+      autoPlayMs={section.slider?.autoPlayMs}
+      heroHeightStyle={heroHeightStyle}
+    />
   );
 }
 
 type HeroImageSliderProps = {
-  slides: Array<{ src: string; alt: string }>;
+  slides: HeroSlide[];
   autoPlayMs?: number;
+  heroHeightStyle: HeroHeightStyle;
 };
 
-function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
+function HeroImageSlider({
+  slides,
+  autoPlayMs,
+  heroHeightStyle,
+}: HeroImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPaused, setIsAutoPaused] = useState(false);
   const intervalRef = useRef<number | null>(null);
@@ -239,6 +255,7 @@ function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
     <div
       className={styles['page-renderer__hero-slider']}
       onClick={handleSliderClick}
+      style={heroHeightStyle}
     >
       {slides.map((slide, index) => (
         <div
@@ -249,7 +266,12 @@ function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
               : ''
           }`}
         >
-          <img src={slide.src} alt={slide.alt} loading="lazy" />
+          <img
+            src={slide.src}
+            alt={slide.alt}
+            loading="lazy"
+            style={{ objectPosition: getObjectPosition(slide.topCropPercent) }}
+          />
         </div>
       ))}
       <div className={styles['page-renderer__hero-slider-dots']}>
@@ -273,4 +295,17 @@ function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
       </div>
     </div>
   );
+}
+
+function clampPercent(value: number) {
+  return Math.min(100, Math.max(0, value));
+}
+
+function getObjectPosition(topCropPercent?: number) {
+  const percent = clampPercent(topCropPercent ?? 50);
+  return `50% ${percent}%`;
+}
+
+function getHeroHeightStyle(maxHeight: number): HeroHeightStyle {
+  return { ['--hero-max-height' as const]: `${maxHeight}px` };
 }

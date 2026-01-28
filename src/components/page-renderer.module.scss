@@ -104,8 +104,9 @@
 
 .page-renderer__hero-image {
   width: 100%;
-  height: min(60vw, 500px);
-  max-height: 500px;
+  --hero-max-height: 500px;
+  height: min(60vw, var(--hero-max-height));
+  max-height: var(--hero-max-height);
   display: block;
   object-fit: cover;
 }
@@ -113,8 +114,9 @@
 .page-renderer__hero-slider {
   position: relative;
   width: 100%;
-  height: min(60vw, 500px);
-  max-height: 500px;
+  --hero-max-height: 500px;
+  height: min(60vw, var(--hero-max-height));
+  max-height: var(--hero-max-height);
   overflow: hidden;
   cursor: pointer;
 }

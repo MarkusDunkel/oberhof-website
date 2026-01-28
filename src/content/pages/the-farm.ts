@@ -16,16 +16,21 @@ export type PageContent = {
     | {
         kind: 'facts';
         title: string;
-        items: Array<{ label: string; value: string; image?: { src: string; alt: string } }>;
+        items: Array<{
+          label: string;
+          value: string;
+          image?: { src: string; alt: string };
+        }>;
       }
     | {
         kind: 'heroImage';
-        image?: { src: string; alt: string };
-        images?: Array<{ src: string; alt: string }>;
+        image?: { src: string; alt: string; topCropPercent?: number };
+        images?: Array<{ src: string; alt: string; topCropPercent?: number }>;
         slider?: {
           enabled?: boolean;
           autoPlayMs?: number;
         };
+        maxHeight?: number;
       }
   >;
   cta: {
@@ -54,11 +59,26 @@ export const page: Record<Language, PageContent> = {
         kind: 'heroImage',
         images: [
           { src: hero1, alt: 'Der Oberhof im warmen Morgenlicht' },
-          { src: hero2, alt: 'Aussicht über den Hof und die umliegenden Wälder' },
-          { src: hero3, alt: 'Detailaufnahme der landwirtschaftlichen Arbeit am Hof' },
+          {
+            src: hero2,
+            alt: 'Aussicht über den Hof und die umliegenden Wälder',
+          },
+          {
+            src: hero3,
+            alt: 'Detailaufnahme der landwirtschaftlichen Arbeit am Hof',
+            topCropPercent: 70,
+          },
           { src: hero4, alt: 'Weitblick in das Lunzertal vom Oberhof aus' },
-          { src: team, alt: 'Team des Oberhofs bei der Arbeit' },
+          {
+            src: team,
+            alt: 'Team des Oberhofs bei der Arbeit',
+            topCropPercent: 0,
+          },
         ],
+        slider: {
+          enabled: true,
+          autoPlayMs: 3000,
+        },
       },
       {
         kind: 'prose',
@@ -98,7 +118,8 @@ export const page: Record<Language, PageContent> = {
       },
       {
         kind: 'heroImage',
-        image: { src: team, alt: 'Team des Oberhofs' },
+        image: { src: team, alt: 'Team des Oberhofs', topCropPercent: 25 },
+        maxHeight: 350,
       },
     ],
     cta: {
@@ -130,6 +151,10 @@ export const page: Record<Language, PageContent> = {
           { src: hero4, alt: 'Panorama of the Lunz valley from the Oberhof' },
           { src: team, alt: 'Oberhof team working together' },
         ],
+        slider: {
+          enabled: true,
+          autoPlayMs: 3000,
+        },
       },
       {
         kind: 'prose',
@@ -169,7 +194,8 @@ export const page: Record<Language, PageContent> = {
       },
       {
         kind: 'heroImage',
-        image: { src: team, alt: 'Portrait of the Oberhof team' },
+        image: { src: team, alt: 'Team des Oberhofs', topCropPercent: 25 },
+        maxHeight: 350,
       },
     ],
     cta: {

@@ -10,7 +10,11 @@ export type PageContent = {
     | {
         kind: 'facts';
         title: string;
-        items: Array<{ label: string; value: string; image?: { src: string; alt: string } }>;
+        items: Array<{
+          label: string;
+          value: string;
+          image?: { src: string; alt: string };
+        }>;
       }
     | {
         kind: 'heroImage';
@@ -28,6 +32,10 @@ export type PageContent = {
     body: string;
     primaryLabel: string;
     primaryHref: string;
+  };
+  contactInfo: {
+    title: string;
+    items: Array<{ label: string; value: string }>;
   };
   directionsHeading: string;
   directions: string[];
@@ -50,15 +58,6 @@ export const page: Record<Language, PageContent> = {
     },
     sections: [
       {
-        kind: 'facts',
-        title: 'Kontakt',
-        items: [
-          { label: 'Name', value: 'Daniel Kofler' },
-          { label: 'Telefon', value: '+43 680 1117299' },
-          { label: 'E-Mail', value: 'daniel@oberhof-lunz.at' },
-        ],
-      },
-      {
         kind: 'prose',
         title: 'Melde dich',
         body: 'Ob Produkte, Retreat oder Vermietung – schreib kurz, was du vorhast. Gemeinsam finden wir den passenden Rahmen.',
@@ -69,6 +68,14 @@ export const page: Record<Language, PageContent> = {
       body: 'Wir melden uns persönlich, meist innerhalb weniger Tage.',
       primaryLabel: 'Kontakt aufnehmen',
       primaryHref: 'mailto:daniel@oberhof-lunz.at',
+    },
+    contactInfo: {
+      title: 'Kontakt',
+      items: [
+        { label: 'Name', value: 'Daniel Kofler' },
+        { label: 'Telefon', value: '+43 680 1117299' },
+        { label: 'E-Mail', value: 'daniel@oberhof-lunz.at' },
+      ],
     },
     directionsHeading: 'Anfahrt',
     directions: [
@@ -94,15 +101,6 @@ export const page: Record<Language, PageContent> = {
     },
     sections: [
       {
-        kind: 'facts',
-        title: 'Contact',
-        items: [
-          { label: 'Name', value: 'Daniel Kofler' },
-          { label: 'Phone', value: '+43 680 1117299' },
-          { label: 'Email', value: 'daniel@oberhof-lunz.at' },
-        ],
-      },
-      {
         kind: 'prose',
         title: 'Reach out',
         body: 'Whether you are interested in products, retreats, or rentals – share a short note about your plans and we will shape the right framework.',
@@ -113,6 +111,14 @@ export const page: Record<Language, PageContent> = {
       body: 'We reply personally, usually within a few days.',
       primaryLabel: 'Contact us',
       primaryHref: 'mailto:daniel@oberhof-lunz.at',
+    },
+    contactInfo: {
+      title: 'Contact',
+      items: [
+        { label: 'Name', value: 'Daniel Kofler' },
+        { label: 'Phone', value: '+43 680 1117299' },
+        { label: 'Email', value: 'daniel@oberhof-lunz.at' },
+      ],
     },
     directionsHeading: 'Directions',
     directions: [

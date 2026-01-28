@@ -39,8 +39,6 @@ export type PageContent = {
   };
   directionsHeading: string;
   directions: string[];
-  creditsHeading: string;
-  credits: string[];
 };
 
 export const page: Record<Language, PageContent> = {
@@ -75,6 +73,10 @@ export const page: Record<Language, PageContent> = {
         { label: 'Name', value: 'Daniel Kofler' },
         { label: 'Telefon', value: '+43 680 1117299' },
         { label: 'E-Mail', value: 'daniel@oberhof-lunz.at' },
+        {
+          label: 'Adresse',
+          value: 'Ertltal 5, 3293 Lunz am See, Österreich',
+        },
       ],
     },
     directionsHeading: 'Anfahrt',
@@ -84,8 +86,6 @@ export const page: Record<Language, PageContent> = {
       'Durch das steile Waldstück fahren, nach der Haarnadelkurve weiterhin geradeaus; bei der Gabelung mit Birke und Marterl rechts halten.',
       'Der Straße folgen, auch wenn sie zur Schotterpiste wird; alternativ zuerst "Ahorntal 3" ins Navi eingeben und dann weiter zu "Ertltal 1".',
     ],
-    creditsHeading: 'Credits',
-    credits: ['Fotos: Maximilian Salzer – www.maximiliansalzer.com'],
   },
   en: {
     slug: 'contact',
@@ -118,6 +118,10 @@ export const page: Record<Language, PageContent> = {
         { label: 'Name', value: 'Daniel Kofler' },
         { label: 'Phone', value: '+43 680 1117299' },
         { label: 'Email', value: 'daniel@oberhof-lunz.at' },
+        {
+          label: 'Address',
+          value: 'Ertltal 5, 3293 Lunz am See, Austria',
+        },
       ],
     },
     directionsHeading: 'Directions',
@@ -127,7 +131,5 @@ export const page: Record<Language, PageContent> = {
       'Continue through the steep forest section, stay straight after the hairpin turn, and keep right at the fork with the birch tree and shrine.',
       'Follow the road even as it turns to gravel; alternatively enter "Ahorntal 3" in your GPS first and continue on to "Ertltal 1".',
     ],
-    creditsHeading: 'Credits',
-    credits: ['Photos: Maximilian Salzer – www.maximiliansalzer.com'],
   },
 };

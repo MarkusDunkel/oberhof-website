@@ -14,7 +14,12 @@ export type PageContent = {
       }
     | {
         kind: 'heroImage';
-        image: { src: string; alt: string };
+        image?: { src: string; alt: string };
+        images?: Array<{ src: string; alt: string }>;
+        slider?: {
+          enabled?: boolean;
+          autoPlayMs?: number;
+        };
       }
   >;
   cta: {

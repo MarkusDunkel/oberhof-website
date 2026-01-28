@@ -1,9 +1,11 @@
 import type { PageContent as GenericPageContent } from '@/content/pages/the-farm';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
 import styles from './page-renderer.module.scss';
 
 type Section = GenericPageContent['sections'][number];
+type HeroImageSection = Extract<Section, { kind: 'heroImage' }>;
 
 type PageRendererProps<T extends GenericPageContent> = {
   content: T;
@@ -113,15 +115,121 @@ function renderSection(section: Section) {
         </dl>
       );
     case 'heroImage':
-      return (
-        <img
-          className={styles['page-renderer__hero-image']}
-          src={section.image.src}
-          alt={section.image.alt}
-          loading="lazy"
-        />
-      );
+      return <HeroImage section={section} />;
     default:
       return null;
   }
+}
+
+function HeroImage({ section }: { section: HeroImageSection }) {
+  const slides = useMemo(() => {
+    if (section.images && section.images.length > 0) {
+      return section.images;
+    }
+    if (section.image) {
+      return [section.image];
+    }
+    return [];
+  }, [section.images, section.image]);
+
+  if (slides.length === 0) {
+    return null;
+  }
+
+  const sliderEnabled = slides.length > 1 && (section.slider?.enabled ?? true);
+
+  console.log('slide enabled: ', sliderEnabled);
+
+  if (!sliderEnabled) {
+    const single = slides[0];
+    return (
+      <img
+        className={styles['page-renderer__hero-image']}
+        src={single.src}
+        alt={single.alt}
+        loading="lazy"
+      />
+    );
+  }
+
+  return (
+    <HeroImageSlider slides={slides} autoPlayMs={section.slider?.autoPlayMs} />
+  );
+}
+
+type HeroImageSliderProps = {
+  slides: Array<{ src: string; alt: string }>;
+  autoPlayMs?: number;
+};
+
+function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [slides]);
+
+  useEffect(() => {
+    if (!autoPlayMs) {
+      return;
+    }
+
+    const id = window.setInterval(() => {
+      setCurrentIndex((index) => (index + 1) % slides.length);
+    }, autoPlayMs);
+
+    return () => window.clearInterval(id);
+  }, [autoPlayMs, slides.length]);
+
+  const goNext = () => setCurrentIndex((index) => (index + 1) % slides.length);
+  const goPrev = () =>
+    setCurrentIndex((index) => (index - 1 + slides.length) % slides.length);
+
+  return (
+    <div className={styles['page-renderer__hero-slider']}>
+      {slides.map((slide, index) => (
+        <div
+          key={`${slide.src}-${index}`}
+          className={`${styles['page-renderer__hero-slide']} ${
+            index === currentIndex
+              ? styles['page-renderer__hero-slide--active']
+              : ''
+          }`}
+        >
+          <img src={slide.src} alt={slide.alt} loading="lazy" />
+        </div>
+      ))}
+      <button
+        type="button"
+        className={`${styles['page-renderer__hero-slider-button']} ${styles['page-renderer__hero-slider-button--prev']}`}
+        onClick={goPrev}
+        aria-label="Previous image"
+      >
+        {'<'}
+      </button>
+      <button
+        type="button"
+        className={`${styles['page-renderer__hero-slider-button']} ${styles['page-renderer__hero-slider-button--next']}`}
+        onClick={goNext}
+        aria-label="Next image"
+      >
+        {'>'}
+      </button>
+      <div className={styles['page-renderer__hero-slider-dots']}>
+        {slides.map((_, index) => (
+          <button
+            key={`dot-${index}`}
+            type="button"
+            className={`${styles['page-renderer__hero-slider-dot']} ${
+              currentIndex === index
+                ? styles['page-renderer__hero-slider-dot--active']
+                : ''
+            }`}
+            aria-label={`Go to image ${index + 1}`}
+            onClick={() => setCurrentIndex(index)}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }

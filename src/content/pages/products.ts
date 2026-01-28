@@ -3,6 +3,9 @@ import fish from '@/assets/images/products/fish.jpg';
 import honey from '@/assets/images/products/honey.jpg';
 import juice from '@/assets/images/products/juice.png';
 import productsHeroImg from '@/assets/images/products/hero.jpg';
+import productsHeroImg2 from '@/assets/images/products/hero2.jpg';
+import productsHeroImg3 from '@/assets/images/products/hero3.jpg';
+import productsHeroImg4 from '@/assets/images/products/hero4.jpg';
 
 import type { Language } from '@/lib/language';
 
@@ -24,7 +27,12 @@ export type PageContent = {
       }
     | {
         kind: 'heroImage';
-        image: { src: string; alt: string };
+        image?: { src: string; alt: string };
+        images?: Array<{ src: string; alt: string }>;
+        slider?: {
+          enabled?: boolean;
+          autoPlayMs?: number;
+        };
       }
   >;
   cta: {
@@ -51,9 +59,27 @@ export const page: Record<Language, PageContent> = {
     sections: [
       {
         kind: 'heroImage',
-        image: {
-          src: productsHeroImg,
-          alt: 'Produkte des Oberhofs in einer rustikalen Präsentation',
+        images: [
+          {
+            src: productsHeroImg,
+            alt: 'Produkte des Oberhofs in einer rustikalen Präsentation',
+          },
+          {
+            src: productsHeroImg2,
+            alt: 'Produkte des Oberhofs in einer rustikalen Präsentation',
+          },
+          {
+            src: productsHeroImg3,
+            alt: 'Produkte des Oberhofs in einer rustikalen Präsentation',
+          },
+          {
+            src: productsHeroImg4,
+            alt: 'Produkte des Oberhofs in einer rustikalen Präsentation',
+          },
+        ],
+        slider: {
+          enabled: true,
+          autoPlayMs: 3000,
         },
       },
       {

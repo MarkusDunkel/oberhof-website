@@ -110,9 +110,9 @@ export const page: Record<Language, PageContent> = {
               'Saisonale Produkte aus eigener Haltung und Verarbeitung, immer in überschaubaren Mengen.',
           },
           {
-            label: 'Seminare',
+            label: 'Ferien-Apartment',
             value:
-              'Ein kleines Retreat-Zentrum mit Raum für Workshops und Naturerfahrungen.',
+              'Ein eigenständiges Apartment für Gäste, die Hofleben und Natur in Ruhe genießen möchten.',
           },
         ],
       },
@@ -186,9 +186,9 @@ export const page: Record<Language, PageContent> = {
               'Seasonal goods from our own husbandry and processing, always in carefully curated quantities.',
           },
           {
-            label: 'Workshops',
+            label: 'Holiday apartment',
             value:
-              'A small retreat center that offers space for workshops and nature experiences.',
+              'A self-contained apartment for guests who want to enjoy life on the farm at a gentle pace.',
           },
         ],
       },

@@ -37,37 +37,37 @@ export const page: Record<Language, PageContent> = {
     seo: {
       title: 'Vermietung | Oberhof Lunz',
       description:
-        'Abgetrennter Retreat-Bereich mit 70 m² Seminarraum, Küche und flexiblen Übernachtungs-Optionen.',
+        'Eigenständiges Ferien-Apartment mit 70 m² Wohnfläche, Küche und Blick ins Grüne.',
     },
     hero: {
       title: 'Vermietung',
       subtitle:
-        'Für Gruppen, die bewusst arbeiten und die Ruhe des Lunzertals in ihr Programm einbinden möchten.',
+        'Für Paare, Familien oder Freund*innen, die Ruhe und Natur direkt am Hof erleben möchten.',
     },
     sections: [
       {
         kind: 'prose',
-        title: 'Retreat-Bereich',
-        body: 'Der Seminarbereich ist eigenständig, hell und offen. Holz, warme Farben und der Blick ins Grüne sorgen dafür, dass sich Gruppen auf ihre Inhalte konzentrieren können. Bei kühleren Temperaturen spendet der Holzofen Wärme.',
+        title: 'Ferien-Apartment',
+        body: 'Das Apartment umfasst rund 70 m², einen offenen Wohnbereich mit Holzofen, zwei Schlafräume und eine voll ausgestattete Küche. Naturmaterialien, warme Farben und der Blick über die Wiesen sorgen sofort für Entschleunigung.',
       },
       {
         kind: 'facts',
         title: 'Ausstattung',
         items: [
           {
-            label: 'Seminarraum',
+            label: 'Wohnbereich',
             value:
-              'Rund 70 m², lichtdurchflutet, ausgestattet mit Sesseln, Meditationskissen, Yogamatten und Holzofen.',
+              'Heller Ess- und Wohnzimmerbereich mit großem Tisch, Sofa, Holzofen und Bibliothek.',
           },
           {
             label: 'Infrastruktur',
             value:
-              'Kleine Küche mit Sitzecke, separates WC und Dusche ausschließlich für Gäste.',
+              'Voll ausgestattete Küche, eigenes Bad mit Dusche, separates WC und Wäschepaket.',
           },
           {
             label: 'Außenplätze',
             value:
-              'Teichhütte, Labyrinth, Baumzelt, Schwitzhütte und ruhige Waldstücke.',
+              'Eigene Terrasse, Zugang zum Teich, Feuerstelle sowie stille Plätze rund ums Haus.',
           },
         ],
       },
@@ -75,16 +75,16 @@ export const page: Record<Language, PageContent> = {
         kind: 'bullets',
         title: 'Übernachtung & Versorgung',
         items: [
-          'Vier Zimmer direkt im Haus.',
-          'Zahlreiche Outdoor-Schlafplätze und Zeltmöglichkeiten am Gelände.',
-          'Zusätzliche Pensionen und Bauernhöfe in der näheren Umgebung.',
-          'Individuelle Pakete für Verpflegung und Betreuung nach Absprache.',
+          'Platz für bis zu vier Personen, optional mit Kinderbett.',
+          'Selbstversorgerküche mit Grundausstattung aus Hofprodukten.',
+          'Bio-Frühstückskorb oder Hofführungen auf Wunsch zubuchbar.',
+          'Anreise per Auto, Bahn + Shuttle oder Fahrrad problemlos möglich.',
         ],
       },
     ],
     cta: {
       title: 'Aufenthalt anfragen',
-      body: 'Teile uns Gruppengröße, Zeitraum und Bedürfnisse mit – wir stellen ein passendes Angebot zusammen.',
+      body: 'Teile uns Zeitraum und Wünsche mit – wir melden uns mit Details zum Ferien-Apartment.',
       primaryLabel: 'Unverbindlich anfragen',
       primaryHref: '/contact',
     },
@@ -94,37 +94,37 @@ export const page: Record<Language, PageContent> = {
     seo: {
       title: 'Rentals | Oberhof Lunz',
       description:
-        'Dedicated retreat wing with a 70 m² seminar room, kitchen, and flexible overnight options.',
+        'Self-contained holiday apartment with 70 m² of living space, kitchen, and calming views.',
     },
     hero: {
       title: 'Rentals',
       subtitle:
-        'For groups who value mindful work and want to weave the calm of the Lunz valley into their program.',
+        'Perfect for couples, families, or friends seeking a quiet stay on the farm.',
     },
     sections: [
       {
         kind: 'prose',
-        title: 'Retreat area',
-        body: 'The seminar area is self-contained, bright, and open. Wood, warm colors, and views into the greenery help groups focus on their content. When temperatures drop, the wood stove provides heat.',
+        title: 'Holiday apartment',
+        body: 'The apartment covers roughly 70 m² with an airy living space, wood-burning stove, two bedrooms, and a fully equipped kitchen. Natural materials, warm tones, and views across the meadows invite you to slow down.',
       },
       {
         kind: 'facts',
         title: 'Amenities',
         items: [
           {
-            label: 'Seminar room',
+            label: 'Living area',
             value:
-              'About 70 m², flooded with light, equipped with chairs, meditation cushions, yoga mats, and a wood stove.',
+              'Bright lounge and dining space with large table, sofa, wood stove, and small library.',
           },
           {
             label: 'Infrastructure',
             value:
-              'Small kitchen with seating area plus separate restroom and shower exclusively for guests.',
+              'Fully equipped kitchen, private bathroom with shower, separate WC, and fresh linens.',
           },
           {
             label: 'Outdoor spaces',
             value:
-              'Pond hut, labyrinth, tree tent, sweat lodge, and quiet forest clearings.',
+              'Private terrace, access to the pond, fire pit, and quiet forest clearings around the farm.',
           },
         ],
       },
@@ -132,16 +132,16 @@ export const page: Record<Language, PageContent> = {
         kind: 'bullets',
         title: 'Stay & catering',
         items: [
-          'Four rooms directly in the house.',
-          'Numerous outdoor sleeping spots and tent areas on the grounds.',
-          'Additional guesthouses and farms nearby.',
-          'Custom catering and support packages on request.',
+          'Sleeps up to four guests, baby cot available on request.',
+          'Self-catering kitchen stocked with farm essentials.',
+          'Organic breakfast basket or farm tours available as add-ons.',
+          'Easy arrival by car, train plus pickup, or bike.',
         ],
       },
     ],
     cta: {
       title: 'Request a stay',
-      body: 'Share group size, timing, and needs – we will create a fitting offer.',
+      body: 'Tell us your preferred dates and wishes – we will send details about the holiday apartment.',
       primaryLabel: 'Request details',
       primaryHref: '/contact',
     },

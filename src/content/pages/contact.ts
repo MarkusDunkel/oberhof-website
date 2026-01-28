@@ -58,7 +58,7 @@ export const page: Record<Language, PageContent> = {
       {
         kind: 'prose',
         title: 'Melde dich',
-        body: 'Ob Produkte, Retreat oder Vermietung – schreib kurz, was du vorhast. Gemeinsam finden wir den passenden Rahmen.',
+        body: 'Ob Produkte oder Ferien-Apartment – schreib kurz, was du vorhast. Gemeinsam finden wir den passenden Rahmen.',
       },
     ],
     cta: {
@@ -103,7 +103,7 @@ export const page: Record<Language, PageContent> = {
       {
         kind: 'prose',
         title: 'Reach out',
-        body: 'Whether you are interested in products, retreats, or rentals – share a short note about your plans and we will shape the right framework.',
+        body: 'Whether you are interested in products or the holiday apartment, share a short note about your plans and we will shape the right framework.',
       },
     ],
     cta: {

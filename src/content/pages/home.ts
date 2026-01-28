@@ -37,7 +37,7 @@ export const homeContent: Record<Language, HomeContent> = {
       {
         title: 'Vermietung',
         description:
-          'Heller Seminarraum, individuelle Pakete und Übernachtungsmöglichkeiten am Hof und in der Umgebung.',
+          'Geräumiges Ferien-Apartment direkt am Hof – ideal zum Abschalten in den Bergen.',
         href: '/rentals',
       },
     ],
@@ -49,7 +49,7 @@ export const homeContent: Record<Language, HomeContent> = {
     ],
     cta: {
       title: 'Den Oberhof erleben',
-      body: 'Erzähl uns von deinem Anliegen – ob Produkte, Retreat oder Seminar –, wir melden uns zeitnah.',
+      body: 'Erzähl uns von deinem Anliegen – ob Produkte oder Ferien-Apartment –, wir melden uns zeitnah.',
       primaryLabel: 'Kontakt aufnehmen',
       primaryHref: '/contact',
     },
@@ -75,7 +75,7 @@ export const homeContent: Record<Language, HomeContent> = {
       {
         title: 'Rentals',
         description:
-          'Bright seminar room, tailored packages, and places to stay on the farm and nearby.',
+          'Spacious holiday apartment on the farm – perfect for unwinding in the mountains.',
         href: '/rentals',
       },
     ],
@@ -87,7 +87,7 @@ export const homeContent: Record<Language, HomeContent> = {
     ],
     cta: {
       title: 'Experience the Oberhof',
-      body: 'Tell us what you are looking for – products, retreat, or seminar – and we will reply shortly.',
+      body: 'Tell us whether you are interested in products or the holiday apartment – we will reply shortly.',
       primaryLabel: 'Get in touch',
       primaryHref: '/contact',
     },

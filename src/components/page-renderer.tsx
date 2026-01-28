@@ -185,8 +185,21 @@ function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
   const goPrev = () =>
     setCurrentIndex((index) => (index - 1 + slides.length) % slides.length);
 
+  const handleSliderClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    if (clickX < rect.width / 2) {
+      goPrev();
+    } else {
+      goNext();
+    }
+  };
+
   return (
-    <div className={styles['page-renderer__hero-slider']}>
+    <div
+      className={styles['page-renderer__hero-slider']}
+      onClick={handleSliderClick}
+    >
       {slides.map((slide, index) => (
         <div
           key={`${slide.src}-${index}`}
@@ -199,22 +212,6 @@ function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
           <img src={slide.src} alt={slide.alt} loading="lazy" />
         </div>
       ))}
-      <button
-        type="button"
-        className={`${styles['page-renderer__hero-slider-button']} ${styles['page-renderer__hero-slider-button--prev']}`}
-        onClick={goPrev}
-        aria-label="Previous image"
-      >
-        {'<'}
-      </button>
-      <button
-        type="button"
-        className={`${styles['page-renderer__hero-slider-button']} ${styles['page-renderer__hero-slider-button--next']}`}
-        onClick={goNext}
-        aria-label="Next image"
-      >
-        {'>'}
-      </button>
       <div className={styles['page-renderer__hero-slider-dots']}>
         {slides.map((_, index) => (
           <button
@@ -226,7 +223,10 @@ function HeroImageSlider({ slides, autoPlayMs }: HeroImageSliderProps) {
                 : ''
             }`}
             aria-label={`Go to image ${index + 1}`}
-            onClick={() => setCurrentIndex(index)}
+            onClick={(event) => {
+              event.stopPropagation();
+              setCurrentIndex(index);
+            }}
           />
         ))}
       </div>

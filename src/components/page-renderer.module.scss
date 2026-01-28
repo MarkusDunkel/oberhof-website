@@ -116,6 +116,7 @@
   height: min(60vw, 500px);
   max-height: 500px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .page-renderer__hero-slide {
@@ -134,35 +135,6 @@
 
 .page-renderer__hero-slide--active {
   opacity: 1;
-}
-
-.page-renderer__hero-slider-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: rgb(var(--color-background) / 0.5);
-  color: #{tokens.$color_foreground};
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 999px;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  font-size: 1.35rem;
-  transition: background 0.2s ease;
-
-  &:hover {
-    background: rgb(var(--color-background) / 0.8);
-  }
-}
-
-.page-renderer__hero-slider-button--prev {
-  left: 1rem;
-}
-
-.page-renderer__hero-slider-button--next {
-  right: 1rem;
 }
 
 .page-renderer__hero-slider-dots {

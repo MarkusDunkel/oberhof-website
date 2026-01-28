@@ -10,7 +10,11 @@ export type PageContent = {
     | {
         kind: 'facts';
         title: string;
-        items: Array<{ label: string; value: string; image?: { src: string; alt: string } }>;
+        items: Array<{
+          label: string;
+          value: string;
+          image?: { src: string; alt: string };
+        }>;
       }
     | {
         kind: 'heroImage';
@@ -83,10 +87,10 @@ export const page: Record<Language, PageContent> = {
       },
     ],
     cta: {
-      title: 'Aufenthalt anfragen',
-      body: 'Teile uns Zeitraum und Wünsche mit – wir melden uns mit Details zum Ferien-Apartment.',
-      primaryLabel: 'Unverbindlich anfragen',
-      primaryHref: '/contact',
+      title: 'Buche jetzt',
+      body: 'Wähle deinen Wunschtermin und buche das Ferien-Apartment direkt über Airbnb.',
+      primaryLabel: 'Jetzt auf Airbnb buchen',
+      primaryHref: 'https://www.airbnb.com/rooms',
     },
   },
   en: {
@@ -140,10 +144,10 @@ export const page: Record<Language, PageContent> = {
       },
     ],
     cta: {
-      title: 'Request a stay',
-      body: 'Tell us your preferred dates and wishes – we will send details about the holiday apartment.',
-      primaryLabel: 'Request details',
-      primaryHref: '/contact',
+      title: 'Book now',
+      body: 'Pick your preferred dates and book the holiday apartment directly via Airbnb.',
+      primaryLabel: 'Book on Airbnb',
+      primaryHref: 'https://www.airbnb.com/rooms',
     },
   },
 };

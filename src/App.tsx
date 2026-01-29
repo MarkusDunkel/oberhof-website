@@ -10,11 +10,12 @@ import { NotFoundPage } from './pages/not-found';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route element={<HomeLayout />}>
           <Route index element={<HomePage />} />
         </Route>
+
         <Route element={<Layout />}>
           <Route path="the-farm" element={<TheFarmPage />} />
           <Route path="products" element={<ProductsPage />} />

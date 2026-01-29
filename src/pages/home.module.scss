@@ -17,11 +17,20 @@
   text-align: center;
   align-items: center;
   justify-content: center;
+
+  // Ensures stable rendering; the animation is only applied via the modifier class.
+  opacity: 1;
+  transform: none;
+  filter: none;
 }
 
 .home-page__content--blend-in {
-  animation: home-page-blend-in 800ms ease-out 80ms both;
-  will-change: opacity, transform, filter;
+  // Optimized: avoid animating filter (expensive & can make text look "fuzzy")
+  // Keep the same general feel with opacity + transform.
+  animation: home-page-blend-in 700ms ease-out 60ms both;
+
+  // Optimized: only hint what we actually animate
+  will-change: opacity, transform;
 }
 
 .home-page__logo {
@@ -59,13 +68,19 @@
 @keyframes home-page-blend-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 2rem, 0) scale(0.98);
-    filter: blur(10px);
+    transform: translateY(2rem) scale(0.985);
   }
 
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page__content--blend-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

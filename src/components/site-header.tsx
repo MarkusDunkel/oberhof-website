@@ -107,9 +107,11 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent>
               <div className={styles['site-header__sheet-content']}>
-                <div className={styles['site-header__sheet-brand']}>
-                  {content.brandName}
-                </div>
+                <SheetClose asChild>
+                  <Link to="/" className={styles['site-header__sheet-brand']}>
+                    {content.brandName}
+                  </Link>
+                </SheetClose>
                 <div className={styles['site-header__sheet-links']}>
                   {navItems.map((item) => (
                     <SheetClose asChild key={item.href}>

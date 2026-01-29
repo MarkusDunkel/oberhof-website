@@ -52,7 +52,7 @@
   pointer-events: none;
 
   /* fallback while image is loading */
-  background-color: #{tokens.$color_background};
+  background-color: white;
 
   /* zoom animation */
   will-change: transform;

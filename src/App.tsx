@@ -10,7 +10,7 @@ import { NotFoundPage } from './pages/not-found';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/oberhof-website">
       <Routes>
         <Route element={<HomeLayout />}>
           <Route index element={<HomePage />} />

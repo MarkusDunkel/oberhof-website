@@ -1,6 +1,10 @@
 @use '../styles/tokens' as tokens;
 @use '../styles/mixins' as mixins;
 
+/* --------------------------------------------------
+   Layout
+-------------------------------------------------- */
+
 .home-page {
   width: 100%;
   flex: 1;
@@ -8,6 +12,10 @@
   justify-content: center;
   color: #{tokens.$color_foreground};
 }
+
+/* --------------------------------------------------
+   Content Container
+-------------------------------------------------- */
 
 .home-page__content {
   @include mixins.stack(1.5rem);
@@ -18,20 +26,34 @@
   align-items: center;
   justify-content: center;
 
-  // Ensures stable rendering; the animation is only applied via the modifier class.
+  /* Stable base state (SSR + first client render) */
   opacity: 1;
   transform: none;
   filter: none;
 }
 
-.home-page__content--blend-in {
-  // Optimized: avoid animating filter (expensive & can make text look "fuzzy")
-  // Keep the same general feel with opacity + transform.
-  animation: home-page-blend-in 700ms ease-out 60ms both;
+/* --------------------------------------------------
+   Entrance Animation States
+-------------------------------------------------- */
 
-  // Optimized: only hint what we actually animate
+/* Phase: prepare
+   Hidden instantly, no animation yet */
+.home-page__content--blend-prepare {
+  opacity: 0;
+  transform: translateY(2rem) scale(0.985);
+  filter: none; // keep text crisp
+}
+
+/* Phase: run
+   Animate into final state */
+.home-page__content--blend-in {
+  animation: home-page-blend-in 1600ms ease-out 300ms both;
   will-change: opacity, transform;
 }
+
+/* --------------------------------------------------
+   Elements
+-------------------------------------------------- */
 
 .home-page__logo {
   width: clamp(4rem, 16vw, 5rem);
@@ -65,6 +87,10 @@
   align-self: center;
 }
 
+/* --------------------------------------------------
+   Keyframes
+-------------------------------------------------- */
+
 @keyframes home-page-blend-in {
   from {
     opacity: 0;
@@ -75,10 +101,17 @@
   }
 }
 
+/* --------------------------------------------------
+   Accessibility
+-------------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
-  .home-page__content--blend-in {
-    animation: none;
+  .home-page__content--blend-prepare {
     opacity: 1;
     transform: none;
+  }
+
+  .home-page__content--blend-in {
+    animation: none;
   }
 }

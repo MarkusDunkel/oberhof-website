@@ -1,5 +1,10 @@
 import * as React from 'react';
-import type { GeneratedPicture, SmartImageSource } from '@/types/images';
+import type {
+  GeneratedPicture,
+  PictureSourceArray,
+  PictureSourceRecord,
+  SmartImageSource,
+} from '@/types/images';
 
 const DEFAULT_SIZES = '(max-width: 768px) 90vw, 800px';
 
@@ -9,73 +14,169 @@ type SmartImageProps = Omit<
 > & {
   src: SmartImageSource;
   sizes?: string;
+  fetchPriority?: 'high' | 'low' | 'auto';
 };
 
-function isGeneratedPicture(value: SmartImageSource): value is GeneratedPicture {
+type NormalizedSource = {
+  type?: string;
+  srcSet: string;
+  sizes?: string;
+};
+
+/* ------------------------------------------------------------------ */
+/* type guards                                                         */
+/* ------------------------------------------------------------------ */
+
+function isPictureSourceArray(value: unknown): value is PictureSourceArray {
   return (
-    typeof value === 'object' &&
-    value !== null &&
-    'img' in value &&
-    'sources' in value
+    Array.isArray(value) &&
+    value.every(
+      (entry) =>
+        !!entry &&
+        typeof entry === 'object' &&
+        typeof (entry as any).srcset === 'string',
+    )
   );
 }
 
-function getMimeType(format: string) {
-  if (!format) return undefined;
-  if (format === 'jpg') return 'image/jpeg';
-  if (format === 'jpeg') return 'image/jpeg';
-  return `image/${format}`;
+function isPictureSourceRecord(value: unknown): value is PictureSourceRecord {
+  return !!value && typeof value === 'object' && !Array.isArray(value);
 }
+
+function isGeneratedPicture(
+  value: SmartImageSource,
+): value is GeneratedPicture {
+  if (!value || typeof value !== 'object') return false;
+
+  const maybe = value as GeneratedPicture;
+  return (
+    !!maybe.img &&
+    typeof maybe.img === 'object' &&
+    typeof maybe.img.src === 'string' &&
+    (isPictureSourceArray(maybe.sources) ||
+      isPictureSourceRecord(maybe.sources))
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* helpers                                                             */
+/* ------------------------------------------------------------------ */
+
+function normalizeMimeType(type?: string | null, format?: string) {
+  const value = (type ?? format ?? '').toLowerCase().trim();
+  if (!value) return undefined;
+
+  if (value.startsWith('image/')) return value;
+  if (value === 'jpg' || value === 'jpeg') return 'image/jpeg';
+  if (value === 'svg') return 'image/svg+xml';
+
+  return `image/${value}`;
+}
+
+function normalizeSources(
+  sources: GeneratedPicture['sources'],
+): NormalizedSource[] {
+  if (isPictureSourceArray(sources)) {
+    return sources.map((source) => ({
+      srcSet: source.srcset,
+      type: normalizeMimeType(source.type ?? undefined),
+      sizes: source.sizes ?? undefined,
+    }));
+  }
+
+  if (isPictureSourceRecord(sources)) {
+    return Object.entries(sources).map(([format, srcset]) => ({
+      srcSet: srcset,
+      type: normalizeMimeType(undefined, format),
+    }));
+  }
+
+  return [];
+}
+
+function resolveDimension(
+  explicit: React.ImgHTMLAttributes<HTMLImageElement>['width'],
+  primary?: number,
+  secondary?: number,
+) {
+  return explicit ?? primary ?? secondary;
+}
+
+/* ------------------------------------------------------------------ */
+/* component                                                           */
+/* ------------------------------------------------------------------ */
 
 export function SmartImage({
   src,
   alt,
   sizes = DEFAULT_SIZES,
   loading = 'lazy',
+  fetchPriority,
   ...rest
 }: SmartImageProps) {
   const { width, height, ...imgProps } = rest;
 
-  if (isGeneratedPicture(src)) {
-    const { img, sources } = src;
-    const fallbackSrc = img?.src ?? '';
-    const resolvedWidth = img?.w ?? width;
-    const resolvedHeight = img?.h ?? height;
+  const generatedPicture = isGeneratedPicture(src) ? src : null;
 
-    return (
-      <picture>
-        {Object.entries(sources).map(([format, srcset]) => (
-          <source
-            key={format}
-            type={getMimeType(format)}
-            srcSet={srcset}
-            sizes={sizes}
+  const fallbackWidth = generatedPicture
+    ? resolveDimension(
+        width,
+        generatedPicture.img.width,
+        generatedPicture.img.w,
+      )
+    : width;
+
+  const fallbackHeight = generatedPicture
+    ? resolveDimension(
+        height,
+        generatedPicture.img.height,
+        generatedPicture.img.h,
+      )
+    : height;
+
+  const fallbackSrc =
+    typeof src === 'string' ? src : (generatedPicture?.img.src ?? '');
+
+  if (generatedPicture) {
+    const pictureSources = normalizeSources(generatedPicture.sources);
+
+    if (pictureSources.length > 0) {
+      return (
+        <picture>
+          {pictureSources.map((source) => (
+            <source
+              key={source.type ?? source.srcSet}
+              type={source.type}
+              srcSet={source.srcSet}
+              sizes={source.sizes ?? sizes}
+            />
+          ))}
+          <img
+            {...imgProps}
+            src={generatedPicture.img.src}
+            alt={alt}
+            loading={loading}
+            decoding="async"
+            fetchPriority={fetchPriority}
+            width={fallbackWidth}
+            height={fallbackHeight}
           />
-        ))}
-        <img
-          {...imgProps}
-          src={fallbackSrc}
-          width={resolvedWidth}
-          height={resolvedHeight}
-          alt={alt}
-          loading={loading}
-          decoding="async"
-          sizes={sizes}
-        />
-      </picture>
-    );
+        </picture>
+      );
+    }
   }
 
   return (
     <img
       {...imgProps}
-      src={src}
+      src={fallbackSrc}
       alt={alt}
       loading={loading}
       decoding="async"
+      fetchPriority={fetchPriority}
       sizes={sizes}
-      width={width}
-      height={height}
+      width={fallbackWidth}
+      height={fallbackHeight}
     />
   );
 }

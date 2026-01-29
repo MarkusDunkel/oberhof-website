@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { SiteHeader } from './site-header';
 import { SiteFooter } from './site-footer';
 import styles from './home-layout.module.scss';
-import heroBackground from '@/assets/images/home-hero.jpg';
+import heroBackground from '@/assets/images/home-hero.jpg?w=960;1280;1600;1920;2048;2560;3200&format=avif;webp&quality=100&as=picture';
 import { SmartImage } from './smart-image';
 
 export function HomeLayout() {
@@ -16,7 +16,7 @@ export function HomeLayout() {
             className={styles['home-layout__hero-media-image']}
             loading="eager"
             fetchPriority="high"
-            sizes="100vw"
+            sizes="calc(100vw * 1.08)"
           />
         </div>
         <SiteHeader />

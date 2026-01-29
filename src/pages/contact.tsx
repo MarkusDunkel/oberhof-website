@@ -2,6 +2,7 @@ import { page as contactContent } from '@/content/pages/contact';
 import { PageRenderer } from '@/components/page-renderer';
 import { useLanguage } from '@/lib/language';
 import danielImage from '@/assets/images/contact/daniel.jpg';
+import { SmartImage } from '@/components/smart-image';
 import styles from './contact.module.scss';
 
 const DESTINATION = {
@@ -37,14 +38,14 @@ export function ContactPage() {
         </dl>
       </div>
       <div className={styles['contact-page__highlight-image']}>
-        <img
+        <SmartImage
           src={danielImage}
           alt={
             language === 'de'
               ? 'Porträt von Daniel Kofler'
               : 'Portrait of Daniel Kofler'
           }
-          loading="lazy"
+          sizes="(max-width: 768px) 90vw, 420px"
         />
       </div>
     </section>

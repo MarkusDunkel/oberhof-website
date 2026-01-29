@@ -3,10 +3,16 @@ import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './page-renderer.module.scss';
+import type { GeneratedPicture } from '@/types/images';
+import { SmartImage } from './smart-image';
 
 type Section = GenericPageContent['sections'][number];
 type HeroImageSection = Extract<Section, { kind: 'heroImage' }>;
-type HeroSlide = { src: string; alt: string; topCropPercent?: number };
+type HeroSlide = {
+  src: GeneratedPicture;
+  alt: string;
+  topCropPercent?: number;
+};
 type HeroHeightStyle = React.CSSProperties & {
   '--hero-max-height'?: string;
 };
@@ -113,11 +119,11 @@ function renderSection(section: Section) {
                 {fact.value}
               </dd>
               {fact.image ? (
-                <img
+                <SmartImage
                   className={styles['page-renderer__fact-image']}
                   src={fact.image.src}
                   alt={fact.image.alt}
-                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 360px"
                 />
               ) : null}
             </div>
@@ -149,14 +155,19 @@ function HeroImage({ section }: { section: HeroImageSection }) {
     [maxHeight],
   );
 
+  if (slides.length === 0) {
+    return null;
+  }
+
   if (!sliderEnabled) {
     const single = slides[0];
     return (
-      <img
+      <SmartImage
         className={styles['page-renderer__hero-image']}
         src={single.src}
         alt={single.alt}
         loading="lazy"
+        sizes="(max-width: 1024px) 100vw, 1200px"
         style={{
           ...heroHeightStyle,
           objectPosition: getObjectPosition(single.topCropPercent),
@@ -265,17 +276,18 @@ function HeroImageSlider({
     >
       {slides.map((slide, index) => (
         <div
-          key={`${slide.src}-${index}`}
+          key={`${slide.src.img?.src ?? slide.alt}-${index}`}
           className={`${styles['page-renderer__hero-slide']} ${
             index === currentIndex
               ? styles['page-renderer__hero-slide--active']
               : ''
           }`}
         >
-          <img
+          <SmartImage
             src={slide.src}
             alt={slide.alt}
-            loading="lazy"
+            loading={index === currentIndex ? 'eager' : 'lazy'}
+            sizes="(max-width: 1024px) 100vw, 1200px"
             style={{ objectPosition: getObjectPosition(slide.topCropPercent) }}
           />
         </div>

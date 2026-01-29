@@ -5,6 +5,7 @@ import hero4 from '@/assets/images/the-farm/hero4.jpg';
 import team from '@/assets/images/the-farm/team.jpg';
 
 import type { Language } from '@/lib/language';
+import type { GeneratedPicture } from '@/types/images';
 
 export type PageContent = {
   slug: string;
@@ -19,13 +20,21 @@ export type PageContent = {
         items: Array<{
           label: string;
           value: string;
-          image?: { src: string; alt: string };
+          image?: { src: GeneratedPicture; alt: string };
         }>;
       }
     | {
         kind: 'heroImage';
-        image?: { src: string; alt: string; topCropPercent?: number };
-        images?: Array<{ src: string; alt: string; topCropPercent?: number }>;
+        image?: {
+          src: GeneratedPicture;
+          alt: string;
+          topCropPercent?: number;
+        };
+        images?: Array<{
+          src: GeneratedPicture;
+          alt: string;
+          topCropPercent?: number;
+        }>;
         slider?: {
           enabled?: boolean;
           autoPlayMs?: number;

@@ -15,6 +15,12 @@ type SmartImageProps = Omit<
   src: SmartImageSource;
   sizes?: string;
   fetchPriority?: 'high' | 'low' | 'auto';
+
+  /**
+   * Fires after the image has loaded and (best-effort) finished decoding,
+   * i.e. it's ready to paint crisply.
+   */
+  onLoaded?: () => void;
 };
 
 type NormalizedSource = {
@@ -102,6 +108,17 @@ function resolveDimension(
   return explicit ?? primary ?? secondary;
 }
 
+async function decodeIfPossible(img: HTMLImageElement) {
+  // Best-effort: decode can throw (e.g., cancelled loads); ignore and continue.
+  try {
+    if (typeof (img as any).decode === 'function') {
+      await img.decode();
+    }
+  } catch {
+    // noop
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* component                                                           */
 /* ------------------------------------------------------------------ */
@@ -112,9 +129,10 @@ export function SmartImage({
   sizes = DEFAULT_SIZES,
   loading = 'lazy',
   fetchPriority,
+  onLoaded,
   ...rest
 }: SmartImageProps) {
-  const { width, height, ...imgProps } = rest;
+  const { width, height, onLoad, ...imgProps } = rest;
 
   const generatedPicture = isGeneratedPicture(src) ? src : null;
 
@@ -136,6 +154,17 @@ export function SmartImage({
 
   const fallbackSrc =
     typeof src === 'string' ? src : (generatedPicture?.img.src ?? '');
+
+  const handleLoad: React.ReactEventHandler<HTMLImageElement> = async (e) => {
+    // Preserve default onLoad behavior if consumer provided it
+    onLoad?.(e);
+
+    // Ensure image is ready to paint (best-effort)
+    await decodeIfPossible(e.currentTarget);
+
+    // Notify consumer that the image is fully ready (loaded + decoded)
+    onLoaded?.();
+  };
 
   if (generatedPicture) {
     const pictureSources = normalizeSources(generatedPicture.sources);
@@ -160,6 +189,7 @@ export function SmartImage({
             fetchPriority={fetchPriority}
             width={fallbackWidth}
             height={fallbackHeight}
+            onLoad={handleLoad}
           />
         </picture>
       );
@@ -177,6 +207,7 @@ export function SmartImage({
       sizes={sizes}
       width={fallbackWidth}
       height={fallbackHeight}
+      onLoad={handleLoad}
     />
   );
 }

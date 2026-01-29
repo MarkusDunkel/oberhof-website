@@ -35,13 +35,26 @@
   }
 }
 
+/* --------------------------------------------------
+   Hero background: fade in ONLY after SmartImage onLoaded
+   (HomeLayout toggles .home-layout__hero-media--loaded)
+-------------------------------------------------- */
+
 .home-layout__hero-media {
   position: absolute;
   inset: 0;
   z-index: -2;
   pointer-events: none;
-  background-color: #{tokens.$color-background};
-  will-change: transform;
+
+  // IMPORTANT: keep a solid fallback background while the image is invisible
+  background-color: #{tokens.$color_background};
+
+  // Fade-in is driven by class toggle after load+decode
+  opacity: 0;
+  transition: opacity 1200ms ease-out;
+  will-change: opacity, transform;
+
+  // Keep your existing zoom animation
   transform-origin: center;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -57,6 +70,11 @@
     transform: none !important;
     filter: none;
   }
+}
+
+/* When the image is fully loaded+decoded, we fade the whole media in */
+.home-layout__hero-media--loaded {
+  opacity: 1;
 }
 
 .home-layout__hero-media-image {
@@ -91,4 +109,14 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .home-layout__hero-media {
+    transition: none;
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
 }

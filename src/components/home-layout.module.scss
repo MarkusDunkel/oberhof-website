@@ -1,6 +1,10 @@
 @use '../styles/tokens' as tokens;
 @use '../styles/mixins' as mixins;
 
+/* --------------------------------------------------
+   Root layout
+-------------------------------------------------- */
+
 .home-layout {
   min-height: 100vh;
   display: flex;
@@ -8,6 +12,10 @@
   background-color: #{tokens.$color_background};
   color: #{tokens.$color_foreground};
 }
+
+/* --------------------------------------------------
+   Hero frame
+-------------------------------------------------- */
 
 .home-layout__hero-frame {
   position: relative;
@@ -22,22 +30,19 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-  }
-
-  &::after {
+    z-index: -1;
     background-image: linear-gradient(
       0deg,
       rgba(48, 33, 22, 0.2),
       rgba(48, 33, 22, 0.15),
       rgba(48, 33, 22, 0)
     );
-    z-index: -1;
   }
 }
 
 /* --------------------------------------------------
-   Hero background: fade in ONLY after SmartImage onLoaded
-   (HomeLayout toggles .home-layout__hero-media--loaded)
+   Hero background media
+   (NO fade here – SmartImage owns fade-in)
 -------------------------------------------------- */
 
 .home-layout__hero-media {
@@ -46,15 +51,11 @@
   z-index: -2;
   pointer-events: none;
 
-  // IMPORTANT: keep a solid fallback background while the image is invisible
+  /* fallback while image is loading */
   background-color: #{tokens.$color_background};
 
-  // Fade-in is driven by class toggle after load+decode
-  opacity: 0;
-  transition: opacity 1200ms ease-out;
-  will-change: opacity, transform;
-
-  // Keep your existing zoom animation
+  /* zoom animation */
+  will-change: transform;
   transform-origin: center;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -67,15 +68,17 @@
   }
 
   :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transform: none !important;
     filter: none;
   }
 }
 
-/* When the image is fully loaded+decoded, we fade the whole media in */
-.home-layout__hero-media--loaded {
-  opacity: 1;
-}
+/* --------------------------------------------------
+   Hero image
+-------------------------------------------------- */
 
 .home-layout__hero-media-image {
   width: 100%;
@@ -83,6 +86,10 @@
   display: block;
   object-fit: cover;
 }
+
+/* --------------------------------------------------
+   Hero zoom animation
+-------------------------------------------------- */
 
 @keyframes home-hero-zoom {
   from {
@@ -93,6 +100,10 @@
     transform: translateZ(0) scale(1);
   }
 }
+
+/* --------------------------------------------------
+   Main content
+-------------------------------------------------- */
 
 .home-layout__main {
   flex: 1;
@@ -111,11 +122,12 @@
   align-items: stretch;
 }
 
-/* Accessibility */
+/* --------------------------------------------------
+   Accessibility
+-------------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
   .home-layout__hero-media {
-    transition: none;
-    opacity: 1;
     animation: none;
     transform: none;
   }

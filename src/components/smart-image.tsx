@@ -16,11 +16,11 @@ type SmartImageProps = Omit<
   sizes?: string;
   fetchPriority?: 'high' | 'low' | 'auto';
 
-  /**
-   * Fires after the image has loaded and (best-effort) finished decoding,
-   * i.e. it's ready to paint crisply.
-   */
+  /** Fires after load + decode */
   onLoaded?: () => void;
+
+  /** Optional: disable the default fade-in */
+  disableFadeIn?: boolean;
 };
 
 type NormalizedSource = {
@@ -109,13 +109,12 @@ function resolveDimension(
 }
 
 async function decodeIfPossible(img: HTMLImageElement) {
-  // Best-effort: decode can throw (e.g., cancelled loads); ignore and continue.
   try {
-    if (typeof (img as any).decode === 'function') {
+    if (typeof img.decode === 'function') {
       await img.decode();
     }
   } catch {
-    // noop
+    // ignore
   }
 }
 
@@ -130,9 +129,14 @@ export function SmartImage({
   loading = 'lazy',
   fetchPriority,
   onLoaded,
+  disableFadeIn = false,
+  style,
+  className,
   ...rest
 }: SmartImageProps) {
   const { width, height, onLoad, ...imgProps } = rest;
+
+  const [ready, setReady] = React.useState(false);
 
   const generatedPicture = isGeneratedPicture(src) ? src : null;
 
@@ -156,15 +160,39 @@ export function SmartImage({
     typeof src === 'string' ? src : (generatedPicture?.img.src ?? '');
 
   const handleLoad: React.ReactEventHandler<HTMLImageElement> = async (e) => {
-    // Preserve default onLoad behavior if consumer provided it
     onLoad?.(e);
 
-    // Ensure image is ready to paint (best-effort)
     await decodeIfPossible(e.currentTarget);
 
-    // Notify consumer that the image is fully ready (loaded + decoded)
+    setReady(true);
     onLoaded?.();
   };
+
+  const fadeStyle: React.CSSProperties = disableFadeIn
+    ? {}
+    : {
+        opacity: ready ? 1 : 0,
+        transition: 'opacity 800ms ease-out',
+      };
+
+  const mergedStyle = { ...fadeStyle, ...style };
+
+  const imgElement = (
+    <img
+      {...imgProps}
+      src={fallbackSrc}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      fetchPriority={fetchPriority}
+      sizes={sizes}
+      width={fallbackWidth}
+      height={fallbackHeight}
+      onLoad={handleLoad}
+      style={mergedStyle}
+      className={className}
+    />
+  );
 
   if (generatedPicture) {
     const pictureSources = normalizeSources(generatedPicture.sources);
@@ -180,34 +208,11 @@ export function SmartImage({
               sizes={source.sizes ?? sizes}
             />
           ))}
-          <img
-            {...imgProps}
-            src={generatedPicture.img.src}
-            alt={alt}
-            loading={loading}
-            decoding="async"
-            fetchPriority={fetchPriority}
-            width={fallbackWidth}
-            height={fallbackHeight}
-            onLoad={handleLoad}
-          />
+          {imgElement}
         </picture>
       );
     }
   }
 
-  return (
-    <img
-      {...imgProps}
-      src={fallbackSrc}
-      alt={alt}
-      loading={loading}
-      decoding="async"
-      fetchPriority={fetchPriority}
-      sizes={sizes}
-      width={fallbackWidth}
-      height={fallbackHeight}
-      onLoad={handleLoad}
-    />
-  );
+  return imgElement;
 }

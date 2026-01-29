@@ -121,6 +121,7 @@
   max-height: var(--hero-max-height);
   overflow: hidden;
   cursor: pointer;
+  background: rgb(var(--color-surface));
 }
 
 .page-renderer__hero-slide {

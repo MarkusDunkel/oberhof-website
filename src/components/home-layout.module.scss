@@ -40,12 +40,11 @@
   inset: 0;
   z-index: -2;
   pointer-events: none;
-
-  // ✅ Animation auf dem Wrapper ist gut – aber mach es "render-stabil"
+  background-color: #{tokens.$color-accent};
   will-change: transform;
   transform-origin: center;
   backface-visibility: hidden;
-  transform: translateZ(0); // hilft oft gegen "softening" bei transforms
+  transform: translateZ(0);
   animation: home-hero-zoom 4s ease-out forwards;
 
   :global(picture) {
@@ -54,7 +53,6 @@
     display: block;
   }
 
-  // ✅ wichtig: img soll NICHT selbst transformiert werden
   :global(img) {
     transform: none !important;
     filter: none;
@@ -66,8 +64,6 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  // ❌ transform-origin hier ist nicht nötig (Transformation passiert am Wrapper)
-  // transform-origin: center;
 }
 
 @keyframes home-hero-zoom {

@@ -26,7 +26,7 @@ export function ContactPage() {
     url: SITE_CANONICAL_BASE,
     telephone: site.contact.phone,
     email: site.contact.email,
-    image: new URL('images/favicon.png', SITE_CANONICAL_BASE).toString(),
+    image: new URL('/images/favicon.png', SITE_CANONICAL_BASE).toString(),
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Ertltal 5',
@@ -64,6 +64,7 @@ export function ContactPage() {
           ))}
         </dl>
       </div>
+
       <div className={styles['contact-page__highlight-image']}>
         <SmartImage
           src={danielImage}
@@ -80,24 +81,29 @@ export function ContactPage() {
 
   return (
     <div className={styles['contact-page']}>
-      <SeoTags route="contact">
-        <script type="application/ld+json">
-          {JSON.stringify(schemaData)}
-        </script>
+      <SeoTags
+        route="contact"
+        title={content.seo.title}
+        description={content.seo.description}
+      >
+        <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
       </SeoTags>
 
       <PageRenderer content={content}>
         {contactHighlight}
+
         <section className={styles['contact-page__details']}>
           <div id="directions" className={styles['contact-page__group']}>
             <h2 className={styles['contact-page__heading']}>
               {content.directionsHeading}
             </h2>
+
             <ol className={styles['contact-page__list']}>
               {content.directions.map((step, index) => (
-                <li key={`${step}-${index}`}>{step}</li>
+                <li key={`${index}-${step}`}>{step}</li>
               ))}
             </ol>
+
             <div className={styles['contact-page__maps-links']}>
               <a
                 href={`https://www.google.com/maps/search/?api=1&query=${DESTINATION.latitude},${DESTINATION.longitude}`}
@@ -108,6 +114,7 @@ export function ContactPage() {
                   ? 'In Google Maps ansehen'
                   : 'View in Google Maps'}
               </a>
+
               <a
                 href={`https://www.google.com/maps/dir/?api=1&destination=${DESTINATION.latitude},${DESTINATION.longitude}`}
                 target="_blank"

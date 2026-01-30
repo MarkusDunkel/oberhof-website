@@ -1,6 +1,10 @@
 import type { Language } from '@/lib/language';
 
 export type HomeContent = {
+  seo: {
+    title: string;
+    description: string;
+  };
   heroTitle: string;
   heroSubtitle: string;
   heroSubSubtitle: string;
@@ -17,6 +21,11 @@ export type HomeContent = {
 
 export const homeContent: Record<Language, HomeContent> = {
   de: {
+    seo: {
+      title: 'Oberhof – Bergbauernhof in Lunz am See',
+      description:
+        'Ruhiger Bergbauernhof zwischen Ötscher und Hochkar: Landwirtschaft, Hofprodukte, Ferien-Apartment und echte Gastfreundschaft in Lunz am See.',
+    },
     heroTitle: 'Oberhof',
     heroSubtitle: 'Lunz am See',
     heroSubSubtitle: `Ein entschleunigter Bergbauernhof, der 
@@ -56,7 +65,13 @@ export const homeContent: Record<Language, HomeContent> = {
       primaryHref: '/contact',
     },
   },
+
   en: {
+    seo: {
+      title: 'Oberhof – Mountain Farm in Lunz am See',
+      description:
+        'A tranquil mountain farm between Ötscher and Hochkar: agriculture, farm products, holiday apartment, and genuine hospitality in Lunz am See.',
+    },
     heroTitle: 'Oberhof',
     heroSubtitle: 'Lunz am See',
     heroSubSubtitle: `A slow-paced mountain farm that 

@@ -5,11 +5,16 @@ import { SeoTags } from '@/components/seo-tags';
 
 export function TheFarmPage() {
   const { language } = useLanguage();
+  const content = farmContent[language];
 
   return (
     <>
-      <SeoTags route="the-farm" />
-      <PageRenderer content={farmContent[language]} />
+      <SeoTags
+        route="the-farm"
+        title={content.seo.title}
+        description={content.seo.description}
+      />
+      <PageRenderer content={content} />
     </>
   );
 }

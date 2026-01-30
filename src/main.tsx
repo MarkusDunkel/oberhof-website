@@ -14,10 +14,16 @@ if (typeof window !== 'undefined') {
   }
 }
 
+const initialLanguage =
+  window.location.pathname === '/en/' ||
+  window.location.pathname.startsWith('/en/')
+    ? 'en'
+    : 'de';
+
 const AppTree = (
   <React.StrictMode>
     <HelmetProvider>
-      <AppProviders>
+      <AppProviders initialLanguage={initialLanguage}>
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <App />
         </BrowserRouter>

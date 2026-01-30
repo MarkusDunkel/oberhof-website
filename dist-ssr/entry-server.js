@@ -4,7 +4,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
 var _a, _b;
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import * as React from "react";
-import React__default, { forwardRef, createContext, useState, useCallback, useContext, Component, useRef, useEffect, useLayoutEffect, useMemo } from "react";
+import React__default, { forwardRef, useEffect, createContext, useState, useCallback, useContext, Component, useRef, useLayoutEffect, useMemo } from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
 import { useLocation, Link, NavLink, Outlet, Routes, Route } from "react-router-dom";
@@ -173,17 +173,22 @@ const LanguageContext = React__default.createContext(
   void 0
 );
 const STORAGE_KEY = "oberhof-language";
-function LanguageProvider({ children }) {
+function LanguageProvider({
+  children,
+  initialLanguage
+}) {
   const [language, setLanguageState] = React__default.useState(() => {
     if (typeof window === "undefined") {
-      return "de";
+      return initialLanguage ?? "de";
     }
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
-      return stored === "en" ? "en" : "de";
+      if (stored === "de" || stored === "en") {
+        return stored;
+      }
     } catch {
-      return "de";
     }
+    return initialLanguage ?? "de";
   });
   const setLanguage = React__default.useCallback((nextLanguage) => {
     setLanguageState(nextLanguage);
@@ -209,6 +214,76 @@ function useLanguage() {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return context;
+}
+const SITE_CANONICAL_BASE = "https://oberhof-lunz.at";
+const SITE_URL = SITE_CANONICAL_BASE;
+const seoByRoute = {
+  home: {
+    title: "Oberhof – Bergbauernhof in Lunz am See",
+    description: "Ruhiger Bergbauernhof zwischen Ötscher und Hochkar: saisonale Hofprodukte, Ferienwohnungen und echte Gastfreundschaft am Oberhof in Lunz am See."
+  },
+  "the-farm": {
+    title: "Der Oberhof – Landwirtschaft, Wald & Handwerk",
+    description: "Lerne den Oberhof kennen: Familienbetrieb im Ertltal, nachhaltige Forstwirtschaft, Jagd und handwerkliche Traditionen in Lunz am See."
+  },
+  products: {
+    title: "Hofprodukte vom Oberhof – Wild, Fisch & Honig",
+    description: "Hausgemachte Spezialitäten vom Oberhof: Hirsch, Wildschwein, frischer Fisch, Säfte, Sirupe und Honig aus eigener Produktion."
+  },
+  rentals: {
+    title: "Urlaub am Oberhof – Ferienwohnung & Selbstversorgerhütte",
+    description: "Gemütliche Apartments und Almhütten am Oberhof mieten: ruhige Auszeit zwischen Ötscher und Hochkar mit Blick ins Ertltal."
+  },
+  contact: {
+    title: "Kontakt & Anreise zum Oberhof bei Lunz am See",
+    description: "Schreibe Familie Kofler, plane deine Anreise zum Oberhof und erhalte alle Kontaktinformationen, Telefonnummern und Wegbeschreibungen."
+  }
+};
+function normalizeInputPath(pathname) {
+  if (!pathname) return "/";
+  let p = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  p = p.replace(/\/{2,}/g, "/");
+  if (p === "/en") return "/en/";
+  if (p === "/en/") return "/en/";
+  if (p !== "/") p = p.replace(/\/+$/, "");
+  return p === "" ? "/" : p;
+}
+function normalizeGermanPath(p) {
+  if (!p || p === "/") return "/";
+  let out = p.startsWith("/") ? p : `/${p}`;
+  out = out.replace(/\/{2,}/g, "/").replace(/\/+$/, "");
+  return out === "" ? "/" : out;
+}
+function buildAbsolute(pathname) {
+  const clean = pathname === "/" ? "" : pathname.replace(/^\//, "");
+  return new URL(clean, SITE_URL).toString();
+}
+function resolveLanguageAlternates(pathname) {
+  const normalized = normalizeInputPath(pathname);
+  const isEnglish = normalized === "/en/" || normalized.startsWith("/en/");
+  const germanSource = isEnglish ? normalized.replace(/^\/en/, "") || "/" : normalized;
+  const germanPath = normalizeGermanPath(germanSource);
+  const englishPath = germanPath === "/" ? "/en/" : `/en${germanPath}`;
+  const canonicalPath = isEnglish ? normalized : germanPath;
+  return {
+    lang: isEnglish ? "en" : "de",
+    canonical: buildAbsolute(canonicalPath),
+    alternates: {
+      de: buildAbsolute(germanPath),
+      en: buildAbsolute(englishPath),
+      xDefault: buildAbsolute(germanPath)
+    }
+  };
+}
+function getRouteSeo(route) {
+  return seoByRoute[route];
+}
+function withLang(path, lang) {
+  if (!path.startsWith("/")) path = `/${path}`;
+  const unprefixed = path === "/en" ? "/" : path.replace(/^\/en(?=\/|$)/, "");
+  const clean = unprefixed === "" ? "/" : unprefixed;
+  if (lang === "en") return clean === "/" ? "/en/" : `/en${clean}`;
+  return clean;
 }
 const navItemsByLanguage = {
   de: [
@@ -240,49 +315,71 @@ const languages = ["de", "en"];
 function SiteHeader() {
   const location = useLocation();
   const { language, setLanguage } = useLanguage();
-  const content = siteContent[language];
-  const navItems = navItemsByLanguage[language];
+  const { lang } = resolveLanguageAlternates(location.pathname);
+  useEffect(() => {
+    if (language !== lang) {
+      setLanguage(lang);
+    }
+  }, [lang, language, setLanguage]);
+  const content = siteContent[lang];
+  const navItems = navItemsByLanguage[lang];
+  const srMessage = srMessageByLanguage[lang];
+  const ctaLabel = ctaLabelByLanguage[lang];
+  const currentPath = location.pathname || "/";
+  const baseGermanPath = lang === "en" ? currentPath.replace(/^\/en/, "") || "/" : currentPath;
+  const germanPath = baseGermanPath.startsWith("/") ? baseGermanPath : `/${baseGermanPath}`;
+  const englishPath = withLang(germanPath, "en");
+  const pathSuffix = `${location.search}${location.hash}`;
+  const languageTargets = {
+    de: `${germanPath}${pathSuffix}`,
+    en: `${englishPath}${pathSuffix}`
+  };
   return /* @__PURE__ */ jsx("header", { className: `${styles$7["site-header"]} site-header`, children: /* @__PURE__ */ jsxs("div", { className: styles$7["site-header__inner"], children: [
-    /* @__PURE__ */ jsx(Link, { to: "/", className: styles$7["site-header__brand"], children: content.brandName }),
+    /* @__PURE__ */ jsx(Link, { to: withLang("/", lang), className: styles$7["site-header__brand"], children: content.brandName }),
     /* @__PURE__ */ jsx("nav", { className: styles$7["site-header__nav"], children: navItems.map((item) => /* @__PURE__ */ jsx(
       NavLink,
       {
-        to: item.href,
+        to: withLang(item.href, lang),
         className: ({ isActive }) => cn(
           styles$7["site-header__link"],
           isActive && styles$7["site-header__link--active"]
         ),
-        "aria-current": location.pathname === item.href ? "page" : void 0,
         children: item.label
       },
       item.href
     )) }),
-    /* @__PURE__ */ jsx("div", { className: styles$7["site-header__language"], children: languages.map((lang) => /* @__PURE__ */ jsx(
-      "button",
+    /* @__PURE__ */ jsx("div", { className: styles$7["site-header__language"], children: languages.map((langOption) => /* @__PURE__ */ jsx(
+      Link,
       {
-        type: "button",
+        to: languageTargets[langOption],
         className: cn(
           styles$7["site-header__language-button"],
-          language === lang && styles$7["site-header__language-button--active"]
+          langOption === lang && styles$7["site-header__language-button--active"]
         ),
-        onClick: () => setLanguage(lang),
-        "aria-pressed": language === lang,
-        children: languageLabels[lang]
+        "aria-current": langOption === lang ? "page" : void 0,
+        children: languageLabels[langOption]
       },
-      lang
+      langOption
     )) }),
-    /* @__PURE__ */ jsx("div", { className: styles$7["site-header__cta"], children: /* @__PURE__ */ jsx(Button, { asChild: true, children: /* @__PURE__ */ jsx(Link, { to: "/contact", children: ctaLabelByLanguage[language] }) }) }),
+    /* @__PURE__ */ jsx("div", { className: styles$7["site-header__cta"], children: /* @__PURE__ */ jsx(Button, { asChild: true, children: /* @__PURE__ */ jsx(Link, { to: withLang("/contact", lang), children: ctaLabel }) }) }),
     /* @__PURE__ */ jsx("div", { className: styles$7["site-header__mobile-toggle"], children: /* @__PURE__ */ jsxs(Sheet, { children: [
       /* @__PURE__ */ jsx(SheetTrigger, { asChild: true, children: /* @__PURE__ */ jsxs(Button, { variant: "ghost", size: "sm", children: [
         /* @__PURE__ */ jsx(Menu, { size: 20 }),
-        /* @__PURE__ */ jsx("span", { className: styles$7["site-header__sr-message"], children: srMessageByLanguage[language] })
+        /* @__PURE__ */ jsx("span", { className: styles$7["site-header__sr-message"], children: srMessage })
       ] }) }),
       /* @__PURE__ */ jsx(SheetContent, { children: /* @__PURE__ */ jsxs("div", { className: styles$7["site-header__sheet-content"], children: [
-        /* @__PURE__ */ jsx(SheetClose, { asChild: true, children: /* @__PURE__ */ jsx(Link, { to: "/", className: styles$7["site-header__sheet-brand"], children: content.brandName }) }),
+        /* @__PURE__ */ jsx(SheetClose, { asChild: true, children: /* @__PURE__ */ jsx(
+          Link,
+          {
+            to: withLang("/", lang),
+            className: styles$7["site-header__sheet-brand"],
+            children: content.brandName
+          }
+        ) }),
         /* @__PURE__ */ jsx("div", { className: styles$7["site-header__sheet-links"], children: navItems.map((item) => /* @__PURE__ */ jsx(SheetClose, { asChild: true, children: /* @__PURE__ */ jsx(
           NavLink,
           {
-            to: item.href,
+            to: withLang(item.href, lang),
             className: ({ isActive }) => cn(
               styles$7["site-header__sheet-link"],
               isActive && styles$7["site-header__sheet-link--active"]
@@ -290,19 +387,18 @@ function SiteHeader() {
             children: item.label
           }
         ) }, item.href)) }),
-        /* @__PURE__ */ jsx("div", { className: styles$7["site-header__sheet-language"], children: languages.map((lang) => /* @__PURE__ */ jsx(
-          "button",
+        /* @__PURE__ */ jsx("div", { className: styles$7["site-header__sheet-language"], children: languages.map((langOption) => /* @__PURE__ */ jsx(
+          Link,
           {
-            type: "button",
+            to: languageTargets[langOption],
             className: cn(
               styles$7["site-header__language-button"],
-              language === lang && styles$7["site-header__language-button--active"]
+              langOption === lang && styles$7["site-header__language-button--active"]
             ),
-            onClick: () => setLanguage(lang),
-            "aria-pressed": language === lang,
-            children: languageLabels[lang]
+            "aria-current": langOption === lang ? "page" : void 0,
+            children: languageLabels[langOption]
           },
-          lang
+          langOption
         )) })
       ] }) })
     ] }) })
@@ -529,6 +625,10 @@ function HomeLayout() {
 }
 const homeContent = {
   de: {
+    seo: {
+      title: "Oberhof – Bergbauernhof in Lunz am See",
+      description: "Ruhiger Bergbauernhof zwischen Ötscher und Hochkar: Landwirtschaft, Hofprodukte, Ferien-Apartment und echte Gastfreundschaft in Lunz am See."
+    },
     heroTitle: "Oberhof",
     heroSubtitle: "Lunz am See",
     heroSubSubtitle: `Ein entschleunigter Bergbauernhof, der 
@@ -566,6 +666,10 @@ const homeContent = {
     }
   },
   en: {
+    seo: {
+      title: "Oberhof – Mountain Farm in Lunz am See",
+      description: "A tranquil mountain farm between Ötscher and Hochkar: agriculture, farm products, holiday apartment, and genuine hospitality in Lunz am See."
+    },
     heroTitle: "Oberhof",
     heroSubtitle: "Lunz am See",
     heroSubSubtitle: `A slow-paced mountain farm that 
@@ -1446,38 +1550,24 @@ var Helmet = (_b = class extends Component {
   encodeSpecialCharacters: true,
   prioritizeSeoTags: false
 }), _b);
-const siteUrl = "https://oberhof-lunz.at/";
-const routes = [{ "name": "home", "path": "/", "title": "Oberhof – Bergbauernhof in Lunz am See", "description": "Ruhiger Bergbauernhof zwischen Ötscher und Hochkar: saisonale Hofprodukte, Ferienwohnungen und echte Gastfreundschaft am Oberhof in Lunz am See.", "changefreq": "monthly", "priority": 1 }, { "name": "the-farm", "path": "/the-farm", "title": "Der Oberhof – Landwirtschaft, Wald & Handwerk", "description": "Lerne den Oberhof kennen: Familienbetrieb im Ertltal, nachhaltige Forstwirtschaft, Jagd und handwerkliche Traditionen in Lunz am See.", "changefreq": "monthly", "priority": 0.8 }, { "name": "products", "path": "/products", "title": "Hofprodukte vom Oberhof – Wild, Fisch & Honig", "description": "Hausgemachte Spezialitäten vom Oberhof: Hirsch, Wildschwein, frischer Fisch, Säfte, Sirupe und Honig aus eigener Produktion.", "changefreq": "monthly", "priority": 0.8 }, { "name": "rentals", "path": "/rentals", "title": "Urlaub am Oberhof – Ferienwohnung & Selbstversorgerhütte", "description": "Gemütliche Apartments und Almhütten am Oberhof mieten: ruhige Auszeit zwischen Ötscher und Hochkar mit Blick ins Ertltal.", "changefreq": "monthly", "priority": 0.7 }, { "name": "contact", "path": "/contact", "title": "Kontakt & Anreise zum Oberhof bei Lunz am See", "description": "Schreibe Familie Kofler, plane deine Anreise zum Oberhof und erhalte alle Kontaktinformationen, Telefonnummern und Wegbeschreibungen.", "changefreq": "monthly", "priority": 0.7 }, { "name": "not-found", "path": "/404", "title": "Seite nicht gefunden – Oberhof", "description": "Die angeforderte Seite existiert nicht oder wurde verschoben. Zurück zur Startseite des Oberhofs.", "changefreq": "yearly", "priority": 0.1, "excludeFromSitemap": true }];
-const manifest = {
-  siteUrl,
-  routes
-};
-const routeMap = new Map(
-  manifest.routes.map((route) => [route.name, route])
-);
-function buildCanonical(path) {
-  const normalized = path === "/" ? "" : path.replace(/^\//, "");
-  return new URL(normalized, manifest.siteUrl).toString();
-}
-function getRouteSeo(name) {
-  const entry = routeMap.get(name);
-  if (!entry) return null;
-  return {
-    ...entry,
-    canonical: buildCanonical(entry.path)
-  };
-}
-const SITE_CANONICAL_BASE = manifest.siteUrl;
-function SeoTags({ route, children }) {
-  const meta = getRouteSeo(route);
-  if (!meta) return null;
-  return /* @__PURE__ */ jsxs(Helmet, { children: [
-    /* @__PURE__ */ jsx("title", { children: meta.title }),
-    /* @__PURE__ */ jsx("meta", { name: "description", content: meta.description }),
-    /* @__PURE__ */ jsx("link", { rel: "canonical", href: meta.canonical }),
-    /* @__PURE__ */ jsx("meta", { property: "og:title", content: meta.title }),
-    /* @__PURE__ */ jsx("meta", { property: "og:description", content: meta.description }),
-    /* @__PURE__ */ jsx("meta", { property: "og:url", content: meta.canonical }),
+function SeoTags({ route, title, description, children }) {
+  const fallback = getRouteSeo(route);
+  const { pathname } = useLocation();
+  const { lang, canonical, alternates } = resolveLanguageAlternates(pathname);
+  const finalTitle = title ?? (fallback == null ? void 0 : fallback.title);
+  const finalDescription = description ?? (fallback == null ? void 0 : fallback.description);
+  if (!finalTitle || !finalDescription) return null;
+  return /* @__PURE__ */ jsxs(Helmet, { htmlAttributes: { lang }, children: [
+    /* @__PURE__ */ jsx("title", { children: finalTitle }),
+    /* @__PURE__ */ jsx("meta", { name: "description", content: finalDescription }),
+    /* @__PURE__ */ jsx("link", { rel: "canonical", href: canonical }),
+    /* @__PURE__ */ jsx("link", { rel: "alternate", href: alternates.de, hrefLang: "de" }),
+    /* @__PURE__ */ jsx("link", { rel: "alternate", href: alternates.en, hrefLang: "en" }),
+    /* @__PURE__ */ jsx("link", { rel: "alternate", href: alternates.xDefault, hrefLang: "x-default" }),
+    /* @__PURE__ */ jsx("meta", { property: "og:type", content: "website" }),
+    /* @__PURE__ */ jsx("meta", { property: "og:title", content: finalTitle }),
+    /* @__PURE__ */ jsx("meta", { property: "og:description", content: finalDescription }),
+    /* @__PURE__ */ jsx("meta", { property: "og:url", content: canonical }),
     /* @__PURE__ */ jsx(
       "meta",
       {
@@ -1485,6 +1575,9 @@ function SeoTags({ route, children }) {
         content: "https://oberhof-lunz.at/og-images/image.jpg"
       }
     ),
+    /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
+    /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: finalTitle }),
+    /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: finalDescription }),
     /* @__PURE__ */ jsx(
       "meta",
       {
@@ -1492,9 +1585,6 @@ function SeoTags({ route, children }) {
         content: "https://oberhof-lunz.at/og-images/image.jpg"
       }
     ),
-    /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
-    /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: meta.title }),
-    /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: meta.description }),
     children
   ] });
 }
@@ -1521,7 +1611,14 @@ function HomePage() {
     return () => cancelAnimationFrame(raf);
   }, []);
   return /* @__PURE__ */ jsxs("section", { className: styles$3["home-page"], children: [
-    /* @__PURE__ */ jsx(SeoTags, { route: "home" }),
+    /* @__PURE__ */ jsx(
+      SeoTags,
+      {
+        route: "home",
+        title: content.seo.title,
+        description: content.seo.description
+      }
+    ),
     /* @__PURE__ */ jsxs(
       "div",
       {
@@ -2035,9 +2132,17 @@ function getHeroHeightStyle(maxHeight) {
 }
 function TheFarmPage() {
   const { language } = useLanguage();
+  const content = page$3[language];
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(SeoTags, { route: "the-farm" }),
-    /* @__PURE__ */ jsx(PageRenderer, { content: page$3[language] })
+    /* @__PURE__ */ jsx(
+      SeoTags,
+      {
+        route: "the-farm",
+        title: content.seo.title,
+        description: content.seo.description
+      }
+    ),
+    /* @__PURE__ */ jsx(PageRenderer, { content })
   ] });
 }
 const sources$f = {
@@ -2336,9 +2441,17 @@ const page$2 = {
 };
 function ProductsPage() {
   const { language } = useLanguage();
+  const content = page$2[language];
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(SeoTags, { route: "products" }),
-    /* @__PURE__ */ jsx(PageRenderer, { content: page$2[language] })
+    /* @__PURE__ */ jsx(
+      SeoTags,
+      {
+        route: "products",
+        title: content.seo.title,
+        description: content.seo.description
+      }
+    ),
+    /* @__PURE__ */ jsx(PageRenderer, { content })
   ] });
 }
 const sources$7 = {
@@ -2637,9 +2750,17 @@ const page$1 = {
 };
 function RentalsPage() {
   const { language } = useLanguage();
+  const content = page$1[language];
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(SeoTags, { route: "rentals" }),
-    /* @__PURE__ */ jsx(PageRenderer, { content: page$1[language] })
+    /* @__PURE__ */ jsx(
+      SeoTags,
+      {
+        route: "rentals",
+        title: content.seo.title,
+        description: content.seo.description
+      }
+    ),
+    /* @__PURE__ */ jsx(PageRenderer, { content })
   ] });
 }
 const page = {
@@ -2775,7 +2896,7 @@ function ContactPage() {
     url: SITE_CANONICAL_BASE,
     telephone: site.contact.phone,
     email: site.contact.email,
-    image: new URL("images/favicon.png", SITE_CANONICAL_BASE).toString(),
+    image: new URL("/images/favicon.png", SITE_CANONICAL_BASE).toString(),
     address: {
       "@type": "PostalAddress",
       streetAddress: "Ertltal 5",
@@ -2815,12 +2936,20 @@ function ContactPage() {
     ) })
   ] });
   return /* @__PURE__ */ jsxs("div", { className: styles$1["contact-page"], children: [
-    /* @__PURE__ */ jsx(SeoTags, { route: "contact", children: /* @__PURE__ */ jsx("script", { type: "application/ld+json", children: JSON.stringify(schemaData) }) }),
+    /* @__PURE__ */ jsx(
+      SeoTags,
+      {
+        route: "contact",
+        title: content.seo.title,
+        description: content.seo.description,
+        children: /* @__PURE__ */ jsx("script", { type: "application/ld+json", children: JSON.stringify(schemaData) })
+      }
+    ),
     /* @__PURE__ */ jsxs(PageRenderer, { content, children: [
       contactHighlight,
       /* @__PURE__ */ jsx("section", { className: styles$1["contact-page__details"], children: /* @__PURE__ */ jsxs("div", { id: "directions", className: styles$1["contact-page__group"], children: [
         /* @__PURE__ */ jsx("h2", { className: styles$1["contact-page__heading"], children: content.directionsHeading }),
-        /* @__PURE__ */ jsx("ol", { className: styles$1["contact-page__list"], children: content.directions.map((step, index) => /* @__PURE__ */ jsx("li", { children: step }, `${step}-${index}`)) }),
+        /* @__PURE__ */ jsx("ol", { className: styles$1["contact-page__list"], children: content.directions.map((step, index) => /* @__PURE__ */ jsx("li", { children: step }, `${index}-${step}`)) }),
         /* @__PURE__ */ jsxs("div", { className: styles$1["contact-page__maps-links"], children: [
           /* @__PURE__ */ jsx(
             "a",
@@ -2882,19 +3011,27 @@ function App() {
       /* @__PURE__ */ jsx(Route, { path: "the-farm", element: /* @__PURE__ */ jsx(TheFarmPage, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "products", element: /* @__PURE__ */ jsx(ProductsPage, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "rentals", element: /* @__PURE__ */ jsx(RentalsPage, {}) }),
-      /* @__PURE__ */ jsx(Route, { path: "contact", element: /* @__PURE__ */ jsx(ContactPage, {}) }),
-      /* @__PURE__ */ jsx(Route, { path: "404", element: /* @__PURE__ */ jsx(NotFoundPage, {}) }),
-      /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NotFoundPage, {}) })
-    ] })
+      /* @__PURE__ */ jsx(Route, { path: "contact", element: /* @__PURE__ */ jsx(ContactPage, {}) })
+    ] }),
+    /* @__PURE__ */ jsx(Route, { path: "en", element: /* @__PURE__ */ jsx(HomeLayout, {}), children: /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(HomePage, {}) }) }),
+    /* @__PURE__ */ jsxs(Route, { path: "en", element: /* @__PURE__ */ jsx(Layout, {}), children: [
+      /* @__PURE__ */ jsx(Route, { path: "the-farm", element: /* @__PURE__ */ jsx(TheFarmPage, {}) }),
+      /* @__PURE__ */ jsx(Route, { path: "products", element: /* @__PURE__ */ jsx(ProductsPage, {}) }),
+      /* @__PURE__ */ jsx(Route, { path: "rentals", element: /* @__PURE__ */ jsx(RentalsPage, {}) }),
+      /* @__PURE__ */ jsx(Route, { path: "contact", element: /* @__PURE__ */ jsx(ContactPage, {}) })
+    ] }),
+    /* @__PURE__ */ jsx(Route, { path: "404", element: /* @__PURE__ */ jsx(NotFoundPage, {}) }),
+    /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NotFoundPage, {}) })
   ] });
 }
-function AppProviders({ children }) {
-  return /* @__PURE__ */ jsx(LanguageProvider, { children: /* @__PURE__ */ jsx(EntranceAnimationProvider, { children }) });
+function AppProviders({ children, initialLanguage }) {
+  return /* @__PURE__ */ jsx(EntranceAnimationProvider, { children: /* @__PURE__ */ jsx(LanguageProvider, { initialLanguage, children }) });
 }
 async function render(url) {
-  var _a2, _b2, _c, _d, _e, _f, _g, _h;
+  var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j;
   const helmetContext = {};
-  const app = /* @__PURE__ */ jsx(HelmetProvider, { context: helmetContext, children: /* @__PURE__ */ jsx(AppProviders, { children: /* @__PURE__ */ jsx(StaticRouter, { location: url, basename: "/", children: /* @__PURE__ */ jsx(App, {}) }) }) });
+  const initialLanguage = url === "/en/" || url.startsWith("/en/") ? "en" : "de";
+  const app = /* @__PURE__ */ jsx(HelmetProvider, { context: helmetContext, children: /* @__PURE__ */ jsx(AppProviders, { initialLanguage, children: /* @__PURE__ */ jsx(StaticRouter, { location: url, basename: "/", children: /* @__PURE__ */ jsx(App, {}) }) }) });
   const appHtml = renderToString(app);
   const headTags = [
     ((_b2 = (_a2 = helmetContext.helmet) == null ? void 0 : _a2.title) == null ? void 0 : _b2.toString()) ?? "",
@@ -2902,7 +3039,8 @@ async function render(url) {
     ((_f = (_e = helmetContext.helmet) == null ? void 0 : _e.link) == null ? void 0 : _f.toString()) ?? "",
     ((_h = (_g = helmetContext.helmet) == null ? void 0 : _g.script) == null ? void 0 : _h.toString()) ?? ""
   ].filter(Boolean).join("\n");
-  return { appHtml, headTags };
+  const htmlAttrs = ((_j = (_i = helmetContext.helmet) == null ? void 0 : _i.htmlAttributes) == null ? void 0 : _j.toString()) ?? "";
+  return { appHtml, headTags, htmlAttrs };
 }
 export {
   render

@@ -5,11 +5,17 @@ import { SeoTags } from '@/components/seo-tags';
 
 export function RentalsPage() {
   const { language } = useLanguage();
+  const content = rentalsContent[language];
 
   return (
     <>
-      <SeoTags route="rentals" />
-      <PageRenderer content={rentalsContent[language]} />
+      <SeoTags
+        route="rentals"
+        title={content.seo.title}
+        description={content.seo.description}
+      />
+
+      <PageRenderer content={content} />
     </>
   );
 }

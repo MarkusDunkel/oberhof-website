@@ -13,22 +13,41 @@ const LanguageContext = React.createContext<LanguageContextValue | undefined>(
 
 const STORAGE_KEY = 'oberhof-language';
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
+type LanguageProviderProps = {
+  children: React.ReactNode;
+  /**
+   * Initial language for SSR / first render.
+   * If not provided, defaults to 'de'.
+   */
+  initialLanguage?: Language;
+};
+
+export function LanguageProvider({
+  children,
+  initialLanguage,
+}: LanguageProviderProps) {
   const [language, setLanguageState] = React.useState<Language>(() => {
+    // --- SSR ---
     if (typeof window === 'undefined') {
-      return 'de';
+      return initialLanguage ?? 'de';
     }
 
+    // --- Client ---
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
-      return stored === 'en' ? 'en' : 'de';
+      if (stored === 'de' || stored === 'en') {
+        return stored;
+      }
     } catch {
-      return 'de';
+      // ignore read failures
     }
+
+    return initialLanguage ?? 'de';
   });
 
   const setLanguage = React.useCallback((nextLanguage: Language) => {
     setLanguageState(nextLanguage);
+
     if (typeof window !== 'undefined') {
       try {
         window.localStorage.setItem(STORAGE_KEY, nextLanguage);

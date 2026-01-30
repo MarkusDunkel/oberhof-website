@@ -45,13 +45,16 @@ export function HomePage() {
     });
 
     return () => cancelAnimationFrame(raf);
-    // intentionally only once; homeAnimated update must not cancel animation
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <section className={styles['home-page']}>
-      <SeoTags route="home" />
+      <SeoTags
+        route="home"
+        title={content.seo.title}
+        description={content.seo.description}
+      />
+
       <div
         className={cn(
           styles['home-page__content'],

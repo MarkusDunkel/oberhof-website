@@ -8,9 +8,12 @@ import { HelmetProvider, type HelmetServerState } from 'react-helmet-async';
 export async function render(url: string) {
   const helmetContext: { helmet?: HelmetServerState } = {};
 
+  const initialLanguage =
+    url === '/en/' || url.startsWith('/en/') ? 'en' : 'de';
+
   const app = (
     <HelmetProvider context={helmetContext}>
-      <AppProviders>
+      <AppProviders initialLanguage={initialLanguage}>
         <StaticRouter location={url} basename={import.meta.env.BASE_URL}>
           <App />
         </StaticRouter>
@@ -28,5 +31,7 @@ export async function render(url: string) {
     .filter(Boolean)
     .join('\n');
 
-  return { appHtml, headTags };
+  const htmlAttrs = helmetContext.helmet?.htmlAttributes?.toString() ?? '';
+
+  return { appHtml, headTags, htmlAttrs };
 }

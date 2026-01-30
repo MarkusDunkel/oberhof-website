@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useLocation, NavLink, Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from './ui/sheet';
@@ -6,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { siteContent } from '@/content/site';
 import styles from './site-header.module.scss';
 import { useLanguage, type Language } from '@/lib/language';
+import { resolveLanguageAlternates, withLang } from '@/lib/seo';
 
 const navItemsByLanguage: Record<
   Language,
@@ -45,28 +47,49 @@ const languages: Language[] = ['de', 'en'];
 export function SiteHeader() {
   const location = useLocation();
   const { language, setLanguage } = useLanguage();
-  const content = siteContent[language];
-  const navItems = navItemsByLanguage[language];
+  const { lang } = resolveLanguageAlternates(location.pathname);
+
+  useEffect(() => {
+    if (language !== lang) {
+      setLanguage(lang);
+    }
+  }, [lang, language, setLanguage]);
+
+  const content = siteContent[lang];
+  const navItems = navItemsByLanguage[lang];
+  const srMessage = srMessageByLanguage[lang];
+  const ctaLabel = ctaLabelByLanguage[lang];
+  const currentPath = location.pathname || '/';
+  const baseGermanPath =
+    lang === 'en'
+      ? currentPath.replace(/^\/en/, '') || '/'
+      : currentPath;
+  const germanPath = baseGermanPath.startsWith('/')
+    ? baseGermanPath
+    : `/${baseGermanPath}`;
+  const englishPath = withLang(germanPath, 'en');
+  const pathSuffix = `${location.search}${location.hash}`;
+  const languageTargets = {
+    de: `${germanPath}${pathSuffix}`,
+    en: `${englishPath}${pathSuffix}`,
+  } as const;
 
   return (
     <header className={`${styles['site-header']} site-header`}>
       <div className={styles['site-header__inner']}>
-        <Link to="/" className={styles['site-header__brand']}>
+        <Link to={withLang('/', lang)} className={styles['site-header__brand']}>
           {content.brandName}
         </Link>
         <nav className={styles['site-header__nav']}>
           {navItems.map((item) => (
             <NavLink
               key={item.href}
-              to={item.href}
+              to={withLang(item.href, lang)}
               className={({ isActive }) =>
                 cn(
                   styles['site-header__link'],
                   isActive && styles['site-header__link--active'],
                 )
-              }
-              aria-current={
-                location.pathname === item.href ? 'page' : undefined
               }
             >
               {item.label}
@@ -74,25 +97,24 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className={styles['site-header__language']}>
-          {languages.map((lang) => (
-            <button
-              key={lang}
-              type="button"
+          {languages.map((langOption) => (
+            <Link
+              key={langOption}
+              to={languageTargets[langOption]}
               className={cn(
                 styles['site-header__language-button'],
-                language === lang &&
+                langOption === lang &&
                   styles['site-header__language-button--active'],
               )}
-              onClick={() => setLanguage(lang)}
-              aria-pressed={language === lang}
+              aria-current={langOption === lang ? 'page' : undefined}
             >
-              {languageLabels[lang]}
-            </button>
+              {languageLabels[langOption]}
+            </Link>
           ))}
         </div>
         <div className={styles['site-header__cta']}>
           <Button asChild>
-            <Link to="/contact">{ctaLabelByLanguage[language]}</Link>
+            <Link to={withLang('/contact', lang)}>{ctaLabel}</Link>
           </Button>
         </div>
         <div className={styles['site-header__mobile-toggle']}>
@@ -101,14 +123,17 @@ export function SiteHeader() {
               <Button variant="ghost" size="sm">
                 <Menu size={20} />
                 <span className={styles['site-header__sr-message']}>
-                  {srMessageByLanguage[language]}
+                  {srMessage}
                 </span>
               </Button>
             </SheetTrigger>
             <SheetContent>
               <div className={styles['site-header__sheet-content']}>
                 <SheetClose asChild>
-                  <Link to="/" className={styles['site-header__sheet-brand']}>
+                  <Link
+                    to={withLang('/', lang)}
+                    className={styles['site-header__sheet-brand']}
+                  >
                     {content.brandName}
                   </Link>
                 </SheetClose>
@@ -116,7 +141,7 @@ export function SiteHeader() {
                   {navItems.map((item) => (
                     <SheetClose asChild key={item.href}>
                       <NavLink
-                        to={item.href}
+                        to={withLang(item.href, lang)}
                         className={({ isActive }) =>
                           cn(
                             styles['site-header__sheet-link'],
@@ -131,20 +156,19 @@ export function SiteHeader() {
                   ))}
                 </div>
                 <div className={styles['site-header__sheet-language']}>
-                  {languages.map((lang) => (
-                    <button
-                      key={lang}
-                      type="button"
+                  {languages.map((langOption) => (
+                    <Link
+                      key={langOption}
+                      to={languageTargets[langOption]}
                       className={cn(
                         styles['site-header__language-button'],
-                        language === lang &&
+                        langOption === lang &&
                           styles['site-header__language-button--active'],
                       )}
-                      onClick={() => setLanguage(lang)}
-                      aria-pressed={language === lang}
+                      aria-current={langOption === lang ? 'page' : undefined}
                     >
-                      {languageLabels[lang]}
-                    </button>
+                      {languageLabels[langOption]}
+                    </Link>
                   ))}
                 </div>
               </div>

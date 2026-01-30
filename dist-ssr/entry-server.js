@@ -527,7 +527,8 @@ function SmartImage({
   className,
   ...rest
 }) {
-  const { width, height, onLoad, ...imgProps } = rest;
+  const { width, height, onLoad, onError, ...imgProps } = rest;
+  const imgRef = React.useRef(null);
   const [ready, setReady] = React.useState(false);
   const generatedPicture = isGeneratedPicture(src) ? src : null;
   const fallbackWidth = generatedPicture ? resolveDimension(
@@ -541,11 +542,30 @@ function SmartImage({
     generatedPicture.img.h
   ) : height;
   const fallbackSrc = typeof src === "string" ? src : (generatedPicture == null ? void 0 : generatedPicture.img.src) ?? "";
+  const markReady = React.useCallback(() => {
+    setReady(true);
+    onLoaded == null ? void 0 : onLoaded();
+  }, [onLoaded]);
+  React.useEffect(() => {
+    if (disableFadeIn) return;
+    const img2 = imgRef.current;
+    if (!img2) return;
+    if (img2.complete) {
+      if (img2.naturalWidth > 0) {
+        markReady();
+      } else {
+        setReady(true);
+      }
+    }
+  }, [disableFadeIn, markReady]);
   const handleLoad = async (e) => {
     onLoad == null ? void 0 : onLoad(e);
     await decodeIfPossible(e.currentTarget);
+    markReady();
+  };
+  const handleError = (e) => {
+    onError == null ? void 0 : onError(e);
     setReady(true);
-    onLoaded == null ? void 0 : onLoaded();
   };
   const fadeStyle = disableFadeIn ? {} : {
     opacity: ready ? 1 : 0,
@@ -556,6 +576,7 @@ function SmartImage({
   const imgElement = /* @__PURE__ */ jsx(
     "img",
     {
+      ref: imgRef,
       ...imgProps,
       ...fetchPriorityAttr,
       src: fallbackSrc,
@@ -566,6 +587,7 @@ function SmartImage({
       width: fallbackWidth,
       height: fallbackHeight,
       onLoad: handleLoad,
+      onError: handleError,
       style: mergedStyle,
       className
     }

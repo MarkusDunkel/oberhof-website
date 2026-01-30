@@ -137,8 +137,9 @@ export function SmartImage({
   className,
   ...rest
 }: SmartImageProps) {
-  const { width, height, onLoad, ...imgProps } = rest;
+  const { width, height, onLoad, onError, ...imgProps } = rest;
 
+  const imgRef = React.useRef<HTMLImageElement | null>(null);
   const [ready, setReady] = React.useState(false);
 
   const generatedPicture = isGeneratedPicture(src) ? src : null;
@@ -162,13 +163,42 @@ export function SmartImage({
   const fallbackSrc =
     typeof src === 'string' ? src : (generatedPicture?.img.src ?? '');
 
+  const markReady = React.useCallback(() => {
+    setReady(true);
+    onLoaded?.();
+  }, [onLoaded]);
+
+  // ✅ Fix: if image is already loaded before React attaches onLoad, don't keep opacity:0 forever
+  React.useEffect(() => {
+    if (disableFadeIn) return;
+
+    const img = imgRef.current;
+    if (!img) return;
+
+    // If already complete (from cache), onLoad might never fire.
+    if (img.complete) {
+      // naturalWidth > 0 means successful load
+      if (img.naturalWidth > 0) {
+        markReady();
+      } else {
+        // complete but failed -> don't keep invisible forever
+        setReady(true);
+      }
+    }
+  }, [disableFadeIn, markReady]);
+
   const handleLoad: React.ReactEventHandler<HTMLImageElement> = async (e) => {
     onLoad?.(e);
 
     await decodeIfPossible(e.currentTarget);
 
+    markReady();
+  };
+
+  const handleError: React.ReactEventHandler<HTMLImageElement> = (e) => {
+    onError?.(e);
+    // Don't stay invisible forever if the request fails
     setReady(true);
-    onLoaded?.();
   };
 
   const fadeStyle: React.CSSProperties = disableFadeIn
@@ -186,6 +216,7 @@ export function SmartImage({
 
   const imgElement = (
     <img
+      ref={imgRef}
       {...imgProps}
       {...fetchPriorityAttr}
       src={fallbackSrc}
@@ -196,6 +227,7 @@ export function SmartImage({
       width={fallbackWidth}
       height={fallbackHeight}
       onLoad={handleLoad}
+      onError={handleError}
       style={mergedStyle}
       className={className}
     />

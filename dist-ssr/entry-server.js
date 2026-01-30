@@ -498,14 +498,14 @@ const sources$m = {
   webp: "/assets/home-hero-SBP_Tr6L.webp 1280w, /assets/home-hero-DUY1E0kJ.webp 1600w, /assets/home-hero-DELN98rL.webp 1920w, /assets/home-hero-BIQwra9j.webp 2560w, /assets/home-hero-Ce77HlWd.webp 3200w",
   jpeg: "/assets/home-hero-D3PhH61Z.jpeg 1280w, /assets/home-hero-XHStD7xZ.jpeg 1600w, /assets/home-hero-BCQ0mURq.jpeg 1920w, /assets/home-hero-qkHKWSKx.jpeg 2560w, /assets/home-hero-ZUhbasAx.jpeg 3200w"
 };
-const img$r = {
+const img$m = {
   src: "/assets/home-hero-ZUhbasAx.jpeg",
   w: 3200,
   h: 2134
 };
 const heroBackground = {
   sources: sources$m,
-  img: img$r
+  img: img$m
 };
 function HomeLayout() {
   return /* @__PURE__ */ jsxs("div", { className: `${styles$4["home-layout"]} home-layout`, children: [
@@ -618,14 +618,14 @@ const sources$l = {
   webp: "/assets/logo-trans-z3TsmakH.webp 320w, /assets/logo-trans-BsBXjYXW.webp 379w",
   png: "/assets/logo-trans-Bh5triKd.png 320w, /assets/logo-trans-Cq0nQvmi.png 379w"
 };
-const img$q = {
+const img$l = {
   src: "/assets/logo-trans-Cq0nQvmi.png",
   w: 379,
   h: 377
 };
 const logoMark = {
   sources: sources$l,
-  img: img$q
+  img: img$l
 };
 const Ctx = createContext(null);
 function EntranceAnimationProvider({
@@ -1468,70 +1468,17 @@ function getRouteSeo(name) {
   };
 }
 const SITE_CANONICAL_BASE = manifest.siteUrl;
-const img$p = {
-  src: "/assets/home-hero-EINm-vSt.jpeg",
-  w: 1200,
-  h: 800
+const DEFAULT_OG_IMAGE = {
+  src: "https://oberhof-lunz.at/og-images/image.jpg"
 };
-const homeOg = {
-  img: img$p
-};
-const img$o = {
-  src: "/assets/hero1-DiC9XxNp.jpeg",
-  w: 1200,
-  h: 800
-};
-const farmOg = {
-  img: img$o
-};
-const img$n = {
-  src: "/assets/hero-B_cCEKu1.jpeg",
-  w: 1200,
-  h: 800
-};
-const productsOg = {
-  img: img$n
-};
-const img$m = {
-  src: "/assets/apart1-DtgqgU6m.jpeg",
-  w: 1200,
-  h: 900
-};
-const rentalsOg = {
-  img: img$m
-};
-const img$l = {
-  src: "/assets/daniel-D-dTCWYB.jpeg",
-  w: 1200,
-  h: 800
-};
-const contactOg = {
-  img: img$l
-};
-function createSeoImage(picture) {
-  const { img: img2 } = picture;
-  return {
-    src: (img2 == null ? void 0 : img2.src) ?? "",
-    width: (img2 == null ? void 0 : img2.width) ?? (img2 == null ? void 0 : img2.w),
-    height: (img2 == null ? void 0 : img2.height) ?? (img2 == null ? void 0 : img2.h)
-  };
-}
-const defaultImage = createSeoImage(homeOg);
-const imagesByRoute = {
-  home: defaultImage,
-  "the-farm": createSeoImage(farmOg),
-  products: createSeoImage(productsOg),
-  rentals: createSeoImage(rentalsOg),
-  contact: createSeoImage(contactOg)
-};
-function getRouteSeoImage(route) {
-  return imagesByRoute[route] ?? defaultImage;
+function getRouteSeoImage(_route) {
+  return DEFAULT_OG_IMAGE;
 }
 function SeoTags({ route, children }) {
   const meta = getRouteSeo(route);
   if (!meta) return null;
-  const image = getRouteSeoImage(route);
-  const imageUrl = buildAbsoluteImageUrl(image.src);
+  const image = getRouteSeoImage();
+  const imageUrl = image.src;
   return /* @__PURE__ */ jsxs(Helmet, { children: [
     /* @__PURE__ */ jsx("title", { children: meta.title }),
     /* @__PURE__ */ jsx("meta", { name: "description", content: meta.description }),
@@ -1539,25 +1486,29 @@ function SeoTags({ route, children }) {
     /* @__PURE__ */ jsx("meta", { property: "og:title", content: meta.title }),
     /* @__PURE__ */ jsx("meta", { property: "og:description", content: meta.description }),
     /* @__PURE__ */ jsx("meta", { property: "og:url", content: meta.canonical }),
-    imageUrl ? /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx(
+      "meta",
+      {
+        property: "og:image",
+        content: "https://oberhof-lunz.at/og-images/image.jpg"
+      }
+    ),
+    /* @__PURE__ */ jsx(
+      "meta",
+      {
+        name: "twitter:image",
+        content: "https://oberhof-lunz.at/og-images/image.jpg"
+      }
+    ),
+    /* @__PURE__ */ jsxs(Fragment, { children: [
       /* @__PURE__ */ jsx("meta", { property: "og:image", content: imageUrl }),
-      image.width ? /* @__PURE__ */ jsx("meta", { property: "og:image:width", content: String(image.width) }) : null,
-      image.height ? /* @__PURE__ */ jsx("meta", { property: "og:image:height", content: String(image.height) }) : null,
       /* @__PURE__ */ jsx("meta", { name: "twitter:image", content: imageUrl })
-    ] }) : null,
+    ] }),
     /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
     /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: meta.title }),
     /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: meta.description }),
     children
   ] });
-}
-function buildAbsoluteImageUrl(src) {
-  if (!src) return null;
-  try {
-    return new URL(src, SITE_CANONICAL_BASE).toString();
-  } catch {
-    return null;
-  }
 }
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 function HomePage() {

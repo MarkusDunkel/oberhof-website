@@ -1,0 +1,54 @@
+{
+  "siteUrl": "https://oberhof-lunz.at/",
+  "routes": [
+    {
+      "name": "home",
+      "path": "/",
+      "title": "Oberhof – Bergbauernhof in Lunz am See",
+      "description": "Ruhiger Bergbauernhof zwischen Ötscher und Hochkar: saisonale Hofprodukte, Ferienwohnungen und echte Gastfreundschaft am Oberhof in Lunz am See.",
+      "changefreq": "monthly",
+      "priority": 1.0
+    },
+    {
+      "name": "the-farm",
+      "path": "/the-farm",
+      "title": "Der Oberhof – Landwirtschaft, Wald & Handwerk",
+      "description": "Lerne den Oberhof kennen: Familienbetrieb im Ertltal, nachhaltige Forstwirtschaft, Jagd und handwerkliche Traditionen in Lunz am See.",
+      "changefreq": "monthly",
+      "priority": 0.8
+    },
+    {
+      "name": "products",
+      "path": "/products",
+      "title": "Hofprodukte vom Oberhof – Wild, Fisch & Honig",
+      "description": "Hausgemachte Spezialitäten vom Oberhof: Hirsch, Wildschwein, frischer Fisch, Säfte, Sirupe und Honig aus eigener Produktion.",
+      "changefreq": "monthly",
+      "priority": 0.8
+    },
+    {
+      "name": "rentals",
+      "path": "/rentals",
+      "title": "Urlaub am Oberhof – Ferienwohnung & Selbstversorgerhütte",
+      "description": "Gemütliche Apartments und Almhütten am Oberhof mieten: ruhige Auszeit zwischen Ötscher und Hochkar mit Blick ins Ertltal.",
+      "changefreq": "monthly",
+      "priority": 0.7
+    },
+    {
+      "name": "contact",
+      "path": "/contact",
+      "title": "Kontakt & Anreise zum Oberhof bei Lunz am See",
+      "description": "Schreibe Familie Kofler, plane deine Anreise zum Oberhof und erhalte alle Kontaktinformationen, Telefonnummern und Wegbeschreibungen.",
+      "changefreq": "monthly",
+      "priority": 0.7
+    },
+    {
+      "name": "not-found",
+      "path": "/404",
+      "title": "Seite nicht gefunden – Oberhof",
+      "description": "Die angeforderte Seite existiert nicht oder wurde verschoben. Zurück zur Startseite des Oberhofs.",
+      "changefreq": "yearly",
+      "priority": 0.1,
+      "excludeFromSitemap": true
+    }
+  ]
+}

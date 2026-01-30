@@ -4,6 +4,9 @@ import { useLanguage } from '@/lib/language';
 import danielImage from '@/assets/images/contact/daniel.jpg';
 import { SmartImage } from '@/components/smart-image';
 import styles from './contact.module.scss';
+import { SeoTags } from '@/components/seo-tags';
+import { siteContent } from '@/content/site';
+import { SITE_CANONICAL_BASE } from '@/lib/seo';
 
 const DESTINATION = {
   latitude: 47.83053656105003,
@@ -14,6 +17,30 @@ const DESTINATION = {
 export function ContactPage() {
   const { language } = useLanguage();
   const content = contactContent[language];
+  const site = siteContent[language];
+
+  const schemaData = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: site.brandName,
+    url: SITE_CANONICAL_BASE,
+    telephone: site.contact.phone,
+    email: site.contact.email,
+    image: new URL('images/favicon.png', SITE_CANONICAL_BASE).toString(),
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Ertltal 5',
+      addressLocality: 'Lunz am See',
+      postalCode: '3293',
+      addressRegion: 'Niederösterreich',
+      addressCountry: 'AT',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: DESTINATION.latitude,
+      longitude: DESTINATION.longitude,
+    },
+  } as const;
 
   const contactHighlight = (
     <section className={styles['contact-page__highlight']}>
@@ -53,6 +80,12 @@ export function ContactPage() {
 
   return (
     <div className={styles['contact-page']}>
+      <SeoTags route="contact">
+        <script type="application/ld+json">
+          {JSON.stringify(schemaData)}
+        </script>
+      </SeoTags>
+
       <PageRenderer content={content}>
         {contactHighlight}
         <section className={styles['contact-page__details']}>

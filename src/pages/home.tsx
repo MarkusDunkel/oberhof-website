@@ -6,6 +6,7 @@ import logoMark from '@/assets/images/logo-trans.png';
 import { SmartImage } from '@/components/smart-image';
 import { cn } from '@/lib/utils';
 import { useEntranceAnimation } from '@/lib/entrance-animation';
+import { SeoTags } from '@/components/seo-tags';
 
 type Phase = 'prepare' | 'idle' | 'run';
 
@@ -50,6 +51,7 @@ export function HomePage() {
 
   return (
     <section className={styles['home-page']}>
+      <SeoTags route="home" />
       <div
         className={cn(
           styles['home-page__content'],

@@ -42,4 +42,7 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(__dirname, 'src') },
   },
+  ssr: {
+    noExternal: ['react-helmet-async'],
+  },
 });

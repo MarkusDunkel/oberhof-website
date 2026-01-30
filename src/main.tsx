@@ -1,20 +1,35 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
-import { LanguageProvider } from './lib/language';
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { AppProviders } from './app-providers';
 
-// GitHub Pages SPA redirect handling
-const redirect = sessionStorage.getItem('redirect');
-if (redirect) {
-  sessionStorage.removeItem('redirect');
-  window.history.replaceState(null, '', redirect);
+if (typeof window !== 'undefined') {
+  const redirect = window.sessionStorage.getItem('redirect');
+  if (redirect) {
+    window.sessionStorage.removeItem('redirect');
+    window.history.replaceState(null, '', redirect);
+  }
 }
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const AppTree = (
   <React.StrictMode>
-    <LanguageProvider>
-      <App />
-    </LanguageProvider>
-  </React.StrictMode>,
+    <HelmetProvider>
+      <AppProviders>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <App />
+        </BrowserRouter>
+      </AppProviders>
+    </HelmetProvider>
+  </React.StrictMode>
 );
+
+const rootElement = document.getElementById('root') as HTMLElement;
+
+if (rootElement.hasChildNodes()) {
+  hydrateRoot(rootElement, AppTree);
+} else {
+  createRoot(rootElement).render(AppTree);
+}

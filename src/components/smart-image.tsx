@@ -16,6 +16,7 @@ type SmartImageProps = Omit<
 > & {
   src: SmartImageSource;
   sizes?: string;
+
   fetchPriority?: 'high' | 'low' | 'auto';
 
   /** Fires after load + decode */
@@ -179,14 +180,18 @@ export function SmartImage({
 
   const mergedStyle = { ...fadeStyle, ...style };
 
+  const fetchPriorityAttr = fetchPriority
+    ? ({ fetchpriority: fetchPriority } as any)
+    : undefined;
+
   const imgElement = (
     <img
       {...imgProps}
+      {...fetchPriorityAttr}
       src={fallbackSrc}
       alt={alt}
       loading={loading}
       decoding="async"
-      fetchPriority={fetchPriority}
       sizes={sizes}
       width={fallbackWidth}
       height={fallbackHeight}

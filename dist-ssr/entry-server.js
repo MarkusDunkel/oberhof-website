@@ -456,15 +456,16 @@ function SmartImage({
     transition: "opacity 800ms ease-out"
   };
   const mergedStyle = { ...fadeStyle, ...style };
+  const fetchPriorityAttr = fetchPriority ? { fetchpriority: fetchPriority } : void 0;
   const imgElement = /* @__PURE__ */ jsx(
     "img",
     {
       ...imgProps,
+      ...fetchPriorityAttr,
       src: fallbackSrc,
       alt,
       loading,
       decoding: "async",
-      fetchPriority,
       sizes,
       width: fallbackWidth,
       height: fallbackHeight,

@@ -21,6 +21,7 @@ export function SeoTags({ route, children }: SeoTagsProps) {
       <link rel="canonical" href={meta.canonical} />
 
       {/* Open Graph */}
+      <meta property="og:type" content="website" />
       <meta property="og:title" content={meta.title} />
       <meta property="og:description" content={meta.description} />
       <meta property="og:url" content={meta.canonical} />

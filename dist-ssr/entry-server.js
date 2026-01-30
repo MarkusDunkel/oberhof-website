@@ -1468,17 +1468,9 @@ function getRouteSeo(name) {
   };
 }
 const SITE_CANONICAL_BASE = manifest.siteUrl;
-const DEFAULT_OG_IMAGE = {
-  src: "https://oberhof-lunz.at/og-images/image.jpg"
-};
-function getRouteSeoImage(_route) {
-  return DEFAULT_OG_IMAGE;
-}
 function SeoTags({ route, children }) {
   const meta = getRouteSeo(route);
   if (!meta) return null;
-  const image = getRouteSeoImage();
-  const imageUrl = image.src;
   return /* @__PURE__ */ jsxs(Helmet, { children: [
     /* @__PURE__ */ jsx("title", { children: meta.title }),
     /* @__PURE__ */ jsx("meta", { name: "description", content: meta.description }),
@@ -1500,10 +1492,6 @@ function SeoTags({ route, children }) {
         content: "https://oberhof-lunz.at/og-images/image.jpg"
       }
     ),
-    /* @__PURE__ */ jsxs(Fragment, { children: [
-      /* @__PURE__ */ jsx("meta", { property: "og:image", content: imageUrl }),
-      /* @__PURE__ */ jsx("meta", { name: "twitter:image", content: imageUrl })
-    ] }),
     /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
     /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: meta.title }),
     /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: meta.description }),
